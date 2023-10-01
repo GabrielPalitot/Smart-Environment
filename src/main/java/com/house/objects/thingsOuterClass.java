@@ -44,19 +44,19 @@ public final class thingsOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\020livingroom.proto\022\020intelligentHouse\"}\n\004" +
-      "Lamp\022\014\n\004turn\030\001 \002(\010\022-\n\006status\030\002 \002(\0162\035.int" +
+      "Lamp\022\014\n\004turn\030\001 \001(\010\022-\n\006status\030\002 \001(\0162\035.int" +
       "elligentHouse.Lamp.Status\"8\n\006Status\022\r\n\tT" +
       "URNED_ON\020\000\022\016\n\nTURNED_OFF\020\001\022\017\n\013MALFUNCTIO" +
-      "N\020\003\"\260\001\n\017AirConditioning\022\014\n\004turn\030\001 \002(\010\0228\n" +
-      "\006status\030\002 \002(\0162(.intelligentHouse.AirCond" +
+      "N\020\003\"\260\001\n\017AirConditioning\022\014\n\004turn\030\001 \001(\010\0228\n" +
+      "\006status\030\002 \001(\0162(.intelligentHouse.AirCond" +
       "itioning.Status\022\033\n\023setting_temperature\030\003" +
-      " \002(\005\"8\n\006Status\022\r\n\tTURNED_ON\020\000\022\016\n\nTURNED_" +
+      " \001(\005\"8\n\006Status\022\r\n\tTURNED_ON\020\000\022\016\n\nTURNED_" +
       "OFF\020\001\022\017\n\013MALFUNCTION\020\003\"z\n\007Windows\022\014\n\004tur" +
-      "n\030\001 \002(\010\0220\n\006status\030\002 \002(\0162 .intelligentHou" +
+      "n\030\001 \001(\010\0220\n\006status\030\002 \001(\0162 .intelligentHou" +
       "se.Windows.Status\"/\n\006Status\022\010\n\004OPEN\020\000\022\n\n" +
       "\006CLOSED\020\001\022\017\n\013MALFUNCTION\020\003\"!\n\nTempSensor" +
-      "\022\023\n\013temperature\030\001 \002(\005B\'\n\021com.house.objec" +
-      "tsB\020thingsOuterClassP\001"
+      "\022\023\n\013temperature\030\001 \001(\005B\'\n\021com.house.objec" +
+      "tsB\020thingsOuterClassP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

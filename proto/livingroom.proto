@@ -1,4 +1,4 @@
-syntax = "proto2";
+syntax = "proto3";
 
 package intelligentHouse;
 
@@ -8,40 +8,40 @@ option java_multiple_files = true;
 
 message Lamp
 {
-  required bool turn = 1;
+  bool turn = 1;
   enum Status
   {
     TURNED_ON = 0;
     TURNED_OFF = 1;
     MALFUNCTION = 3;
   }
-  required Status status = 2;
+  Status status = 2;
 }
 
 message AirConditioning
 {
-  required bool turn = 1;
+  bool turn = 1;
   enum Status
   {
     TURNED_ON = 0;
     TURNED_OFF = 1;
     MALFUNCTION = 3;
   }
-  required Status status = 2;
-  required int32 setting_temperature = 3;
+  Status status = 2;
+  int32 setting_temperature = 3;
 }
 message Windows
 {
-  required bool turn = 1;
+  bool turn = 1;
   enum Status
   {
     OPEN = 0;
     CLOSED = 1;
     MALFUNCTION = 3;
   }
-  required Status status = 2;
+  Status status = 2;
 }
 message TempSensor
 {
-  required int32 temperature = 1;
+  int32 temperature = 1;
 }

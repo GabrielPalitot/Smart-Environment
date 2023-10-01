@@ -8,23 +8,18 @@ public interface WindowsOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>required bool turn = 1;</code>
-   * @return Whether the turn field is set.
-   */
-  boolean hasTurn();
-  /**
-   * <code>required bool turn = 1;</code>
+   * <code>bool turn = 1;</code>
    * @return The turn.
    */
   boolean getTurn();
 
   /**
-   * <code>required .intelligentHouse.Windows.Status status = 2;</code>
-   * @return Whether the status field is set.
+   * <code>.intelligentHouse.Windows.Status status = 2;</code>
+   * @return The enum numeric value on the wire for status.
    */
-  boolean hasStatus();
+  int getStatusValue();
   /**
-   * <code>required .intelligentHouse.Windows.Status status = 2;</code>
+   * <code>.intelligentHouse.Windows.Status status = 2;</code>
    * @return The status.
    */
   com.house.objects.Windows.Status getStatus();

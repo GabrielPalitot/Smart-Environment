@@ -38,19 +38,10 @@ private static final long serialVersionUID = 0L;
             com.house.objects.TempSensor.class, com.house.objects.TempSensor.Builder.class);
   }
 
-  private int bitField0_;
   public static final int TEMPERATURE_FIELD_NUMBER = 1;
   private int temperature_ = 0;
   /**
-   * <code>required int32 temperature = 1;</code>
-   * @return Whether the temperature field is set.
-   */
-  @java.lang.Override
-  public boolean hasTemperature() {
-    return ((bitField0_ & 0x00000001) != 0);
-  }
-  /**
-   * <code>required int32 temperature = 1;</code>
+   * <code>int32 temperature = 1;</code>
    * @return The temperature.
    */
   @java.lang.Override
@@ -65,10 +56,6 @@ private static final long serialVersionUID = 0L;
     if (isInitialized == 1) return true;
     if (isInitialized == 0) return false;
 
-    if (!hasTemperature()) {
-      memoizedIsInitialized = 0;
-      return false;
-    }
     memoizedIsInitialized = 1;
     return true;
   }
@@ -76,7 +63,7 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (((bitField0_ & 0x00000001) != 0)) {
+    if (temperature_ != 0) {
       output.writeInt32(1, temperature_);
     }
     getUnknownFields().writeTo(output);
@@ -88,7 +75,7 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (((bitField0_ & 0x00000001) != 0)) {
+    if (temperature_ != 0) {
       size += com.google.protobuf.CodedOutputStream
         .computeInt32Size(1, temperature_);
     }
@@ -107,11 +94,8 @@ private static final long serialVersionUID = 0L;
     }
     com.house.objects.TempSensor other = (com.house.objects.TempSensor) obj;
 
-    if (hasTemperature() != other.hasTemperature()) return false;
-    if (hasTemperature()) {
-      if (getTemperature()
-          != other.getTemperature()) return false;
-    }
+    if (getTemperature()
+        != other.getTemperature()) return false;
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
@@ -123,10 +107,8 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    if (hasTemperature()) {
-      hash = (37 * hash) + TEMPERATURE_FIELD_NUMBER;
-      hash = (53 * hash) + getTemperature();
-    }
+    hash = (37 * hash) + TEMPERATURE_FIELD_NUMBER;
+    hash = (53 * hash) + getTemperature();
     hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -292,12 +274,9 @@ private static final long serialVersionUID = 0L;
 
     private void buildPartial0(com.house.objects.TempSensor result) {
       int from_bitField0_ = bitField0_;
-      int to_bitField0_ = 0;
       if (((from_bitField0_ & 0x00000001) != 0)) {
         result.temperature_ = temperature_;
-        to_bitField0_ |= 0x00000001;
       }
-      result.bitField0_ |= to_bitField0_;
     }
 
     @java.lang.Override
@@ -344,7 +323,7 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(com.house.objects.TempSensor other) {
       if (other == com.house.objects.TempSensor.getDefaultInstance()) return this;
-      if (other.hasTemperature()) {
+      if (other.getTemperature() != 0) {
         setTemperature(other.getTemperature());
       }
       this.mergeUnknownFields(other.getUnknownFields());
@@ -354,9 +333,6 @@ private static final long serialVersionUID = 0L;
 
     @java.lang.Override
     public final boolean isInitialized() {
-      if (!hasTemperature()) {
-        return false;
-      }
       return true;
     }
 
@@ -400,15 +376,7 @@ private static final long serialVersionUID = 0L;
 
     private int temperature_ ;
     /**
-     * <code>required int32 temperature = 1;</code>
-     * @return Whether the temperature field is set.
-     */
-    @java.lang.Override
-    public boolean hasTemperature() {
-      return ((bitField0_ & 0x00000001) != 0);
-    }
-    /**
-     * <code>required int32 temperature = 1;</code>
+     * <code>int32 temperature = 1;</code>
      * @return The temperature.
      */
     @java.lang.Override
@@ -416,7 +384,7 @@ private static final long serialVersionUID = 0L;
       return temperature_;
     }
     /**
-     * <code>required int32 temperature = 1;</code>
+     * <code>int32 temperature = 1;</code>
      * @param value The temperature to set.
      * @return This builder for chaining.
      */
@@ -428,7 +396,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>required int32 temperature = 1;</code>
+     * <code>int32 temperature = 1;</code>
      * @return This builder for chaining.
      */
     public Builder clearTemperature() {
@@ -463,7 +431,7 @@ private static final long serialVersionUID = 0L;
     return DEFAULT_INSTANCE;
   }
 
-  @java.lang.Deprecated public static final com.google.protobuf.Parser<TempSensor>
+  private static final com.google.protobuf.Parser<TempSensor>
       PARSER = new com.google.protobuf.AbstractParser<TempSensor>() {
     @java.lang.Override
     public TempSensor parsePartialFrom(

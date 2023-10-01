@@ -8,12 +8,7 @@ public interface TempSensorOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>required int32 temperature = 1;</code>
-   * @return Whether the temperature field is set.
-   */
-  boolean hasTemperature();
-  /**
-   * <code>required int32 temperature = 1;</code>
+   * <code>int32 temperature = 1;</code>
    * @return The temperature.
    */
   int getTemperature();

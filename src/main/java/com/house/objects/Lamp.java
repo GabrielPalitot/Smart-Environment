@@ -56,6 +56,7 @@ private static final long serialVersionUID = 0L;
      * <code>MALFUNCTION = 3;</code>
      */
     MALFUNCTION(3),
+    UNRECOGNIZED(-1),
     ;
 
     /**
@@ -73,6 +74,10 @@ private static final long serialVersionUID = 0L;
 
 
     public final int getNumber() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalArgumentException(
+            "Can't get the number of an unknown enum value.");
+      }
       return value;
     }
 
@@ -113,6 +118,10 @@ private static final long serialVersionUID = 0L;
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
         getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
       return getDescriptor().getValues().get(ordinal());
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -132,6 +141,9 @@ private static final long serialVersionUID = 0L;
         throw new java.lang.IllegalArgumentException(
           "EnumValueDescriptor is not for this type.");
       }
+      if (desc.getIndex() == -1) {
+        return UNRECOGNIZED;
+      }
       return VALUES[desc.getIndex()];
     }
 
@@ -144,19 +156,10 @@ private static final long serialVersionUID = 0L;
     // @@protoc_insertion_point(enum_scope:intelligentHouse.Lamp.Status)
   }
 
-  private int bitField0_;
   public static final int TURN_FIELD_NUMBER = 1;
   private boolean turn_ = false;
   /**
-   * <code>required bool turn = 1;</code>
-   * @return Whether the turn field is set.
-   */
-  @java.lang.Override
-  public boolean hasTurn() {
-    return ((bitField0_ & 0x00000001) != 0);
-  }
-  /**
-   * <code>required bool turn = 1;</code>
+   * <code>bool turn = 1;</code>
    * @return The turn.
    */
   @java.lang.Override
@@ -167,19 +170,19 @@ private static final long serialVersionUID = 0L;
   public static final int STATUS_FIELD_NUMBER = 2;
   private int status_ = 0;
   /**
-   * <code>required .intelligentHouse.Lamp.Status status = 2;</code>
-   * @return Whether the status field is set.
+   * <code>.intelligentHouse.Lamp.Status status = 2;</code>
+   * @return The enum numeric value on the wire for status.
    */
-  @java.lang.Override public boolean hasStatus() {
-    return ((bitField0_ & 0x00000002) != 0);
+  @java.lang.Override public int getStatusValue() {
+    return status_;
   }
   /**
-   * <code>required .intelligentHouse.Lamp.Status status = 2;</code>
+   * <code>.intelligentHouse.Lamp.Status status = 2;</code>
    * @return The status.
    */
   @java.lang.Override public com.house.objects.Lamp.Status getStatus() {
     com.house.objects.Lamp.Status result = com.house.objects.Lamp.Status.forNumber(status_);
-    return result == null ? com.house.objects.Lamp.Status.TURNED_ON : result;
+    return result == null ? com.house.objects.Lamp.Status.UNRECOGNIZED : result;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -189,14 +192,6 @@ private static final long serialVersionUID = 0L;
     if (isInitialized == 1) return true;
     if (isInitialized == 0) return false;
 
-    if (!hasTurn()) {
-      memoizedIsInitialized = 0;
-      return false;
-    }
-    if (!hasStatus()) {
-      memoizedIsInitialized = 0;
-      return false;
-    }
     memoizedIsInitialized = 1;
     return true;
   }
@@ -204,10 +199,10 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (((bitField0_ & 0x00000001) != 0)) {
+    if (turn_ != false) {
       output.writeBool(1, turn_);
     }
-    if (((bitField0_ & 0x00000002) != 0)) {
+    if (status_ != com.house.objects.Lamp.Status.TURNED_ON.getNumber()) {
       output.writeEnum(2, status_);
     }
     getUnknownFields().writeTo(output);
@@ -219,11 +214,11 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (((bitField0_ & 0x00000001) != 0)) {
+    if (turn_ != false) {
       size += com.google.protobuf.CodedOutputStream
         .computeBoolSize(1, turn_);
     }
-    if (((bitField0_ & 0x00000002) != 0)) {
+    if (status_ != com.house.objects.Lamp.Status.TURNED_ON.getNumber()) {
       size += com.google.protobuf.CodedOutputStream
         .computeEnumSize(2, status_);
     }
@@ -242,15 +237,9 @@ private static final long serialVersionUID = 0L;
     }
     com.house.objects.Lamp other = (com.house.objects.Lamp) obj;
 
-    if (hasTurn() != other.hasTurn()) return false;
-    if (hasTurn()) {
-      if (getTurn()
-          != other.getTurn()) return false;
-    }
-    if (hasStatus() != other.hasStatus()) return false;
-    if (hasStatus()) {
-      if (status_ != other.status_) return false;
-    }
+    if (getTurn()
+        != other.getTurn()) return false;
+    if (status_ != other.status_) return false;
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
@@ -262,15 +251,11 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    if (hasTurn()) {
-      hash = (37 * hash) + TURN_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getTurn());
-    }
-    if (hasStatus()) {
-      hash = (37 * hash) + STATUS_FIELD_NUMBER;
-      hash = (53 * hash) + status_;
-    }
+    hash = (37 * hash) + TURN_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+        getTurn());
+    hash = (37 * hash) + STATUS_FIELD_NUMBER;
+    hash = (53 * hash) + status_;
     hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -437,16 +422,12 @@ private static final long serialVersionUID = 0L;
 
     private void buildPartial0(com.house.objects.Lamp result) {
       int from_bitField0_ = bitField0_;
-      int to_bitField0_ = 0;
       if (((from_bitField0_ & 0x00000001) != 0)) {
         result.turn_ = turn_;
-        to_bitField0_ |= 0x00000001;
       }
       if (((from_bitField0_ & 0x00000002) != 0)) {
         result.status_ = status_;
-        to_bitField0_ |= 0x00000002;
       }
-      result.bitField0_ |= to_bitField0_;
     }
 
     @java.lang.Override
@@ -493,11 +474,11 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(com.house.objects.Lamp other) {
       if (other == com.house.objects.Lamp.getDefaultInstance()) return this;
-      if (other.hasTurn()) {
+      if (other.getTurn() != false) {
         setTurn(other.getTurn());
       }
-      if (other.hasStatus()) {
-        setStatus(other.getStatus());
+      if (other.status_ != 0) {
+        setStatusValue(other.getStatusValue());
       }
       this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
@@ -506,12 +487,6 @@ private static final long serialVersionUID = 0L;
 
     @java.lang.Override
     public final boolean isInitialized() {
-      if (!hasTurn()) {
-        return false;
-      }
-      if (!hasStatus()) {
-        return false;
-      }
       return true;
     }
 
@@ -537,15 +512,8 @@ private static final long serialVersionUID = 0L;
               break;
             } // case 8
             case 16: {
-              int tmpRaw = input.readEnum();
-              com.house.objects.Lamp.Status tmpValue =
-                  com.house.objects.Lamp.Status.forNumber(tmpRaw);
-              if (tmpValue == null) {
-                mergeUnknownVarintField(2, tmpRaw);
-              } else {
-                status_ = tmpRaw;
-                bitField0_ |= 0x00000002;
-              }
+              status_ = input.readEnum();
+              bitField0_ |= 0x00000002;
               break;
             } // case 16
             default: {
@@ -567,15 +535,7 @@ private static final long serialVersionUID = 0L;
 
     private boolean turn_ ;
     /**
-     * <code>required bool turn = 1;</code>
-     * @return Whether the turn field is set.
-     */
-    @java.lang.Override
-    public boolean hasTurn() {
-      return ((bitField0_ & 0x00000001) != 0);
-    }
-    /**
-     * <code>required bool turn = 1;</code>
+     * <code>bool turn = 1;</code>
      * @return The turn.
      */
     @java.lang.Override
@@ -583,7 +543,7 @@ private static final long serialVersionUID = 0L;
       return turn_;
     }
     /**
-     * <code>required bool turn = 1;</code>
+     * <code>bool turn = 1;</code>
      * @param value The turn to set.
      * @return This builder for chaining.
      */
@@ -595,7 +555,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>required bool turn = 1;</code>
+     * <code>bool turn = 1;</code>
      * @return This builder for chaining.
      */
     public Builder clearTurn() {
@@ -607,23 +567,34 @@ private static final long serialVersionUID = 0L;
 
     private int status_ = 0;
     /**
-     * <code>required .intelligentHouse.Lamp.Status status = 2;</code>
-     * @return Whether the status field is set.
+     * <code>.intelligentHouse.Lamp.Status status = 2;</code>
+     * @return The enum numeric value on the wire for status.
      */
-    @java.lang.Override public boolean hasStatus() {
-      return ((bitField0_ & 0x00000002) != 0);
+    @java.lang.Override public int getStatusValue() {
+      return status_;
     }
     /**
-     * <code>required .intelligentHouse.Lamp.Status status = 2;</code>
+     * <code>.intelligentHouse.Lamp.Status status = 2;</code>
+     * @param value The enum numeric value on the wire for status to set.
+     * @return This builder for chaining.
+     */
+    public Builder setStatusValue(int value) {
+      status_ = value;
+      bitField0_ |= 0x00000002;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>.intelligentHouse.Lamp.Status status = 2;</code>
      * @return The status.
      */
     @java.lang.Override
     public com.house.objects.Lamp.Status getStatus() {
       com.house.objects.Lamp.Status result = com.house.objects.Lamp.Status.forNumber(status_);
-      return result == null ? com.house.objects.Lamp.Status.TURNED_ON : result;
+      return result == null ? com.house.objects.Lamp.Status.UNRECOGNIZED : result;
     }
     /**
-     * <code>required .intelligentHouse.Lamp.Status status = 2;</code>
+     * <code>.intelligentHouse.Lamp.Status status = 2;</code>
      * @param value The status to set.
      * @return This builder for chaining.
      */
@@ -637,7 +608,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>required .intelligentHouse.Lamp.Status status = 2;</code>
+     * <code>.intelligentHouse.Lamp.Status status = 2;</code>
      * @return This builder for chaining.
      */
     public Builder clearStatus() {
@@ -672,7 +643,7 @@ private static final long serialVersionUID = 0L;
     return DEFAULT_INSTANCE;
   }
 
-  @java.lang.Deprecated public static final com.google.protobuf.Parser<Lamp>
+  private static final com.google.protobuf.Parser<Lamp>
       PARSER = new com.google.protobuf.AbstractParser<Lamp>() {
     @java.lang.Override
     public Lamp parsePartialFrom(
