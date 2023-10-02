@@ -1,0 +1,416 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Cannot create worker GC thread. Out of system resources.
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   The process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+#   JVM is running with Unscaled Compressed Oops mode in which the Java heap is
+#     placed in the first 4GB address space. The Java Heap base address is the
+#     maximum limit for the native heap growth. Please use -XX:HeapBaseMinAddress
+#     to set the Java Heap base and to place the Java Heap above 4GB virtual address.
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (workerManager.hpp:87), pid=20146, tid=20146
+#
+# JRE version:  (17.0.8+7) (build )
+# Java VM: OpenJDK 64-Bit Server VM (17.0.8+7-b1000.22, mixed mode, sharing, tiered, compressed oops, compressed class ptrs, g1 gc, linux-amd64)
+# No core dump will be written. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: git4idea.http.GitAskPassApp Username for 'https://github.com': 
+
+Host: Intel(R) Core(TM) i5-10300H CPU @ 2.50GHz, 8 cores, 7G, Debian GNU/Linux 12 (bookworm)
+Time: Mon Oct  2 20:23:04 2023 -03 elapsed time: 0.010172 seconds (0d 0h 0m 0s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x000055dbb2eab520):  JavaThread "Unknown thread" [_thread_in_vm, id=20146, stack(0x00007fff5f291000,0x00007fff5fa91000)]
+
+Stack: [0x00007fff5f291000,0x00007fff5fa91000],  sp=0x00007fff5fa8b3d0,  free space=8168k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [libjvm.so+0xee9ad1]  VMError::report_and_die(int, char const*, char const*, __va_list_tag*, Thread*, unsigned char*, void*, void*, char const*, int, unsigned long)+0x1a1
+V  [libjvm.so+0xeea69d]  VMError::report_and_die(Thread*, char const*, int, unsigned long, VMErrorType, char const*, __va_list_tag*)+0x2d
+V  [libjvm.so+0x60d70c]  report_vm_out_of_memory(char const*, int, unsigned long, VMErrorType, char const*, ...)+0xdc
+V  [libjvm.so+0xf1dc3f]  WorkerManager::add_workers(WorkGang*, unsigned int, unsigned int, unsigned int, os::ThreadType, bool)+0x18f
+V  [libjvm.so+0xf1ddda]  WorkGang::initialize_workers()+0x4a
+V  [libjvm.so+0x6f3411]  G1CollectedHeap::initialize()+0x6c1
+V  [libjvm.so+0xe97cf2]  universe_init()+0xd2
+V  [libjvm.so+0x8049f7]  init_globals()+0x37
+V  [libjvm.so+0xe6f57b]  Threads::create_vm(JavaVMInitArgs*, bool*)+0x38b
+V  [libjvm.so+0x8cc141]  JNI_CreateJavaVM+0x51
+C  [libjli.so+0x3a1f]  JavaMain+0x8f
+C  [libjli.so+0x8a00]  CallJavaMainInNewThread+0xb0
+C  [libjli.so+0x5a0d]  ContinueInNewThread+0x5d
+C  [libjli.so+0x7084]  JLI_Launch+0x1484
+C  [java+0x1223]  main+0x123
+
+
+---------------  P R O C E S S  ---------------
+
+Threads class SMR info:
+_java_thread_list=0x00007f7e8694bcc0, length=0, elements={
+}
+
+Java Threads: ( => current thread )
+
+Other Threads:
+
+[error occurred during error reporting (printing all threads), id 0xb, SIGSEGV (0xb) at pc=0x00007f7e85cffcf0]
+
+VM state: not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x000055dbb2ea8c90] Heap_lock - owner thread: 0x000055dbb2eab520
+
+Heap address: 0x0000000086000000, size: 1952 MB, Compressed Oops mode: 32-bit
+
+CDS archive(s) mapped at: [0x0000000000000000-0x0000000000000000-0x0000000000000000), size 0, SharedBaseAddress: 0x0000000800000000, ArchiveRelocationMode: 1.
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 0, Narrow klass range: 0x0
+
+GC Precious Log:
+<Empty>
+
+Heap:
+ garbage-first heap   total 0K, used 0K [0x0000000086000000, 0x0000000100000000)
+  region size 1024K, 0 young (0K), 0 survivors (0K)
+ Metaspace       used 0K, committed 0K, reserved 0K
+  class space    used 0K, committed 0K, reserved 0K
+
+Heap Regions: E=young(eden), S=young(survivor), O=old, HS=humongous(starts), HC=humongous(continues), CS=collection set, F=free, OA=open archive, CA=closed archive, TAMS=top-at-mark-start (previous, next)
+
+Card table byte_map: [0x00007f7e71b6d000,0x00007f7e71f3d000] _byte_map_base: 0x00007f7e7173d000
+
+GC Heap History (0 events):
+No events
+
+Dll operation events (1 events):
+Event: 0.004 Loaded shared library /home/lucas/idea-IC-232.9921.47/jbr/lib/libjava.so
+
+Deoptimization events (0 events):
+No events
+
+Classes unloaded (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+VM Operations (0 events):
+No events
+
+Events (1 events):
+Event: 0.003 Protecting memory [0x00007fff5f291000,0x00007fff5f295000] with protection modes 0
+
+
+Dynamic libraries:
+86000000-100000000 ---p 00000000 00:00 0 
+55dbb0fd2000-55dbb0fd3000 r--p 00000000 103:04 6821902                   /home/lucas/idea-IC-232.9921.47/jbr/bin/java
+55dbb0fd3000-55dbb0fd4000 r-xp 00001000 103:04 6821902                   /home/lucas/idea-IC-232.9921.47/jbr/bin/java
+55dbb0fd4000-55dbb0fd5000 r--p 00002000 103:04 6821902                   /home/lucas/idea-IC-232.9921.47/jbr/bin/java
+55dbb0fd5000-55dbb0fd6000 r--p 00002000 103:04 6821902                   /home/lucas/idea-IC-232.9921.47/jbr/bin/java
+55dbb0fd6000-55dbb0fd7000 rw-p 00003000 103:04 6821902                   /home/lucas/idea-IC-232.9921.47/jbr/bin/java
+55dbb2e5f000-55dbb2f21000 rw-p 00000000 00:00 0                          [heap]
+7f7e6d5a1000-7f7e6d99b000 rw-p 00000000 00:00 0 
+7f7e6d99b000-7f7e6d99c000 ---p 00000000 00:00 0 
+7f7e6d99c000-7f7e6da9d000 rw-p 00000000 00:00 0 
+7f7e6da9d000-7f7e7230d000 ---p 00000000 00:00 0 
+7f7e7230d000-7f7e72b1a000 rw-p 00000000 00:00 0 
+7f7e72b1a000-7f7e72c00000 ---p 00000000 00:00 0 
+7f7e72c00000-7f7e72e70000 rwxp 00000000 00:00 0 
+7f7e72e70000-7f7e7a137000 ---p 00000000 00:00 0 
+7f7e7a137000-7f7e7a3a7000 rwxp 00000000 00:00 0 
+7f7e7a3a7000-7f7e7a6c9000 ---p 00000000 00:00 0 
+7f7e7a6c9000-7f7e7a939000 rwxp 00000000 00:00 0 
+7f7e7a939000-7f7e81c00000 ---p 00000000 00:00 0 
+7f7e81c00000-7f7e8536b000 r--s 00000000 103:04 6821877                   /home/lucas/idea-IC-232.9921.47/jbr/lib/modules
+7f7e85397000-7f7e8541a000 rw-p 00000000 00:00 0 
+7f7e8541a000-7f7e85500000 ---p 00000000 00:00 0 
+7f7e85500000-7f7e85600000 rw-p 00000000 00:00 0 
+7f7e85600000-7f7e85853000 r--p 00000000 103:04 6821836                   /home/lucas/idea-IC-232.9921.47/jbr/lib/server/libjvm.so
+7f7e85853000-7f7e8657c000 r-xp 00253000 103:04 6821836                   /home/lucas/idea-IC-232.9921.47/jbr/lib/server/libjvm.so
+7f7e8657c000-7f7e8680d000 r--p 00f7c000 103:04 6821836                   /home/lucas/idea-IC-232.9921.47/jbr/lib/server/libjvm.so
+7f7e8680d000-7f7e8680e000 ---p 0120d000 103:04 6821836                   /home/lucas/idea-IC-232.9921.47/jbr/lib/server/libjvm.so
+7f7e8680e000-7f7e868c7000 r--p 0120d000 103:04 6821836                   /home/lucas/idea-IC-232.9921.47/jbr/lib/server/libjvm.so
+7f7e868c7000-7f7e868fc000 rw-p 012c6000 103:04 6821836                   /home/lucas/idea-IC-232.9921.47/jbr/lib/server/libjvm.so
+7f7e868fc000-7f7e86966000 rw-p 00000000 00:00 0 
+7f7e86975000-7f7e8697a000 rw-p 00000000 00:00 0 
+7f7e8697a000-7f7e86981000 ---p 00000000 00:00 0 
+7f7e86981000-7f7e8698d000 r--p 00000000 103:04 6821863                   /home/lucas/idea-IC-232.9921.47/jbr/lib/libjava.so
+7f7e8698d000-7f7e8699f000 r-xp 0000c000 103:04 6821863                   /home/lucas/idea-IC-232.9921.47/jbr/lib/libjava.so
+7f7e8699f000-7f7e869a5000 r--p 0001e000 103:04 6821863                   /home/lucas/idea-IC-232.9921.47/jbr/lib/libjava.so
+7f7e869a5000-7f7e869a6000 ---p 00024000 103:04 6821863                   /home/lucas/idea-IC-232.9921.47/jbr/lib/libjava.so
+7f7e869a6000-7f7e869a7000 r--p 00024000 103:04 6821863                   /home/lucas/idea-IC-232.9921.47/jbr/lib/libjava.so
+7f7e869a7000-7f7e869a8000 rw-p 00025000 103:04 6821863                   /home/lucas/idea-IC-232.9921.47/jbr/lib/libjava.so
+7f7e869a8000-7f7e869a9000 rw-p 00000000 00:00 0 
+7f7e869a9000-7f7e869b1000 rw-s 00000000 103:02 392468                    /tmp/hsperfdata_lucas/20146
+7f7e869b1000-7f7e869b2000 ---p 00000000 00:00 0 
+7f7e869b2000-7f7e869b3000 r--p 00000000 00:00 0 
+7f7e869b3000-7f7e869c3000 r--p 00000000 103:02 1569820                   /usr/lib/x86_64-linux-gnu/libm.so.6
+7f7e869c3000-7f7e86a36000 r-xp 00010000 103:02 1569820                   /usr/lib/x86_64-linux-gnu/libm.so.6
+7f7e86a36000-7f7e86a90000 r--p 00083000 103:02 1569820                   /usr/lib/x86_64-linux-gnu/libm.so.6
+7f7e86a90000-7f7e86a91000 r--p 000dc000 103:02 1569820                   /usr/lib/x86_64-linux-gnu/libm.so.6
+7f7e86a91000-7f7e86a92000 rw-p 000dd000 103:02 1569820                   /usr/lib/x86_64-linux-gnu/libm.so.6
+7f7e86a92000-7f7e86a93000 r--p 00000000 103:02 1569850                   /usr/lib/x86_64-linux-gnu/librt.so.1
+7f7e86a93000-7f7e86a94000 r-xp 00001000 103:02 1569850                   /usr/lib/x86_64-linux-gnu/librt.so.1
+7f7e86a94000-7f7e86a95000 r--p 00002000 103:02 1569850                   /usr/lib/x86_64-linux-gnu/librt.so.1
+7f7e86a95000-7f7e86a96000 r--p 00002000 103:02 1569850                   /usr/lib/x86_64-linux-gnu/librt.so.1
+7f7e86a96000-7f7e86a97000 rw-p 00003000 103:02 1569850                   /usr/lib/x86_64-linux-gnu/librt.so.1
+7f7e86a97000-7f7e86a9b000 rw-p 00000000 00:00 0 
+7f7e86a9b000-7f7e86ac1000 r--p 00000000 103:02 1569817                   /usr/lib/x86_64-linux-gnu/libc.so.6
+7f7e86ac1000-7f7e86c16000 r-xp 00026000 103:02 1569817                   /usr/lib/x86_64-linux-gnu/libc.so.6
+7f7e86c16000-7f7e86c69000 r--p 0017b000 103:02 1569817                   /usr/lib/x86_64-linux-gnu/libc.so.6
+7f7e86c69000-7f7e86c6d000 r--p 001ce000 103:02 1569817                   /usr/lib/x86_64-linux-gnu/libc.so.6
+7f7e86c6d000-7f7e86c6f000 rw-p 001d2000 103:02 1569817                   /usr/lib/x86_64-linux-gnu/libc.so.6
+7f7e86c6f000-7f7e86c7c000 rw-p 00000000 00:00 0 
+7f7e86c7c000-7f7e86c7d000 r--p 00000000 103:02 1569819                   /usr/lib/x86_64-linux-gnu/libdl.so.2
+7f7e86c7d000-7f7e86c7e000 r-xp 00001000 103:02 1569819                   /usr/lib/x86_64-linux-gnu/libdl.so.2
+7f7e86c7e000-7f7e86c7f000 r--p 00002000 103:02 1569819                   /usr/lib/x86_64-linux-gnu/libdl.so.2
+7f7e86c7f000-7f7e86c80000 r--p 00002000 103:02 1569819                   /usr/lib/x86_64-linux-gnu/libdl.so.2
+7f7e86c80000-7f7e86c81000 rw-p 00003000 103:02 1569819                   /usr/lib/x86_64-linux-gnu/libdl.so.2
+7f7e86c81000-7f7e86c82000 r--p 00000000 103:02 1569844                   /usr/lib/x86_64-linux-gnu/libpthread.so.0
+7f7e86c82000-7f7e86c83000 r-xp 00001000 103:02 1569844                   /usr/lib/x86_64-linux-gnu/libpthread.so.0
+7f7e86c83000-7f7e86c84000 r--p 00002000 103:02 1569844                   /usr/lib/x86_64-linux-gnu/libpthread.so.0
+7f7e86c84000-7f7e86c85000 r--p 00002000 103:02 1569844                   /usr/lib/x86_64-linux-gnu/libpthread.so.0
+7f7e86c85000-7f7e86c86000 rw-p 00003000 103:02 1569844                   /usr/lib/x86_64-linux-gnu/libpthread.so.0
+7f7e86c86000-7f7e86c88000 r--p 00000000 103:04 6821765                   /home/lucas/idea-IC-232.9921.47/jbr/lib/libjli.so
+7f7e86c88000-7f7e86c92000 r-xp 00002000 103:04 6821765                   /home/lucas/idea-IC-232.9921.47/jbr/lib/libjli.so
+7f7e86c92000-7f7e86c95000 r--p 0000c000 103:04 6821765                   /home/lucas/idea-IC-232.9921.47/jbr/lib/libjli.so
+7f7e86c95000-7f7e86c96000 ---p 0000f000 103:04 6821765                   /home/lucas/idea-IC-232.9921.47/jbr/lib/libjli.so
+7f7e86c96000-7f7e86c97000 r--p 0000f000 103:04 6821765                   /home/lucas/idea-IC-232.9921.47/jbr/lib/libjli.so
+7f7e86c97000-7f7e86c98000 rw-p 00010000 103:04 6821765                   /home/lucas/idea-IC-232.9921.47/jbr/lib/libjli.so
+7f7e86c98000-7f7e86c9b000 r--p 00000000 103:02 1572093                   /usr/lib/x86_64-linux-gnu/libz.so.1.2.13
+7f7e86c9b000-7f7e86cae000 r-xp 00003000 103:02 1572093                   /usr/lib/x86_64-linux-gnu/libz.so.1.2.13
+7f7e86cae000-7f7e86cb5000 r--p 00016000 103:02 1572093                   /usr/lib/x86_64-linux-gnu/libz.so.1.2.13
+7f7e86cb5000-7f7e86cb6000 r--p 0001c000 103:02 1572093                   /usr/lib/x86_64-linux-gnu/libz.so.1.2.13
+7f7e86cb6000-7f7e86cb7000 rw-p 0001d000 103:02 1572093                   /usr/lib/x86_64-linux-gnu/libz.so.1.2.13
+7f7e86cb7000-7f7e86cb8000 ---p 00000000 00:00 0 
+7f7e86cb8000-7f7e86cbb000 r--p 00000000 103:04 6821762                   /home/lucas/idea-IC-232.9921.47/jbr/lib/libjimage.so
+7f7e86cbb000-7f7e86ccf000 r-xp 00003000 103:04 6821762                   /home/lucas/idea-IC-232.9921.47/jbr/lib/libjimage.so
+7f7e86ccf000-7f7e86cd5000 r--p 00017000 103:04 6821762                   /home/lucas/idea-IC-232.9921.47/jbr/lib/libjimage.so
+7f7e86cd5000-7f7e86cd7000 r--p 0001c000 103:04 6821762                   /home/lucas/idea-IC-232.9921.47/jbr/lib/libjimage.so
+7f7e86cd7000-7f7e86cd8000 rw-p 0001e000 103:04 6821762                   /home/lucas/idea-IC-232.9921.47/jbr/lib/libjimage.so
+7f7e86cd8000-7f7e86cda000 rw-p 00000000 00:00 0 
+7f7e86cda000-7f7e86cdb000 r--p 00000000 103:02 1569813                   /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7f7e86cdb000-7f7e86d00000 r-xp 00001000 103:02 1569813                   /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7f7e86d00000-7f7e86d0a000 r--p 00026000 103:02 1569813                   /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7f7e86d0a000-7f7e86d0c000 r--p 00030000 103:02 1569813                   /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7f7e86d0c000-7f7e86d0e000 rw-p 00032000 103:02 1569813                   /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7fff5f291000-7fff5f295000 ---p 00000000 00:00 0 
+7fff5fa70000-7fff5fa91000 rw-p 00000000 00:00 0                          [stack]
+7fff5faf3000-7fff5faf7000 r--p 00000000 00:00 0                          [vvar]
+7fff5faf7000-7fff5faf9000 r-xp 00000000 00:00 0                          [vdso]
+
+
+VM Arguments:
+java_command: git4idea.http.GitAskPassApp Username for 'https://github.com': 
+java_class_path (initial): /home/lucas/idea-IC-232.9921.47/plugins/vcs-git/lib/git4idea-rt.jar:/home/lucas/idea-IC-232.9921.47/lib/externalProcess-rt.jar
+Launcher Type: SUN_STANDARD
+
+[Global flags]
+     intx CICompilerCount                          = 4                                         {product} {ergonomic}
+     uint ConcGCThreads                            = 2                                         {product} {ergonomic}
+     uint G1ConcRefinementThreads                  = 8                                         {product} {ergonomic}
+   size_t G1HeapRegionSize                         = 1048576                                   {product} {ergonomic}
+    uintx GCDrainStackTargetSize                   = 64                                        {product} {ergonomic}
+   size_t InitialHeapSize                          = 127926272                                 {product} {ergonomic}
+   size_t MarkStackSize                            = 4194304                                   {product} {ergonomic}
+   size_t MaxHeapSize                              = 2046820352                                {product} {ergonomic}
+   size_t MinHeapDeltaBytes                        = 1048576                                   {product} {ergonomic}
+   size_t MinHeapSize                              = 8388608                                   {product} {ergonomic}
+    uintx NonNMethodCodeHeapSize                   = 5839372                                {pd product} {ergonomic}
+    uintx NonProfiledCodeHeapSize                  = 122909434                              {pd product} {ergonomic}
+    uintx ProfiledCodeHeapSize                     = 122909434                              {pd product} {ergonomic}
+    uintx ReservedCodeCacheSize                    = 251658240                              {pd product} {ergonomic}
+     bool SegmentedCodeCache                       = true                                      {product} {ergonomic}
+   size_t SoftMaxHeapSize                          = 2046820352                             {manageable} {ergonomic}
+     bool UseCompressedClassPointers               = true                           {product lp64_product} {ergonomic}
+     bool UseCompressedOops                        = true                           {product lp64_product} {ergonomic}
+     bool UseG1GC                                  = true                                      {product} {ergonomic}
+
+Logging:
+Log output configuration:
+ #0: stdout all=warning uptime,level,tags
+ #1: stderr all=off uptime,level,tags
+
+Environment Variables:
+PATH=/usr/lib/git-core:/usr/lib/git-core:/home/lucas/.local/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
+USERNAME=lucas
+SHELL=/bin/bash
+DISPLAY=:1
+LANG=pt_BR.UTF-8
+LC_ALL=en_US.UTF-8
+TERM=xterm-256color
+
+Active Locale:
+LC_ALL=C
+LC_COLLATE=C
+LC_CTYPE=C
+LC_MESSAGES=C
+LC_MONETARY=C
+LC_NUMERIC=C
+LC_TIME=C
+
+Signal Handlers:
+   SIGSEGV: crash_handler in libjvm.so, mask=11100100010111111101111111111110, flags=SA_RESTART|SA_SIGINFO, unblocked
+    SIGBUS: crash_handler in libjvm.so, mask=11100100010111111101111111111110, flags=SA_RESTART|SA_SIGINFO, unblocked
+    SIGFPE: crash_handler in libjvm.so, mask=11100100010111111101111111111110, flags=SA_RESTART|SA_SIGINFO, unblocked
+   SIGPIPE: javaSignalHandler in libjvm.so, mask=11100100010111111101111111111110, flags=SA_RESTART|SA_SIGINFO, blocked
+   SIGXFSZ: javaSignalHandler in libjvm.so, mask=11100100010111111101111111111110, flags=SA_RESTART|SA_SIGINFO, blocked
+    SIGILL: crash_handler in libjvm.so, mask=11100100010111111101111111111110, flags=SA_RESTART|SA_SIGINFO, unblocked
+   SIGUSR2: SR_handler in libjvm.so, mask=00000000000000000000000000000000, flags=SA_RESTART|SA_SIGINFO, blocked
+    SIGHUP: SIG_DFL, mask=00000000000000000000000000000000, flags=none, blocked
+    SIGINT: SIG_DFL, mask=00000000000000000000000000000000, flags=none, blocked
+   SIGTERM: SIG_DFL, mask=00000000000000000000000000000000, flags=none, blocked
+   SIGQUIT: UserHandler in libjvm.so, mask=11100100010111111101111111111110, flags=SA_RESTART|SA_SIGINFO, blocked
+   SIGTRAP: crash_handler in libjvm.so, mask=11100100010111111101111111111110, flags=SA_RESTART|SA_SIGINFO, unblocked
+
+JNI global refs:
+JNI global refs: 0, weak refs: 0
+
+JNI global refs memory usage: 0, weak refs: 0
+
+OOME stack traces (most recent first):
+Classloader memory used:
+
+
+---------------  S Y S T E M  ---------------
+
+OS:
+PRETTY_NAME="Debian GNU/Linux 12 (bookworm)"
+NAME="Debian GNU/Linux"
+VERSION_ID="12"
+VERSION="12 (bookworm)"
+VERSION_CODENAME=bookworm
+ID=debian
+HOME_URL="https://www.debian.org/"
+SUPPORT_URL="https://www.debian.org/support"
+BUG_REPORT_URL="https://bugs.debian.org/"
+uname: Linux 6.1.0-11-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.38-4 (2023-08-08) x86_64
+OS uptime: 0 days 1:12 hours
+libc: glibc 2.36 NPTL 2.36 
+rlimit (soft/hard): STACK 8192k/infinity , CORE 0k/infinity , NPROC 30969/30969 , NOFILE 1048576/1048576 , AS infinity/infinity , CPU infinity/infinity , DATA infinity/infinity , FSIZE infinity/infinity , MEMLOCK 999392k/999392k
+load average: 0.62 1.29 1.46
+
+/proc/meminfo:
+MemTotal:        7995160 kB
+MemFree:         1049320 kB
+MemAvailable:    1374960 kB
+Buffers:           25632 kB
+Cached:          1120940 kB
+SwapCached:       214108 kB
+Active:          1861672 kB
+Inactive:        4174840 kB
+Active(anon):    1560652 kB
+Inactive(anon):  3962052 kB
+Active(file):     301020 kB
+Inactive(file):   212788 kB
+Unevictable:      134760 kB
+Mlocked:            8176 kB
+SwapTotal:      15998972 kB
+SwapFree:       14924284 kB
+Zswap:                 0 kB
+Zswapped:              0 kB
+Dirty:               512 kB
+Writeback:             0 kB
+AnonPages:       4759276 kB
+Mapped:           360660 kB
+Shmem:            627380 kB
+KReclaimable:      81248 kB
+Slab:             278712 kB
+SReclaimable:      81248 kB
+SUnreclaim:       197464 kB
+KernelStack:      164928 kB
+PageTables:        61600 kB
+SecPageTables:         0 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:    19996552 kB
+Committed_AS:   20770220 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:      262424 kB
+VmallocChunk:          0 kB
+Percpu:             6848 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:   1449984 kB
+ShmemHugePages:   479232 kB
+ShmemPmdMapped:        0 kB
+FileHugePages:         0 kB
+FilePmdMapped:         0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+Hugetlb:               0 kB
+DirectMap4k:      293500 kB
+DirectMap2M:     4814848 kB
+DirectMap1G:     4194304 kB
+
+/sys/kernel/mm/transparent_hugepage/enabled: [always] madvise never
+/sys/kernel/mm/transparent_hugepage/defrag (defrag/compaction efforts parameter): always defer defer+madvise [madvise] never
+
+Process Memory:
+Virtual Size: 2416784K (peak: 2416784K)
+Resident Set Size: 18252K (peak: 18252K) (anon: 5984K, file: 12268K, shmem: 0K)
+Swapped out: 0K
+C-Heap outstanding allocations: 13022K, retained: 49K
+glibc malloc tunables: (default)
+
+/proc/sys/kernel/threads-max (system-wide limit on the number of threads): 61938
+/proc/sys/vm/max_map_count (maximum number of memory map areas a process may have): 65530
+/proc/sys/kernel/pid_max (system-wide limit on number of process identifiers): 4194304
+
+container (cgroup) information:
+container_type: cgroupv2
+cpu_cpuset_cpus: not supported
+cpu_memory_nodes: not supported
+active_processor_count: 8
+cpu_quota: not supported
+cpu_period: not supported
+cpu_shares: not supported
+memory_limit_in_bytes: unlimited
+memory_and_swap_limit_in_bytes: unlimited
+memory_soft_limit_in_bytes: unlimited
+memory_usage_in_bytes: 3671592 k
+memory_max_usage_in_bytes: not supported
+memory_swap_current_in_bytes: 154244 k
+memory_swap_max_limit_in_bytes: unlimited
+maximum number of tasks: 9290
+current number of tasks: 9290
+
+Steal ticks since vm start: 0
+Steal ticks percentage since vm start:  0.000
+
+CPU: total 8 (initial active 8) (4 cores per cpu, 2 threads per core) family 6 model 165 stepping 2 microcode 0xf8, cx8, cmov, fxsr, ht, mmx, 3dnowpref, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, lzcnt, tsc, tscinvbit, avx, avx2, aes, erms, clmul, bmi1, bmi2, adx, fma, vzeroupper, clflush, clflushopt
+CPU Model and flags from /proc/cpuinfo:
+model name	: Intel(R) Core(TM) i5-10300H CPU @ 2.50GHz
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid mpx rdseed adx smap clflushopt intel_pt xsaveopt xsavec xgetbv1 xsaves dtherm arat pln pts hwp hwp_notify hwp_act_window hwp_epp pku ospke md_clear flush_l1d arch_capabilities
+
+Online cpus: 0-7
+Offline cpus: 
+BIOS frequency limitation: <Not Available>
+Frequency switch latency (ns): 0
+Available cpu frequencies: <Not Available>
+Current governor: powersave
+Core performance/turbo boost: <Not Available>
+
+Memory: 4k page, physical 7995160k(1049068k free), swap 15998972k(14924284k free)
+Page Sizes: 4k
+
+vm_info: OpenJDK 64-Bit Server VM (17.0.8+7-b1000.22) for linux-amd64 JRE (17.0.8+7-b1000.22), built on 2023-09-02 by "builduser" with gcc 10.2.1 20210130 (Red Hat 10.2.1-11)
+
+END.
