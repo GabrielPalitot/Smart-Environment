@@ -47,16 +47,17 @@ public final class thingsOuterClass {
       "Lamp\022\014\n\004turn\030\001 \001(\010\022-\n\006status\030\002 \001(\0162\035.int" +
       "elligentHouse.Lamp.Status\"8\n\006Status\022\r\n\tT" +
       "URNED_ON\020\000\022\016\n\nTURNED_OFF\020\001\022\017\n\013MALFUNCTIO" +
-      "N\020\003\"\260\001\n\017AirConditioning\022\014\n\004turn\030\001 \001(\010\0228\n" +
+      "N\020\003\"\276\001\n\017AirConditioning\022\014\n\004turn\030\001 \001(\010\0228\n" +
       "\006status\030\002 \001(\0162(.intelligentHouse.AirCond" +
       "itioning.Status\022\033\n\023setting_temperature\030\003" +
-      " \001(\005\"8\n\006Status\022\r\n\tTURNED_ON\020\000\022\016\n\nTURNED_" +
-      "OFF\020\001\022\017\n\013MALFUNCTION\020\003\"z\n\007Windows\022\014\n\004tur" +
-      "n\030\001 \001(\010\0220\n\006status\030\002 \001(\0162 .intelligentHou" +
-      "se.Windows.Status\"/\n\006Status\022\010\n\004OPEN\020\000\022\n\n" +
-      "\006CLOSED\020\001\022\017\n\013MALFUNCTION\020\003\"!\n\nTempSensor" +
-      "\022\023\n\013temperature\030\001 \001(\005B\'\n\021com.house.objec" +
-      "tsB\020thingsOuterClassP\001b\006proto3"
+      " \001(\005\"F\n\006Status\022\r\n\tTURNED_ON\020\000\022\016\n\nTURNED_" +
+      "OFF\020\001\022\017\n\013MALFUNCTION\020\003\022\014\n\010STAND_BY\020\004\"z\n\007" +
+      "Windows\022\014\n\004turn\030\001 \001(\010\0220\n\006status\030\002 \001(\0162 ." +
+      "intelligentHouse.Windows.Status\"/\n\006Statu" +
+      "s\022\010\n\004OPEN\020\000\022\n\n\006CLOSED\020\001\022\017\n\013MALFUNCTION\020\003" +
+      "\"!\n\nTempSensor\022\023\n\013temperature\030\001 \001(\005B\'\n\021c" +
+      "om.house.objectsB\020thingsOuterClassP\001b\006pr" +
+      "oto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

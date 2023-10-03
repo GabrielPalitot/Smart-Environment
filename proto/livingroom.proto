@@ -26,6 +26,7 @@ message AirConditioning
     TURNED_ON = 0;
     TURNED_OFF = 1;
     MALFUNCTION = 3;
+    STAND_BY = 4;
   }
   Status status = 2;
   int32 setting_temperature = 3;
