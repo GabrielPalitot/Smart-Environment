@@ -9,11 +9,10 @@ public class ProtobuffLamp {
     public enum StatusLamp {
         TURNED_ON,
         TURNED_OFF,
-        MALFUNCTION
+        MALFUNCTION,
     }
     private boolean connected;
     private StatusLamp status;
-    private int temperature;
 
     public ProtobuffLamp(boolean connected, StatusLamp status) {
         this.connected = connected;
@@ -34,15 +33,6 @@ public class ProtobuffLamp {
     public void setStatus(StatusLamp status) {
         this.status = status;
     }
-
-    public int getTemperature() {
-        return temperature;
-    }
-
-    public void setTemperature(int temperature) {
-        this.temperature = temperature;
-    }
-
 
     public static void main(String[] args) {
         ProtobuffLamp air = new ProtobuffLamp(true, ProtobuffLamp.StatusLamp.TURNED_OFF);
