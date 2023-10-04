@@ -56,14 +56,14 @@ public final class thingsOuterClass {
       "\006status\030\002 \001(\0162(.intelligentHouse.AirCond" +
       "itioning.Status\022\033\n\023setting_temperature\030\003" +
       " \001(\005\"F\n\006Status\022\r\n\tTURNED_ON\020\000\022\016\n\nTURNED_" +
-      "OFF\020\001\022\017\n\013MALFUNCTION\020\003\022\014\n\010STAND_BY\020\004\">\n\023" +
+      "OFF\020\001\022\017\n\013MALFUNCTION\020\003\022\014\n\010STAND_BY\020\004\"=\n\023" +
       "AirConditioningInfo\022\014\n\004name\030\001 \001(\t\022\n\n\002ip\030" +
-      "\002 \001(\t\022\r\n\005porta\030\003 \001(\t\"z\n\007Windows\022\014\n\004turn\030" +
-      "\001 \001(\010\0220\n\006status\030\002 \001(\0162 .intelligentHouse" +
-      ".Windows.Status\"/\n\006Status\022\010\n\004OPEN\020\000\022\n\n\006C" +
-      "LOSED\020\001\022\017\n\013MALFUNCTION\020\003\"!\n\nTempSensor\022\023" +
-      "\n\013temperature\030\001 \001(\005B\'\n\021com.house.objects" +
-      "B\020thingsOuterClassP\001b\006proto3"
+      "\002 \001(\t\022\014\n\004port\030\003 \001(\t\"z\n\007Windows\022\014\n\004turn\030\001" +
+      " \001(\010\0220\n\006status\030\002 \001(\0162 .intelligentHouse." +
+      "Windows.Status\"/\n\006Status\022\010\n\004OPEN\020\000\022\n\n\006CL" +
+      "OSED\020\001\022\017\n\013MALFUNCTION\020\003\"!\n\nTempSensor\022\023\n" +
+      "\013temperature\030\001 \001(\005B\'\n\021com.house.objectsB" +
+      "\020thingsOuterClassP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -86,7 +86,7 @@ public final class thingsOuterClass {
     internal_static_intelligentHouse_AirConditioningInfo_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_intelligentHouse_AirConditioningInfo_descriptor,
-        new java.lang.String[] { "Name", "Ip", "Porta", });
+        new java.lang.String[] { "Name", "Ip", "Port", });
     internal_static_intelligentHouse_Windows_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_intelligentHouse_Windows_fieldAccessorTable = new

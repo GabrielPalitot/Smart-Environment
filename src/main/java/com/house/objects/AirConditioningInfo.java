@@ -18,7 +18,7 @@ private static final long serialVersionUID = 0L;
   private AirConditioningInfo() {
     name_ = "";
     ip_ = "";
-    porta_ = "";
+    port_ = "";
   }
 
   @java.lang.Override
@@ -119,39 +119,39 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int PORTA_FIELD_NUMBER = 3;
+  public static final int PORT_FIELD_NUMBER = 3;
   @SuppressWarnings("serial")
-  private volatile java.lang.Object porta_ = "";
+  private volatile java.lang.Object port_ = "";
   /**
-   * <code>string porta = 3;</code>
-   * @return The porta.
+   * <code>string port = 3;</code>
+   * @return The port.
    */
   @java.lang.Override
-  public java.lang.String getPorta() {
-    java.lang.Object ref = porta_;
+  public java.lang.String getPort() {
+    java.lang.Object ref = port_;
     if (ref instanceof java.lang.String) {
       return (java.lang.String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
       java.lang.String s = bs.toStringUtf8();
-      porta_ = s;
+      port_ = s;
       return s;
     }
   }
   /**
-   * <code>string porta = 3;</code>
-   * @return The bytes for porta.
+   * <code>string port = 3;</code>
+   * @return The bytes for port.
    */
   @java.lang.Override
   public com.google.protobuf.ByteString
-      getPortaBytes() {
-    java.lang.Object ref = porta_;
+      getPortBytes() {
+    java.lang.Object ref = port_;
     if (ref instanceof java.lang.String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
               (java.lang.String) ref);
-      porta_ = b;
+      port_ = b;
       return b;
     } else {
       return (com.google.protobuf.ByteString) ref;
@@ -178,8 +178,8 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(ip_)) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 2, ip_);
     }
-    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(porta_)) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 3, porta_);
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(port_)) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 3, port_);
     }
     getUnknownFields().writeTo(output);
   }
@@ -196,8 +196,8 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(ip_)) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, ip_);
     }
-    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(porta_)) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, porta_);
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(port_)) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, port_);
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -218,8 +218,8 @@ private static final long serialVersionUID = 0L;
         .equals(other.getName())) return false;
     if (!getIp()
         .equals(other.getIp())) return false;
-    if (!getPorta()
-        .equals(other.getPorta())) return false;
+    if (!getPort()
+        .equals(other.getPort())) return false;
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
@@ -235,8 +235,8 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + getName().hashCode();
     hash = (37 * hash) + IP_FIELD_NUMBER;
     hash = (53 * hash) + getIp().hashCode();
-    hash = (37 * hash) + PORTA_FIELD_NUMBER;
-    hash = (53 * hash) + getPorta().hashCode();
+    hash = (37 * hash) + PORT_FIELD_NUMBER;
+    hash = (53 * hash) + getPort().hashCode();
     hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -370,7 +370,7 @@ private static final long serialVersionUID = 0L;
       bitField0_ = 0;
       name_ = "";
       ip_ = "";
-      porta_ = "";
+      port_ = "";
       return this;
     }
 
@@ -411,7 +411,7 @@ private static final long serialVersionUID = 0L;
         result.ip_ = ip_;
       }
       if (((from_bitField0_ & 0x00000004) != 0)) {
-        result.porta_ = porta_;
+        result.port_ = port_;
       }
     }
 
@@ -469,8 +469,8 @@ private static final long serialVersionUID = 0L;
         bitField0_ |= 0x00000002;
         onChanged();
       }
-      if (!other.getPorta().isEmpty()) {
-        porta_ = other.porta_;
+      if (!other.getPort().isEmpty()) {
+        port_ = other.port_;
         bitField0_ |= 0x00000004;
         onChanged();
       }
@@ -511,7 +511,7 @@ private static final long serialVersionUID = 0L;
               break;
             } // case 18
             case 26: {
-              porta_ = input.readStringRequireUtf8();
+              port_ = input.readStringRequireUtf8();
               bitField0_ |= 0x00000004;
               break;
             } // case 26
@@ -676,73 +676,73 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object porta_ = "";
+    private java.lang.Object port_ = "";
     /**
-     * <code>string porta = 3;</code>
-     * @return The porta.
+     * <code>string port = 3;</code>
+     * @return The port.
      */
-    public java.lang.String getPorta() {
-      java.lang.Object ref = porta_;
+    public java.lang.String getPort() {
+      java.lang.Object ref = port_;
       if (!(ref instanceof java.lang.String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        porta_ = s;
+        port_ = s;
         return s;
       } else {
         return (java.lang.String) ref;
       }
     }
     /**
-     * <code>string porta = 3;</code>
-     * @return The bytes for porta.
+     * <code>string port = 3;</code>
+     * @return The bytes for port.
      */
     public com.google.protobuf.ByteString
-        getPortaBytes() {
-      java.lang.Object ref = porta_;
+        getPortBytes() {
+      java.lang.Object ref = port_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        porta_ = b;
+        port_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
     /**
-     * <code>string porta = 3;</code>
-     * @param value The porta to set.
+     * <code>string port = 3;</code>
+     * @param value The port to set.
      * @return This builder for chaining.
      */
-    public Builder setPorta(
+    public Builder setPort(
         java.lang.String value) {
       if (value == null) { throw new NullPointerException(); }
-      porta_ = value;
+      port_ = value;
       bitField0_ |= 0x00000004;
       onChanged();
       return this;
     }
     /**
-     * <code>string porta = 3;</code>
+     * <code>string port = 3;</code>
      * @return This builder for chaining.
      */
-    public Builder clearPorta() {
-      porta_ = getDefaultInstance().getPorta();
+    public Builder clearPort() {
+      port_ = getDefaultInstance().getPort();
       bitField0_ = (bitField0_ & ~0x00000004);
       onChanged();
       return this;
     }
     /**
-     * <code>string porta = 3;</code>
-     * @param value The bytes for porta to set.
+     * <code>string port = 3;</code>
+     * @param value The bytes for port to set.
      * @return This builder for chaining.
      */
-    public Builder setPortaBytes(
+    public Builder setPortBytes(
         com.google.protobuf.ByteString value) {
       if (value == null) { throw new NullPointerException(); }
       checkByteStringIsUtf8(value);
-      porta_ = value;
+      port_ = value;
       bitField0_ |= 0x00000004;
       onChanged();
       return this;

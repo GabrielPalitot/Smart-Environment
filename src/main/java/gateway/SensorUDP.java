@@ -6,6 +6,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/*
 public class SensorUDP extends Thread {
     private static DatagramSocket socket;
     private static InetAddress address;
@@ -39,16 +40,47 @@ public class SensorUDP extends Thread {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-              //  System.out.println("Task executed!");
-            //}, 2, TimeUnit.SECONDS); // Delay of 2 seconds
-
-            //packet = new DatagramPacket(buf, buf.length);
-            //socket.receive(packet);
-            //String received = new String(packet.getData(), 0, packet.getLength());
         }
     }
-
     public void close() {
         socket.close();
     }
 }
+*/
+
+public class SensorUDP{
+    public static void main(String[] args) {
+        while (true) {
+            try {
+                DatagramSocket socket = new DatagramSocket();
+                Thread.sleep(5000);
+
+                // the message
+                byte[] buf = new byte[100];
+                String message = "27.0";
+                buf = message.getBytes();
+
+                // the ip and port
+                InetAddress ip = InetAddress.getByName("127.0.0.1");
+                int port = 20000;
+
+                // Preparation to send
+                DatagramPacket OutputSend = new DatagramPacket(buf,buf.length,ip,port);
+                System.out.println("teste");
+                socket.send(OutputSend);
+            }catch (IOException e){
+                System.out.println("Server Offline, The connection will try be reestablished in 5 seconds ");
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+

@@ -36,7 +36,7 @@ message AirConditioningInfo
 {
     string name = 1;
     string ip = 2;
-    string porta = 3;
+    string port = 3;
 }
 message Windows
 {

@@ -32,14 +32,14 @@ public interface AirConditioningInfoOrBuilder extends
       getIpBytes();
 
   /**
-   * <code>string porta = 3;</code>
-   * @return The porta.
+   * <code>string port = 3;</code>
+   * @return The port.
    */
-  java.lang.String getPorta();
+  java.lang.String getPort();
   /**
-   * <code>string porta = 3;</code>
-   * @return The bytes for porta.
+   * <code>string port = 3;</code>
+   * @return The bytes for port.
    */
   com.google.protobuf.ByteString
-      getPortaBytes();
+      getPortBytes();
 }

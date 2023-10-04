@@ -58,7 +58,7 @@ public class ProtobuffAirConditioning {
         AirConditioningInfo airCond = AirConditioningInfo.newBuilder()
                 .setName("AirConditioning123")
                 .setIp("127.0.0.1")
-                .setPorta("10000")
+                .setPort("10000")
                 .build();
 
         //while (!connectedServer){
