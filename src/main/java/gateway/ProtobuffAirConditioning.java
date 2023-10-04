@@ -47,12 +47,10 @@ public class ProtobuffAirConditioning {
         this.temperature = temperature;
     }
 
-
-    public static void main(String[] args) throws UnknownHostException {
+    public static void main(String[] args) throws IOException {
+        int portTCP = 10000;
+        boolean connected = false;
         ProtobuffAirConditioning air = new ProtobuffAirConditioning(true, StatusAirConditioning.STAND_BY, 20);
-
-        // Server is offline
-        boolean connectedServer = false;
 
         // Instancing the message
         AirConditioningInfo airCond = AirConditioningInfo.newBuilder()
@@ -60,23 +58,43 @@ public class ProtobuffAirConditioning {
                 .setIp("127.0.0.1")
                 .setPort("10000")
                 .build();
-
-        //while (!connectedServer){
-            try{
+        while (!connected)
+            try {
                 // open the connection
-                Socket socketAir = new Socket("localhost", 10000);
+                System.out.println("funfou");
+                Socket socketAir = new Socket("localhost", portTCP);
+
+                // Send Identification
                 CodedOutputStream outAir = CodedOutputStream.newInstance(socketAir.getOutputStream());
                 outAir.writeInt32NoTag(airCond.getSerializedSize());
                 airCond.writeTo(outAir);
-
                 outAir.flush();
+
+
+                connected = true;
                 socketAir.close();
-            }catch (IOException e) {
+
+            } catch (IOException e) {
                 e.printStackTrace();
+                System.out.println("Server is Offline, please wait for it to come online");
+
+                MulticastSocket AirMultiSock = new MulticastSocket(portTCP);
+                InetAddress group = InetAddress.getByName("228.0.0.8");
+                AirMultiSock.joinGroup(group);
+
+                byte[] bufAir = new byte[100];
+                DatagramPacket inputReceiveMsg = new DatagramPacket(bufAir, bufAir.length);
+
+                // waiting a message of Gateway (server)
+                while(true) {
+                    AirMultiSock.receive(inputReceiveMsg);
+                    String textReceive = new String(inputReceiveMsg.getData(), 0, inputReceiveMsg.getLength());
+                    System.out.println(textReceive);
+                    if (textReceive.equalsIgnoreCase("Indentification")) {
+                        break;
+                    }
+                }
             }
-        //}
-
-
     }
 }
 

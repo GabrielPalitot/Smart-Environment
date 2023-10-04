@@ -66,7 +66,6 @@ public class SensorUDP{
 
                 // Preparation to send
                 DatagramPacket OutputSend = new DatagramPacket(buf,buf.length,ip,port);
-                System.out.println("teste");
                 socket.send(OutputSend);
             }catch (IOException e){
                 System.out.println("Server Offline, The connection will try be reestablished in 5 seconds ");
