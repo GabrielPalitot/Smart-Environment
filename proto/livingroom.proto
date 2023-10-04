@@ -17,6 +17,12 @@ message Lamp
   }
   Status status = 2;
 }
+message LampInfo
+{
+  string name = 1;
+  string ip = 2;
+  string port = 3;
+}
 
 message AirConditioning
 {
@@ -48,6 +54,12 @@ message Windows
     MALFUNCTION = 3;
   }
   Status status = 2;
+}
+message WindowsInfo
+{
+  string name = 1;
+  string ip = 2;
+  string port = 3;
 }
 message TempSensor
 {
