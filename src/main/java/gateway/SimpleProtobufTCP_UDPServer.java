@@ -46,12 +46,21 @@ public class SimpleProtobufTCP_UDPServer{
 
         // UDP Connections
         Thread threadUDP = new Thread(() ->{
-            DatagramSocket UdpSocket = new DatagramSocket(20000);
+            DatagramSocket UdpSocket = null;
+            try {
+                UdpSocket = new DatagramSocket(20000);
+            } catch (SocketException e) {
+                throw new RuntimeException(e);
+            }
             System.out.println("Servidor is Online");
             byte[] bufS = new byte[100];
             while (true) {
                 DatagramPacket inputReceive = new DatagramPacket(bufS, bufS.length);
-                UdpSocket.receive(inputReceive);
+                try {
+                    UdpSocket.receive(inputReceive);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 String textReceive = new String(inputReceive.getData());
                 System.out.println(textReceive);
             }

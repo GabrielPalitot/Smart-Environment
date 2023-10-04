@@ -5,8 +5,12 @@ import java.net.*;
 import com.google.protobuf.CodedInputStream;
 import com.house.objects.AirConditioningInfo;
 import com.house.objects.AirConditioning;
-public class ServerTest {
+public class ServerTest extends Thread{
 
+
+    public ServerTest(){
+
+    }
     public static void smartDiscovery(int portTCP){
         try {
             MulticastSocket socketMulti = new MulticastSocket(portTCP);
@@ -19,10 +23,11 @@ public class ServerTest {
             e.printStackTrace();
         }
     }
-    public static void main(String argv[]) {
-        int portTCP = 10000;
-        ServerSocket listenSocket;
+    public void run()//overrride thread method
+    {
         try {
+            int portTCP = 10000;
+            ServerSocket listenSocket;
             listenSocket = new ServerSocket(portTCP);
             smartDiscovery(portTCP);
             Socket connectionSocket = listenSocket.accept();
@@ -36,6 +41,12 @@ public class ServerTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public static void main(String argv[]) {
+
+            ServerTest thread = new ServerTest();
+            thread.start();
+
 
     }
 
