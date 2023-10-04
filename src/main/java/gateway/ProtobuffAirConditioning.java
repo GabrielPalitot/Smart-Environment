@@ -1,9 +1,11 @@
 package gateway;
 
+import com.google.protobuf.CodedOutputStream;
 import com.house.objects.AirConditioning;
 import java.io.IOException;
 import java.net.*;
-
+import com.house.objects.AirConditioningInfo;
+import com.house.objects.AirConditioning;
 
 public class ProtobuffAirConditioning {
     public enum StatusAirConditioning {
@@ -46,8 +48,34 @@ public class ProtobuffAirConditioning {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws UnknownHostException {
         ProtobuffAirConditioning air = new ProtobuffAirConditioning(true, StatusAirConditioning.STAND_BY, 20);
+
+        // Server is offline
+        boolean connectedServer = false;
+
+        // Instancing the message
+        AirConditioningInfo airCond = AirConditioningInfo.newBuilder()
+                .setName("AirConditioning123")
+                .setIp("127.0.0.1")
+                .setPorta("10000")
+                .build();
+
+        //while (!connectedServer){
+            try{
+                // open the connection
+                Socket socketAir = new Socket("localhost", 10000);
+                CodedOutputStream outAir = CodedOutputStream.newInstance(socketAir.getOutputStream());
+                outAir.writeInt32NoTag(airCond.getSerializedSize());
+                airCond.writeTo(outAir);
+
+                outAir.flush();
+                socketAir.close();
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+        //}
+
 
     }
 }

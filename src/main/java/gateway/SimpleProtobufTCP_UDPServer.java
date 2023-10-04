@@ -32,20 +32,8 @@ public class SimpleProtobufTCP_UDPServer extends Thread {
 				packet = new DatagramPacket(buf, buf.length, address, port);
 				String received = new String(packet.getData(), 0, packet.getLength());
 				System.out.println(received);
-				//Socket connectionSocket = listenSocket.accept();
-				//CodedInputStream in = CodedInputStream.newInstance(connectionSocket.getInputStream());
-				//int size = in.readInt32();
-				//Pessoa p = Pessoa.parseFrom(in);
-				//System.out.println(p.toString());
-				//System.out.println(size);
-
-				//ThreadSockets thread = new ThreadSockets(connectionSocket);
-
-				//thread.start();
-				// Checar o uso de parseDelimitedFrom()
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
