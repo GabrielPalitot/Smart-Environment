@@ -4,18 +4,18 @@
 package com.house.objects;
 
 /**
- * Protobuf type {@code intelligentHouse.AirConditioningInfo}
+ * Protobuf type {@code intelligentHouse.Info}
  */
-public final class AirConditioningInfo extends
+public final class Info extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:intelligentHouse.AirConditioningInfo)
-    AirConditioningInfoOrBuilder {
+    // @@protoc_insertion_point(message_implements:intelligentHouse.Info)
+    InfoOrBuilder {
 private static final long serialVersionUID = 0L;
-  // Use AirConditioningInfo.newBuilder() to construct.
-  private AirConditioningInfo(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+  // Use Info.newBuilder() to construct.
+  private Info(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
-  private AirConditioningInfo() {
+  private Info() {
     name_ = "";
     ip_ = "";
     port_ = "";
@@ -25,20 +25,20 @@ private static final long serialVersionUID = 0L;
   @SuppressWarnings({"unused"})
   protected java.lang.Object newInstance(
       UnusedPrivateParameter unused) {
-    return new AirConditioningInfo();
+    return new Info();
   }
 
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return com.house.objects.thingsOuterClass.internal_static_intelligentHouse_AirConditioningInfo_descriptor;
+    return com.house.objects.thingsOuterClass.internal_static_intelligentHouse_Info_descriptor;
   }
 
   @java.lang.Override
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return com.house.objects.thingsOuterClass.internal_static_intelligentHouse_AirConditioningInfo_fieldAccessorTable
+    return com.house.objects.thingsOuterClass.internal_static_intelligentHouse_Info_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            com.house.objects.AirConditioningInfo.class, com.house.objects.AirConditioningInfo.Builder.class);
+            com.house.objects.Info.class, com.house.objects.Info.Builder.class);
   }
 
   public static final int NAME_FIELD_NUMBER = 1;
@@ -209,10 +209,10 @@ private static final long serialVersionUID = 0L;
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof com.house.objects.AirConditioningInfo)) {
+    if (!(obj instanceof com.house.objects.Info)) {
       return super.equals(obj);
     }
-    com.house.objects.AirConditioningInfo other = (com.house.objects.AirConditioningInfo) obj;
+    com.house.objects.Info other = (com.house.objects.Info) obj;
 
     if (!getName()
         .equals(other.getName())) return false;
@@ -242,44 +242,44 @@ private static final long serialVersionUID = 0L;
     return hash;
   }
 
-  public static com.house.objects.AirConditioningInfo parseFrom(
+  public static com.house.objects.Info parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.house.objects.AirConditioningInfo parseFrom(
+  public static com.house.objects.Info parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.house.objects.AirConditioningInfo parseFrom(
+  public static com.house.objects.Info parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.house.objects.AirConditioningInfo parseFrom(
+  public static com.house.objects.Info parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.house.objects.AirConditioningInfo parseFrom(byte[] data)
+  public static com.house.objects.Info parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.house.objects.AirConditioningInfo parseFrom(
+  public static com.house.objects.Info parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.house.objects.AirConditioningInfo parseFrom(java.io.InputStream input)
+  public static com.house.objects.Info parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static com.house.objects.AirConditioningInfo parseFrom(
+  public static com.house.objects.Info parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -287,26 +287,26 @@ private static final long serialVersionUID = 0L;
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
 
-  public static com.house.objects.AirConditioningInfo parseDelimitedFrom(java.io.InputStream input)
+  public static com.house.objects.Info parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
 
-  public static com.house.objects.AirConditioningInfo parseDelimitedFrom(
+  public static com.house.objects.Info parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static com.house.objects.AirConditioningInfo parseFrom(
+  public static com.house.objects.Info parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static com.house.objects.AirConditioningInfo parseFrom(
+  public static com.house.objects.Info parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -319,7 +319,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(com.house.objects.AirConditioningInfo prototype) {
+  public static Builder newBuilder(com.house.objects.Info prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   @java.lang.Override
@@ -335,26 +335,26 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * Protobuf type {@code intelligentHouse.AirConditioningInfo}
+   * Protobuf type {@code intelligentHouse.Info}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:intelligentHouse.AirConditioningInfo)
-      com.house.objects.AirConditioningInfoOrBuilder {
+      // @@protoc_insertion_point(builder_implements:intelligentHouse.Info)
+      com.house.objects.InfoOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.house.objects.thingsOuterClass.internal_static_intelligentHouse_AirConditioningInfo_descriptor;
+      return com.house.objects.thingsOuterClass.internal_static_intelligentHouse_Info_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.house.objects.thingsOuterClass.internal_static_intelligentHouse_AirConditioningInfo_fieldAccessorTable
+      return com.house.objects.thingsOuterClass.internal_static_intelligentHouse_Info_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.house.objects.AirConditioningInfo.class, com.house.objects.AirConditioningInfo.Builder.class);
+              com.house.objects.Info.class, com.house.objects.Info.Builder.class);
     }
 
-    // Construct using com.house.objects.AirConditioningInfo.newBuilder()
+    // Construct using com.house.objects.Info.newBuilder()
     private Builder() {
 
     }
@@ -377,17 +377,17 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return com.house.objects.thingsOuterClass.internal_static_intelligentHouse_AirConditioningInfo_descriptor;
+      return com.house.objects.thingsOuterClass.internal_static_intelligentHouse_Info_descriptor;
     }
 
     @java.lang.Override
-    public com.house.objects.AirConditioningInfo getDefaultInstanceForType() {
-      return com.house.objects.AirConditioningInfo.getDefaultInstance();
+    public com.house.objects.Info getDefaultInstanceForType() {
+      return com.house.objects.Info.getDefaultInstance();
     }
 
     @java.lang.Override
-    public com.house.objects.AirConditioningInfo build() {
-      com.house.objects.AirConditioningInfo result = buildPartial();
+    public com.house.objects.Info build() {
+      com.house.objects.Info result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
@@ -395,14 +395,14 @@ private static final long serialVersionUID = 0L;
     }
 
     @java.lang.Override
-    public com.house.objects.AirConditioningInfo buildPartial() {
-      com.house.objects.AirConditioningInfo result = new com.house.objects.AirConditioningInfo(this);
+    public com.house.objects.Info buildPartial() {
+      com.house.objects.Info result = new com.house.objects.Info(this);
       if (bitField0_ != 0) { buildPartial0(result); }
       onBuilt();
       return result;
     }
 
-    private void buildPartial0(com.house.objects.AirConditioningInfo result) {
+    private void buildPartial0(com.house.objects.Info result) {
       int from_bitField0_ = bitField0_;
       if (((from_bitField0_ & 0x00000001) != 0)) {
         result.name_ = name_;
@@ -449,16 +449,16 @@ private static final long serialVersionUID = 0L;
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof com.house.objects.AirConditioningInfo) {
-        return mergeFrom((com.house.objects.AirConditioningInfo)other);
+      if (other instanceof com.house.objects.Info) {
+        return mergeFrom((com.house.objects.Info)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(com.house.objects.AirConditioningInfo other) {
-      if (other == com.house.objects.AirConditioningInfo.getDefaultInstance()) return this;
+    public Builder mergeFrom(com.house.objects.Info other) {
+      if (other == com.house.objects.Info.getDefaultInstance()) return this;
       if (!other.getName().isEmpty()) {
         name_ = other.name_;
         bitField0_ |= 0x00000001;
@@ -760,23 +760,23 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:intelligentHouse.AirConditioningInfo)
+    // @@protoc_insertion_point(builder_scope:intelligentHouse.Info)
   }
 
-  // @@protoc_insertion_point(class_scope:intelligentHouse.AirConditioningInfo)
-  private static final com.house.objects.AirConditioningInfo DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:intelligentHouse.Info)
+  private static final com.house.objects.Info DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new com.house.objects.AirConditioningInfo();
+    DEFAULT_INSTANCE = new com.house.objects.Info();
   }
 
-  public static com.house.objects.AirConditioningInfo getDefaultInstance() {
+  public static com.house.objects.Info getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<AirConditioningInfo>
-      PARSER = new com.google.protobuf.AbstractParser<AirConditioningInfo>() {
+  private static final com.google.protobuf.Parser<Info>
+      PARSER = new com.google.protobuf.AbstractParser<Info>() {
     @java.lang.Override
-    public AirConditioningInfo parsePartialFrom(
+    public Info parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -795,17 +795,17 @@ private static final long serialVersionUID = 0L;
     }
   };
 
-  public static com.google.protobuf.Parser<AirConditioningInfo> parser() {
+  public static com.google.protobuf.Parser<Info> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<AirConditioningInfo> getParserForType() {
+  public com.google.protobuf.Parser<Info> getParserForType() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.house.objects.AirConditioningInfo getDefaultInstanceForType() {
+  public com.house.objects.Info getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

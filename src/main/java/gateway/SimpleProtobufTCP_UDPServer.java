@@ -4,12 +4,12 @@ import java.net.*;
 public class SimpleProtobufTCP_UDPServer{
 
     // Realizes the discovery of smart Equipments in the network.
-    public static void smartDiscovery(int portTCP){
+    public static void smartDiscovery(int portMultiCast){
         try {
-            MulticastSocket socketMulti = new MulticastSocket(portTCP);
+            MulticastSocket socketMulti = new MulticastSocket(portMultiCast);
             InetAddress group = InetAddress.getByName("228.0.0.8"); // Mesmo endereço multicast
             String msgMulti = "Indentification";
-            DatagramPacket packet = new DatagramPacket(msgMulti.getBytes(), msgMulti.length(), group, portTCP);
+            DatagramPacket packet = new DatagramPacket(msgMulti.getBytes(), msgMulti.length(), group, portMultiCast);
             socketMulti.send(packet);
             socketMulti.close();
         } catch (Exception e){
@@ -17,25 +17,46 @@ public class SimpleProtobufTCP_UDPServer{
         }
     }
     public static void main(String[] args) throws IOException {
-
+        int portMultiCast = 15000;
         int portTCP = 10000;
+        int portUDP = 20000;
+        int portUserTCP = 11000;
 
         // Send Multicast Message
-        smartDiscovery(portTCP);
-
+        smartDiscovery(portMultiCast);
 
         // TCP Connections
-        Thread threadTCP = new Thread(() -> {
+        Thread threadTCPSmart = new Thread(() -> {
             try {
-                ServerSocket serverSocket = new ServerSocket(portTCP);
+                ServerSocket smartServerSocket = new ServerSocket(portTCP);
                 System.out.println("The port " + portTCP + " was open for TCP Connections");
 
                 while (true) {
-                    Socket socket = serverSocket.accept();
+                    Socket smartSocket = smartServerSocket.accept();
+                    System.out.println("Client " + smartSocket.getInetAddress().getHostAddress() + " connected via TCP.");
+
+                    // Init a new thread to resolve TCP connections
+                    ThreadSockets thread = new ThreadSockets(smartSocket);
+                    thread.start();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        threadTCPSmart.start();
+
+        /*
+        // User TCP Connection
+        Thread threadTCPUser = new Thread(() -> {
+            try {
+                ServerSocket userServerSocket = new ServerSocket(portUserTCP);
+
+                while (true) {
+                    Socket socket = userServerSocket.accept();
                     System.out.println("Client " + socket.getInetAddress().getHostAddress() + " connected via TCP.");
 
                     // Init a new thread to resolve TCP connections
-                    ThreadSockets thread = new ThreadSockets(socket);
+                    ThreadSocketsUser thread = new ThreadSocketsUser(socket);
                     thread.start();
                 }
             } catch (IOException e) {
@@ -48,7 +69,7 @@ public class SimpleProtobufTCP_UDPServer{
         Thread threadUDP = new Thread(() ->{
             DatagramSocket UdpSocket = null;
             try {
-                UdpSocket = new DatagramSocket(20000);
+                UdpSocket = new DatagramSocket(portUDP);
             } catch (SocketException e) {
                 throw new RuntimeException(e);
             }
@@ -66,7 +87,7 @@ public class SimpleProtobufTCP_UDPServer{
             }
         });
 
-
+            */
     }
 }
 

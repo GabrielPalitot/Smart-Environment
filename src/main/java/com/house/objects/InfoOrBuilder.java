@@ -3,8 +3,8 @@
 
 package com.house.objects;
 
-public interface LampInfoOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:intelligentHouse.LampInfo)
+public interface InfoOrBuilder extends
+    // @@protoc_insertion_point(interface_extends:intelligentHouse.Info)
     com.google.protobuf.MessageOrBuilder {
 
   /**

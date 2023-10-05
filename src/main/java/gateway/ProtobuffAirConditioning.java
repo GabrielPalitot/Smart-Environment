@@ -1,11 +1,12 @@
 package gateway;
 
+import com.google.protobuf.CodedInputStream;
 import com.google.protobuf.CodedOutputStream;
 import com.house.objects.AirConditioning;
 import java.io.IOException;
 import java.net.*;
-import com.house.objects.AirConditioningInfo;
 import com.house.objects.AirConditioning;
+import com.house.objects.Info;
 
 public class ProtobuffAirConditioning {
     public enum StatusAirConditioning {
@@ -14,21 +15,11 @@ public class ProtobuffAirConditioning {
         MALFUNCTION,
         STAND_BY
     }
-    private boolean connected;
+
     private StatusAirConditioning status;
     private int temperature;
 
-    public ProtobuffAirConditioning(boolean connected, StatusAirConditioning status, int temperature) {
-        this.connected = connected;
-        this.status = status;
-        this.temperature = temperature;
-    }
-    public boolean isConnected() {
-        return connected;
-    }
-
-    public void setConnected(boolean connected) {
-        this.connected = connected;
+    public ProtobuffAirConditioning() {
     }
 
     public StatusAirConditioning getStatus() {
@@ -47,29 +38,29 @@ public class ProtobuffAirConditioning {
         this.temperature = temperature;
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         int portTCP = 10000;
+        int portMultiCast = 15000;
         boolean connected = false;
-        ProtobuffAirConditioning air = new ProtobuffAirConditioning(true, StatusAirConditioning.STAND_BY, 20);
+
+        ProtobuffAirConditioning air = new ProtobuffAirConditioning();
 
         // Instancing the message
-        AirConditioningInfo airCond = AirConditioningInfo.newBuilder()
-                .setName("AirConditioning123")
+        Info airCond = Info.newBuilder()
+                .setName("AirConditioning")
                 .setIp("127.0.0.1")
                 .setPort("10000")
                 .build();
-        while (!connected)
+
+        while (!connected){
             try {
                 // open the connection
-                System.out.println("funfou");
                 Socket socketAir = new Socket("localhost", portTCP);
 
                 // Send Identification
                 CodedOutputStream outAir = CodedOutputStream.newInstance(socketAir.getOutputStream());
-                outAir.writeInt32NoTag(airCond.getSerializedSize());
-                airCond.writeTo(outAir);
+                outAir.writeMessageNoTag(airCond);
                 outAir.flush();
-
 
                 connected = true;
                 socketAir.close();
@@ -78,23 +69,25 @@ public class ProtobuffAirConditioning {
                 e.printStackTrace();
                 System.out.println("Server is Offline, please wait for it to come online");
 
-                MulticastSocket AirMultiSock = new MulticastSocket(portTCP);
+                MulticastSocket airMultiSock = new MulticastSocket(portMultiCast);
                 InetAddress group = InetAddress.getByName("228.0.0.8");
-                AirMultiSock.joinGroup(group);
+                airMultiSock.joinGroup(group);
 
                 byte[] bufAir = new byte[100];
                 DatagramPacket inputReceiveMsg = new DatagramPacket(bufAir, bufAir.length);
 
                 // waiting a message of Gateway (server)
                 while(true) {
-                    AirMultiSock.receive(inputReceiveMsg);
+                    airMultiSock.receive(inputReceiveMsg);
                     String textReceive = new String(inputReceiveMsg.getData(), 0, inputReceiveMsg.getLength());
                     System.out.println(textReceive);
                     if (textReceive.equalsIgnoreCase("Indentification")) {
+                        Thread.sleep(5000);
                         break;
                     }
                 }
             }
+        }
     }
 }
 

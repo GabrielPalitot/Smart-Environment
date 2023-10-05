@@ -56,10 +56,6 @@ private static final long serialVersionUID = 0L;
      * <code>MALFUNCTION = 3;</code>
      */
     MALFUNCTION(3),
-    /**
-     * <code>STAND_BY = 4;</code>
-     */
-    STAND_BY(4),
     UNRECOGNIZED(-1),
     ;
 
@@ -75,10 +71,6 @@ private static final long serialVersionUID = 0L;
      * <code>MALFUNCTION = 3;</code>
      */
     public static final int MALFUNCTION_VALUE = 3;
-    /**
-     * <code>STAND_BY = 4;</code>
-     */
-    public static final int STAND_BY_VALUE = 4;
 
 
     public final int getNumber() {
@@ -108,7 +100,6 @@ private static final long serialVersionUID = 0L;
         case 0: return TURNED_ON;
         case 1: return TURNED_OFF;
         case 3: return MALFUNCTION;
-        case 4: return STAND_BY;
         default: return null;
       }
     }

@@ -6,6 +6,13 @@ option java_package = "com.house.objects";
 option java_outer_classname = "thingsOuterClass";
 option java_multiple_files = true;
 
+message Info
+{
+  string name = 1;
+  string ip = 2;
+  string port = 3;
+}
+
 message Lamp
 {
   bool turn = 1;
@@ -17,12 +24,6 @@ message Lamp
   }
   Status status = 2;
 }
-message LampInfo
-{
-  string name = 1;
-  string ip = 2;
-  string port = 3;
-}
 
 message AirConditioning
 {
@@ -32,18 +33,11 @@ message AirConditioning
     TURNED_ON = 0;
     TURNED_OFF = 1;
     MALFUNCTION = 3;
-    STAND_BY = 4;
   }
   Status status = 2;
   int32 setting_temperature = 3;
 }
 
-message AirConditioningInfo
-{
-    string name = 1;
-    string ip = 2;
-    string port = 3;
-}
 message Windows
 {
   bool turn = 1;
@@ -55,12 +49,7 @@ message Windows
   }
   Status status = 2;
 }
-message WindowsInfo
-{
-  string name = 1;
-  string ip = 2;
-  string port = 3;
-}
+
 message TempSensor
 {
   int32 temperature = 1;

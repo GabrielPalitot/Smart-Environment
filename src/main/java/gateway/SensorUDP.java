@@ -50,6 +50,7 @@ public class SensorUDP extends Thread {
 
 public class SensorUDP{
     public static void main(String[] args) {
+        int portUDP = 20000;
         while (true) {
             try {
                 DatagramSocket socket = new DatagramSocket();
@@ -62,10 +63,10 @@ public class SensorUDP{
 
                 // the ip and port
                 InetAddress ip = InetAddress.getByName("127.0.0.1");
-                int port = 20000;
+
 
                 // Preparation to send
-                DatagramPacket OutputSend = new DatagramPacket(buf,buf.length,ip,port);
+                DatagramPacket OutputSend = new DatagramPacket(buf,buf.length,ip,portUDP);
                 socket.send(OutputSend);
             }catch (IOException e){
                 System.out.println("Server Offline, The connection will try be reestablished in 5 seconds ");

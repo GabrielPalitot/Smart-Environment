@@ -3,8 +3,7 @@ import java.io.*;
 import java.net.*;
 
 import com.google.protobuf.CodedInputStream;
-import com.house.objects.AirConditioningInfo;
-import com.house.objects.AirConditioning;
+
 public class ServerTest extends Thread{
 
 

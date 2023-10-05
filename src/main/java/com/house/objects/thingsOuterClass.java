@@ -15,35 +15,25 @@ public final class thingsOuterClass {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_intelligentHouse_Info_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_intelligentHouse_Info_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
     internal_static_intelligentHouse_Lamp_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_intelligentHouse_Lamp_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_intelligentHouse_LampInfo_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_intelligentHouse_LampInfo_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
     internal_static_intelligentHouse_AirConditioning_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_intelligentHouse_AirConditioning_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_intelligentHouse_AirConditioningInfo_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_intelligentHouse_AirConditioningInfo_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
     internal_static_intelligentHouse_Windows_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_intelligentHouse_Windows_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_intelligentHouse_WindowsInfo_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_intelligentHouse_WindowsInfo_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
     internal_static_intelligentHouse_TempSensor_descriptor;
   static final 
@@ -58,68 +48,52 @@ public final class thingsOuterClass {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\020livingroom.proto\022\020intelligentHouse\"}\n\004" +
-      "Lamp\022\014\n\004turn\030\001 \001(\010\022-\n\006status\030\002 \001(\0162\035.int" +
-      "elligentHouse.Lamp.Status\"8\n\006Status\022\r\n\tT" +
-      "URNED_ON\020\000\022\016\n\nTURNED_OFF\020\001\022\017\n\013MALFUNCTIO" +
-      "N\020\003\"2\n\010LampInfo\022\014\n\004name\030\001 \001(\t\022\n\n\002ip\030\002 \001(" +
-      "\t\022\014\n\004port\030\003 \001(\t\"\276\001\n\017AirConditioning\022\014\n\004t" +
-      "urn\030\001 \001(\010\0228\n\006status\030\002 \001(\0162(.intelligentH" +
-      "ouse.AirConditioning.Status\022\033\n\023setting_t" +
-      "emperature\030\003 \001(\005\"F\n\006Status\022\r\n\tTURNED_ON\020" +
-      "\000\022\016\n\nTURNED_OFF\020\001\022\017\n\013MALFUNCTION\020\003\022\014\n\010ST" +
-      "AND_BY\020\004\"=\n\023AirConditioningInfo\022\014\n\004name\030" +
-      "\001 \001(\t\022\n\n\002ip\030\002 \001(\t\022\014\n\004port\030\003 \001(\t\"z\n\007Windo" +
-      "ws\022\014\n\004turn\030\001 \001(\010\0220\n\006status\030\002 \001(\0162 .intel" +
-      "ligentHouse.Windows.Status\"/\n\006Status\022\010\n\004" +
-      "OPEN\020\000\022\n\n\006CLOSED\020\001\022\017\n\013MALFUNCTION\020\003\"5\n\013W" +
-      "indowsInfo\022\014\n\004name\030\001 \001(\t\022\n\n\002ip\030\002 \001(\t\022\014\n\004" +
-      "port\030\003 \001(\t\"!\n\nTempSensor\022\023\n\013temperature\030" +
-      "\001 \001(\005B\'\n\021com.house.objectsB\020thingsOuterC" +
-      "lassP\001b\006proto3"
+      "\n\020livingroom.proto\022\020intelligentHouse\".\n\004" +
+      "Info\022\014\n\004name\030\001 \001(\t\022\n\n\002ip\030\002 \001(\t\022\014\n\004port\030\003" +
+      " \001(\t\"}\n\004Lamp\022\014\n\004turn\030\001 \001(\010\022-\n\006status\030\002 \001" +
+      "(\0162\035.intelligentHouse.Lamp.Status\"8\n\006Sta" +
+      "tus\022\r\n\tTURNED_ON\020\000\022\016\n\nTURNED_OFF\020\001\022\017\n\013MA" +
+      "LFUNCTION\020\003\"\260\001\n\017AirConditioning\022\014\n\004turn\030" +
+      "\001 \001(\010\0228\n\006status\030\002 \001(\0162(.intelligentHouse" +
+      ".AirConditioning.Status\022\033\n\023setting_tempe" +
+      "rature\030\003 \001(\005\"8\n\006Status\022\r\n\tTURNED_ON\020\000\022\016\n" +
+      "\nTURNED_OFF\020\001\022\017\n\013MALFUNCTION\020\003\"z\n\007Window" +
+      "s\022\014\n\004turn\030\001 \001(\010\0220\n\006status\030\002 \001(\0162 .intell" +
+      "igentHouse.Windows.Status\"/\n\006Status\022\010\n\004O" +
+      "PEN\020\000\022\n\n\006CLOSED\020\001\022\017\n\013MALFUNCTION\020\003\"!\n\nTe" +
+      "mpSensor\022\023\n\013temperature\030\001 \001(\005B\'\n\021com.hou" +
+      "se.objectsB\020thingsOuterClassP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         });
-    internal_static_intelligentHouse_Lamp_descriptor =
+    internal_static_intelligentHouse_Info_descriptor =
       getDescriptor().getMessageTypes().get(0);
+    internal_static_intelligentHouse_Info_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_intelligentHouse_Info_descriptor,
+        new java.lang.String[] { "Name", "Ip", "Port", });
+    internal_static_intelligentHouse_Lamp_descriptor =
+      getDescriptor().getMessageTypes().get(1);
     internal_static_intelligentHouse_Lamp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_intelligentHouse_Lamp_descriptor,
         new java.lang.String[] { "Turn", "Status", });
-    internal_static_intelligentHouse_LampInfo_descriptor =
-      getDescriptor().getMessageTypes().get(1);
-    internal_static_intelligentHouse_LampInfo_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_intelligentHouse_LampInfo_descriptor,
-        new java.lang.String[] { "Name", "Ip", "Port", });
     internal_static_intelligentHouse_AirConditioning_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_intelligentHouse_AirConditioning_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_intelligentHouse_AirConditioning_descriptor,
         new java.lang.String[] { "Turn", "Status", "SettingTemperature", });
-    internal_static_intelligentHouse_AirConditioningInfo_descriptor =
-      getDescriptor().getMessageTypes().get(3);
-    internal_static_intelligentHouse_AirConditioningInfo_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_intelligentHouse_AirConditioningInfo_descriptor,
-        new java.lang.String[] { "Name", "Ip", "Port", });
     internal_static_intelligentHouse_Windows_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(3);
     internal_static_intelligentHouse_Windows_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_intelligentHouse_Windows_descriptor,
         new java.lang.String[] { "Turn", "Status", });
-    internal_static_intelligentHouse_WindowsInfo_descriptor =
-      getDescriptor().getMessageTypes().get(5);
-    internal_static_intelligentHouse_WindowsInfo_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_intelligentHouse_WindowsInfo_descriptor,
-        new java.lang.String[] { "Name", "Ip", "Port", });
     internal_static_intelligentHouse_TempSensor_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(4);
     internal_static_intelligentHouse_TempSensor_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_intelligentHouse_TempSensor_descriptor,
