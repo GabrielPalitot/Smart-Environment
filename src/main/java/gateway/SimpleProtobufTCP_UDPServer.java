@@ -1,29 +1,19 @@
 package gateway;
 import java.io.*;
 import java.net.*;
+
+import static utilities.MulticastUtils.*;
+
 public class SimpleProtobufTCP_UDPServer{
 
-    // Realizes the discovery of smart Equipments in the network.
-    public static void smartDiscovery(int portMultiCast){
-        try {
-            MulticastSocket socketMulti = new MulticastSocket(portMultiCast);
-            InetAddress group = InetAddress.getByName("228.0.0.8"); // Mesmo endereço multicast
-            String msgMulti = "Indentification";
-            DatagramPacket packet = new DatagramPacket(msgMulti.getBytes(), msgMulti.length(), group, portMultiCast);
-            socketMulti.send(packet);
-            socketMulti.close();
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-    }
     public static void main(String[] args) throws IOException {
-        int portMultiCast = 15000;
         int portTCP = 10000;
         int portUDP = 20000;
-        int portUserTCP = 11000;
+        int portMultiCast = 15000;
+        String hostMultiCast = "228.0.0.8";
 
         // Send Multicast Message
-        smartDiscovery(portMultiCast);
+        smartDiscovery(portMultiCast,hostMultiCast);
 
         // TCP Connections
         Thread threadTCPSmart = new Thread(() -> {

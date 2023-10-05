@@ -10,6 +10,10 @@ import java.io.*;
 import java.net.*;
 import java.util.HashMap;
 
+import utilities.ProtoUtils;
+
+import static utilities.ProtoUtils.*;
+
 
 public class ThreadSockets extends Thread {
         private Socket socket;
@@ -21,17 +25,10 @@ public class ThreadSockets extends Thread {
 
 
     public void run(){
-        //Print name of the Thread
-        System.out.println(Thread.currentThread().getId());
-
         HashMapUnique map = HashMapUnique.getInstance();
-
         try{
             CodedInputStream inServer = CodedInputStream.newInstance(socket.getInputStream());
-            int size = inServer.readRawVarint32();
-            int oldLimit = inServer.pushLimit(size);
-            Info inf = Info.parseFrom(inServer);
-            inServer.popLimit(oldLimit);
+            Info inf = receiveMessageProtoInfo(inServer);
 
             // add online services
             map.addInMap(inf.getName(),(int) Thread.currentThread().getId());
@@ -50,12 +47,9 @@ public class ThreadSockets extends Thread {
                         .setComando(initialMessage)
                         .build();
 
-                byte[] bytes = msgCond.toByteArray();
+
                 CodedOutputStream outServer = CodedOutputStream.newInstance(socket.getOutputStream());
-                outServer.writeByteArrayNoTag(bytes);
-                outServer.flush();
-
-
+                sendMessageProtoUser(outServer,msgCond);
             }
 
             socket.close();

@@ -11,19 +11,21 @@ import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.net.Socket;
 
+import static utilities.MulticastUtils.*;
+import static utilities.ProtoUtils.*;
+
 public class ProtobuffUser {
     public ProtobuffUser(){
 
     }
 
-    public static String stringFixBreakline(String string){
-        string.replaceAll("\\\\n", "\\n ");
-        return string;
-    }
+
 
     public static void main(String[] args) throws IOException, InterruptedException {
         int portTCP = 10000;
         int portMultiCast = 15000;
+        String hostMultiCast = "228.0.0.8";
+
         boolean connected = false;
 
         ProtobuffUser usr = new ProtobuffUser();
@@ -42,41 +44,21 @@ public class ProtobuffUser {
 
                 // Send Identification
                 CodedOutputStream outUsr = CodedOutputStream.newInstance(socketUsr.getOutputStream());
-                outUsr.writeMessageNoTag(usrCond);
-                outUsr.flush();
+                sendMessageProtoInfo(outUsr,usrCond);
 
-                    CodedInputStream inUsr = CodedInputStream.newInstance(socketUsr.getInputStream());
-                    int length = inUsr.readRawVarint32();
-                    byte[] bytes = inUsr.readRawBytes(length);
+                //Receive services online
+                CodedInputStream inUsr = CodedInputStream.newInstance(socketUsr.getInputStream());
+                User msgReceived = receiveMessageProtoUser(inUsr);
+                String Recebimento = msgReceived.getComando();
 
-                    User msgReceived = User.parseFrom(bytes);
-                    String Recebimento = msgReceived.getComando();
+                System.out.println(Recebimento);
 
-                    System.out.println(Recebimento);
-
+                //End of Connection
                 socketUsr.close();
                 connected=true;
             } catch (IOException e) {
                 e.printStackTrace();
-                System.out.println("Server is Offline, please wait for it to come online");
-
-                MulticastSocket usrMultiSock = new MulticastSocket(portMultiCast);
-                InetAddress group = InetAddress.getByName("228.0.0.8");
-                usrMultiSock.joinGroup(group);
-
-                byte[] bufUsr = new byte[100];
-                DatagramPacket inputReceiveMsg = new DatagramPacket(bufUsr, bufUsr.length);
-
-                // waiting a message of Gateway (server)
-                while(true) {
-                    usrMultiSock.receive(inputReceiveMsg);
-                    String textReceive = new String(inputReceiveMsg.getData(), 0, inputReceiveMsg.getLength());
-                    System.out.println(textReceive);
-                    if (textReceive.equalsIgnoreCase("Indentification")) {
-                        Thread.sleep(5000);
-                        break;
-                    }
-                }
+                smartReconnect(portMultiCast,hostMultiCast);
             }
 
         }
