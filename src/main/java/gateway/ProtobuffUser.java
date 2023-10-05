@@ -53,6 +53,9 @@ public class ProtobuffUser {
 
                 System.out.println(Recebimento);
 
+
+               //
+
                 //End of Connection
                 socketUsr.close();
                 connected=true;

@@ -6,6 +6,8 @@ import com.house.objects.Windows;
 import java.io.IOException;
 import java.net.*;
 
+import static utilities.MulticastUtils.smartReconnect;
+
 
 public class ProtobuffWindows {
     public enum StatusWindows {
@@ -37,6 +39,8 @@ public class ProtobuffWindows {
     public static void main(String[] args) throws IOException, InterruptedException {
         int portTCP = 10000;
         int portMultiCast = 15000;
+        String windowsMulticast = "228.0.0.8";
+
         boolean connected = false;
 
         ProtobuffWindows window = new ProtobuffWindows();
@@ -62,25 +66,7 @@ public class ProtobuffWindows {
 
             } catch (IOException e) {
                 e.printStackTrace();
-                System.out.println("Server is Offline, please wait for it to come online");
-
-                MulticastSocket windowMultiSock = new MulticastSocket(portMultiCast);
-                InetAddress group = InetAddress.getByName("228.0.0.8");
-                windowMultiSock.joinGroup(group);
-
-                byte[] bufWindow = new byte[100];
-                DatagramPacket inputReceiveMsg = new DatagramPacket(bufWindow, bufWindow.length);
-
-                // waiting a message of Gateway (server)
-                while(true) {
-                    windowMultiSock.receive(inputReceiveMsg);
-                    String textReceive = new String(inputReceiveMsg.getData(), 0, inputReceiveMsg.getLength());
-                    System.out.println(textReceive);
-                    if (textReceive.equalsIgnoreCase("Indentification")) {
-                        Thread.sleep(5000);
-                        break;
-                    }
-                }
+                smartReconnect(portMultiCast,windowsMulticast);
             }
         }
     }

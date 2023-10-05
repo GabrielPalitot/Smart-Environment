@@ -35,7 +35,7 @@ public class ThreadSockets extends Thread {
 
             System.out.println(inf.toString());
 
-            // USER SPACE
+            // USER SPACE Thread
             if (inf.getName().equals("user")){
                 String initialMessage = "Selecione o Servico Desejado:\n" +
                                         "1.Lampadas"+ (map.getFromMap("Lamp")!=null?" Online\n":" Offline\n")
@@ -50,6 +50,8 @@ public class ThreadSockets extends Thread {
 
                 CodedOutputStream outServer = CodedOutputStream.newInstance(socket.getOutputStream());
                 sendMessageProtoUser(outServer,msgCond);
+
+
             }
 
             socket.close();

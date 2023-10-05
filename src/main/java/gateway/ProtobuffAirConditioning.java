@@ -8,6 +8,8 @@ import java.net.*;
 import com.house.objects.AirConditioning;
 import com.house.objects.Info;
 
+import static utilities.MulticastUtils.smartReconnect;
+
 public class ProtobuffAirConditioning {
     public enum StatusAirConditioning {
         TURNED_ON,
@@ -67,25 +69,7 @@ public class ProtobuffAirConditioning {
 
             } catch (IOException e) {
                 e.printStackTrace();
-                System.out.println("Server is Offline, please wait for it to come online");
-
-                MulticastSocket airMultiSock = new MulticastSocket(portMultiCast);
-                InetAddress group = InetAddress.getByName("228.0.0.8");
-                airMultiSock.joinGroup(group);
-
-                byte[] bufAir = new byte[100];
-                DatagramPacket inputReceiveMsg = new DatagramPacket(bufAir, bufAir.length);
-
-                // waiting a message of Gateway (server)
-                while(true) {
-                    airMultiSock.receive(inputReceiveMsg);
-                    String textReceive = new String(inputReceiveMsg.getData(), 0, inputReceiveMsg.getLength());
-                    System.out.println(textReceive);
-                    if (textReceive.equalsIgnoreCase("Indentification")) {
-                        Thread.sleep(5000);
-                        break;
-                    }
-                }
+                smartReconnect(portMultiCast,AirConditioningMulticast);
             }
         }
     }
