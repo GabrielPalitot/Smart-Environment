@@ -1,7 +1,9 @@
 package gateway;
 
+import com.google.protobuf.CodedInputStream;
 import com.google.protobuf.CodedOutputStream;
 import com.house.objects.Info;
+import com.house.objects.User;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -9,9 +11,14 @@ import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.net.Socket;
 
-public class User {
-    public User(){
+public class ProtobuffUser {
+    public ProtobuffUser(){
 
+    }
+
+    public static String stringFixBreakline(String string){
+        string.replaceAll("\\\\n", "\\n ");
+        return string;
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
@@ -19,7 +26,7 @@ public class User {
         int portMultiCast = 15000;
         boolean connected = false;
 
-        User usr = new User();
+        ProtobuffUser usr = new ProtobuffUser();
 
         Info usrCond = Info.newBuilder()
                 .setName("user")
@@ -38,9 +45,17 @@ public class User {
                 outUsr.writeMessageNoTag(usrCond);
                 outUsr.flush();
 
-                connected = true;
-                socketUsr.close();
+                    CodedInputStream inUsr = CodedInputStream.newInstance(socketUsr.getInputStream());
+                    int length = inUsr.readRawVarint32();
+                    byte[] bytes = inUsr.readRawBytes(length);
 
+                    User msgReceived = User.parseFrom(bytes);
+                    String Recebimento = msgReceived.getComando();
+
+                    System.out.println(Recebimento);
+
+                socketUsr.close();
+                connected=true;
             } catch (IOException e) {
                 e.printStackTrace();
                 System.out.println("Server is Offline, please wait for it to come online");
@@ -63,6 +78,7 @@ public class User {
                     }
                 }
             }
+
         }
 
     }

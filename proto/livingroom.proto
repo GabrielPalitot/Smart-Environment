@@ -49,7 +49,10 @@ message Windows
   }
   Status status = 2;
 }
-
+message  User
+{
+  string comando = 1;
+}
 message TempSensor
 {
   int32 temperature = 1;

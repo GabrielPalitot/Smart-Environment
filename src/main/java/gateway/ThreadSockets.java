@@ -3,6 +3,7 @@ package gateway;
 import com.google.protobuf.CodedInputStream;
 import com.google.protobuf.CodedOutputStream;
 import com.house.objects.Info;
+import com.house.objects.User;
 
 import javax.swing.*;
 import java.io.*;
@@ -36,17 +37,24 @@ public class ThreadSockets extends Thread {
             map.addInMap(inf.getName(),(int) Thread.currentThread().getId());
 
             System.out.println(inf.toString());
+
+            // USER SPACE
             if (inf.getName().equals("user")){
-                /*CodedOutputStream outServer = CodedOutputStream.newInstance(socket.getOutputStream());
-                outWindow.writeMessageNoTag(windowCond);
-                outWindow.flush();*/
-                System.out.println(map.getFromMap("Lamp"));
-                while(true){
-                    if (map.getFromMap("Lamp") != null){
-                        int value = map.getFromMap("Lamp");
-                        System.out.println("Há uma lampada");
-                    }
-                }
+                String initialMessage = "Selecione o Servico Desejado:\n" +
+                                        "1.Lampadas"+ (map.getFromMap("Lamp")!=null?" Online\n":" Offline\n")
+                                        +"2.ArCondicionado" +(map.getFromMap("AirConditioning")!=null?" Online\n":" Offline\n")
+                                        +"3.Janela" +(map.getFromMap("window")!=null?" Online\n":" Offline\n")
+                                        +"4.Sensor"+ (map.getFromMap("sensor")!=null?" Online\n":" Offline\n");
+
+                User msgCond = User.newBuilder()
+                        .setComando(initialMessage)
+                        .build();
+
+                byte[] bytes = msgCond.toByteArray();
+                CodedOutputStream outServer = CodedOutputStream.newInstance(socket.getOutputStream());
+                outServer.writeByteArrayNoTag(bytes);
+                outServer.flush();
+
 
             }
 

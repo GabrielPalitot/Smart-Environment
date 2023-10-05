@@ -46,7 +46,7 @@ public class SimpleProtobufTCP_UDPServer{
         threadTCPSmart.start();
 
         /*
-        // User TCP Connection
+        // ProtobuffUser TCP Connection
         Thread threadTCPUser = new Thread(() -> {
             try {
                 ServerSocket userServerSocket = new ServerSocket(portUserTCP);

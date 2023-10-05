@@ -22,4 +22,19 @@ public class HashMapUnique {
         public synchronized Integer getFromMap(String key) {
             return sharedMap.get(key);
         }
+
+    public synchronized String getTotalFromMap() {
+        StringBuilder names = new StringBuilder();
+
+        for (String key : sharedMap.keySet()) {
+            names.append(key).append(", ");
+        }
+
+        // Remove comma on the final string
+        if (names.length() > 0) {
+            names.setLength(names.length() - 2);
+        }
+
+        return names.toString();
+    }
 }
