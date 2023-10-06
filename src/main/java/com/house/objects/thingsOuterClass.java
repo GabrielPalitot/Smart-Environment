@@ -66,7 +66,7 @@ public final class thingsOuterClass {
       "s\022\014\n\004turn\030\001 \001(\010\0220\n\006status\030\002 \001(\0162 .intell" +
       "igentHouse.Windows.Status\"/\n\006Status\022\010\n\004O" +
       "PEN\020\000\022\n\n\006CLOSED\020\001\022\017\n\013MALFUNCTION\020\003\"\027\n\004Us" +
-      "er\022\017\n\007comando\030\001 \001(\t\"!\n\nTempSensor\022\023\n\013tem" +
+      "er\022\017\n\007command\030\001 \001(\t\"!\n\nTempSensor\022\023\n\013tem" +
       "perature\030\001 \001(\005B\'\n\021com.house.objectsB\020thi" +
       "ngsOuterClassP\001b\006proto3"
     };
@@ -103,7 +103,7 @@ public final class thingsOuterClass {
     internal_static_intelligentHouse_User_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_intelligentHouse_User_descriptor,
-        new java.lang.String[] { "Comando", });
+        new java.lang.String[] { "Command", });
     internal_static_intelligentHouse_TempSensor_descriptor =
       getDescriptor().getMessageTypes().get(5);
     internal_static_intelligentHouse_TempSensor_fieldAccessorTable = new

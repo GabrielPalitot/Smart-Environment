@@ -3,6 +3,7 @@ package gateway;
 import com.google.protobuf.CodedInputStream;
 import com.google.protobuf.CodedOutputStream;
 import com.house.objects.Info;
+import com.house.objects.Lamp;
 import com.house.objects.User;
 
 import javax.swing.*;
@@ -26,6 +27,7 @@ public class ThreadSockets extends Thread {
 
     public void run(){
         HashMapUnique map = HashMapUnique.getInstance();
+        LinkedBlockingQueueUnique queue = LinkedBlockingQueueUnique.getInstance();
         try{
             CodedInputStream inServer = CodedInputStream.newInstance(socket.getInputStream());
             Info inf = receiveMessageProtoInfo(inServer);
@@ -37,30 +39,59 @@ public class ThreadSockets extends Thread {
 
             // USER SPACE Thread
             if (inf.getName().equals("user")){
-                String initialMessage = "Selecione o Servico Desejado:\n" +
-                                        "1.Lampadas"+ (map.getFromMap("Lamp")!=null?" Online\n":" Offline\n")
-                                        +"2.ArCondicionado" +(map.getFromMap("AirConditioning")!=null?" Online\n":" Offline\n")
-                                        +"3.Janela" +(map.getFromMap("window")!=null?" Online\n":" Offline\n")
-                                        +"4.Sensor"+ (map.getFromMap("sensor")!=null?" Online\n":" Offline\n");
+                    String initialMessage = "Selecione o Servico Desejado:\n" +
+                            "1.Lampadas" + (map.getFromMap("Lamp") != null ? "-Online\n" : "-Offline\n")
+                            + "2.ArCondicionado" + (map.getFromMap("AirConditioning") != null ? "-Online\n" : "-Offline\n")
+                            + "3.Janela" + (map.getFromMap("window") != null ? "-Online\n" : "-Offline\n")
+                            + "4.Sensor" + (map.getFromMap("sensor") != null ? "-Online\n" : "-Offline\n");
 
-                User msgCond = User.newBuilder()
-                        .setComando(initialMessage)
-                        .build();
+                    User msgCond = User.newBuilder()
+                            .setCommand(initialMessage)
+                            .build();
 
+                    //Send Onlines for user
+                    CodedOutputStream outServer = CodedOutputStream.newInstance(socket.getOutputStream());
+                    sendMessageProtoUser(outServer, msgCond);
 
-                CodedOutputStream outServer = CodedOutputStream.newInstance(socket.getOutputStream());
-                sendMessageProtoUser(outServer,msgCond);
-
-
+                    // waiting
+                    User msgReceivedFromUser = receiveMessageProtoUser(inServer);
+                    switch (msgReceivedFromUser.getCommand()){
+                        case "1":
+                            System.out.println("Apertou 1");
+                            queue.addInQueue("1");
+                            Thread.sleep(5000);
+                            String msgFromLamp = queue.getFromQueue();
+                            msgCond = User.newBuilder()
+                                    .setCommand(msgFromLamp)
+                                    .build();
+                            sendMessageProtoUser(outServer,msgCond);
+                            break;
+                        default:
+                            System.out.println("errou");
+                            break;
+                    };
             }
+
+            if (inf.getName().equals("Lamp")){
+                while(true){
+                    String command = queue.getFromQueue();
+                    CodedOutputStream outServer = CodedOutputStream.newInstance(socket.getOutputStream());
+
+                    User msgLampCond = User.newBuilder()
+                                    .setCommand(command)
+                                            .build();
+                    sendMessageProtoUser(outServer,msgLampCond);
+                    Lamp receivedLamp=receiveMessageProtoLamp(inServer);
+                    queue.addInQueue(receivedLamp.getStatus().toString());
+                }
+            }
+
+
+
+
             socket.close();
-            while (true)//keep the thread alive
-            {
 
-            }
-
-
-        } catch (IOException ioe){
+        } catch (Exception ioe){
             System.out.println("Erro " + ioe.toString());
         }
     }

@@ -51,7 +51,7 @@ message Windows
 }
 message  User
 {
-  string comando = 1;
+  string command = 1;
 }
 message TempSensor
 {

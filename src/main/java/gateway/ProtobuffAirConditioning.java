@@ -43,6 +43,7 @@ public class ProtobuffAirConditioning {
     public static void main(String[] args) throws IOException, InterruptedException {
         int portTCP = 10000;
         int portMultiCast = 15000;
+        String hostMulticast = "228.0.0.8";
         boolean connected = false;
 
         ProtobuffAirConditioning air = new ProtobuffAirConditioning();
@@ -69,7 +70,7 @@ public class ProtobuffAirConditioning {
 
             } catch (IOException e) {
                 e.printStackTrace();
-                smartReconnect(portMultiCast,AirConditioningMulticast);
+                smartReconnect(portMultiCast,hostMulticast);
             }
         }
     }

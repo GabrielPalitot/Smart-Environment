@@ -16,7 +16,7 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private User() {
-    comando_ = "";
+    command_ = "";
   }
 
   @java.lang.Override
@@ -39,39 +39,39 @@ private static final long serialVersionUID = 0L;
             com.house.objects.User.class, com.house.objects.User.Builder.class);
   }
 
-  public static final int COMANDO_FIELD_NUMBER = 1;
+  public static final int COMMAND_FIELD_NUMBER = 1;
   @SuppressWarnings("serial")
-  private volatile java.lang.Object comando_ = "";
+  private volatile java.lang.Object command_ = "";
   /**
-   * <code>string comando = 1;</code>
-   * @return The comando.
+   * <code>string command = 1;</code>
+   * @return The command.
    */
   @java.lang.Override
-  public java.lang.String getComando() {
-    java.lang.Object ref = comando_;
+  public java.lang.String getCommand() {
+    java.lang.Object ref = command_;
     if (ref instanceof java.lang.String) {
       return (java.lang.String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
       java.lang.String s = bs.toStringUtf8();
-      comando_ = s;
+      command_ = s;
       return s;
     }
   }
   /**
-   * <code>string comando = 1;</code>
-   * @return The bytes for comando.
+   * <code>string command = 1;</code>
+   * @return The bytes for command.
    */
   @java.lang.Override
   public com.google.protobuf.ByteString
-      getComandoBytes() {
-    java.lang.Object ref = comando_;
+      getCommandBytes() {
+    java.lang.Object ref = command_;
     if (ref instanceof java.lang.String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
               (java.lang.String) ref);
-      comando_ = b;
+      command_ = b;
       return b;
     } else {
       return (com.google.protobuf.ByteString) ref;
@@ -92,8 +92,8 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(comando_)) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, comando_);
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(command_)) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, command_);
     }
     getUnknownFields().writeTo(output);
   }
@@ -104,8 +104,8 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(comando_)) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, comando_);
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(command_)) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, command_);
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -122,8 +122,8 @@ private static final long serialVersionUID = 0L;
     }
     com.house.objects.User other = (com.house.objects.User) obj;
 
-    if (!getComando()
-        .equals(other.getComando())) return false;
+    if (!getCommand()
+        .equals(other.getCommand())) return false;
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
@@ -135,8 +135,8 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + COMANDO_FIELD_NUMBER;
-    hash = (53 * hash) + getComando().hashCode();
+    hash = (37 * hash) + COMMAND_FIELD_NUMBER;
+    hash = (53 * hash) + getCommand().hashCode();
     hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -268,7 +268,7 @@ private static final long serialVersionUID = 0L;
     public Builder clear() {
       super.clear();
       bitField0_ = 0;
-      comando_ = "";
+      command_ = "";
       return this;
     }
 
@@ -303,7 +303,7 @@ private static final long serialVersionUID = 0L;
     private void buildPartial0(com.house.objects.User result) {
       int from_bitField0_ = bitField0_;
       if (((from_bitField0_ & 0x00000001) != 0)) {
-        result.comando_ = comando_;
+        result.command_ = command_;
       }
     }
 
@@ -351,8 +351,8 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(com.house.objects.User other) {
       if (other == com.house.objects.User.getDefaultInstance()) return this;
-      if (!other.getComando().isEmpty()) {
-        comando_ = other.comando_;
+      if (!other.getCommand().isEmpty()) {
+        command_ = other.command_;
         bitField0_ |= 0x00000001;
         onChanged();
       }
@@ -383,7 +383,7 @@ private static final long serialVersionUID = 0L;
               done = true;
               break;
             case 10: {
-              comando_ = input.readStringRequireUtf8();
+              command_ = input.readStringRequireUtf8();
               bitField0_ |= 0x00000001;
               break;
             } // case 10
@@ -404,73 +404,73 @@ private static final long serialVersionUID = 0L;
     }
     private int bitField0_;
 
-    private java.lang.Object comando_ = "";
+    private java.lang.Object command_ = "";
     /**
-     * <code>string comando = 1;</code>
-     * @return The comando.
+     * <code>string command = 1;</code>
+     * @return The command.
      */
-    public java.lang.String getComando() {
-      java.lang.Object ref = comando_;
+    public java.lang.String getCommand() {
+      java.lang.Object ref = command_;
       if (!(ref instanceof java.lang.String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        comando_ = s;
+        command_ = s;
         return s;
       } else {
         return (java.lang.String) ref;
       }
     }
     /**
-     * <code>string comando = 1;</code>
-     * @return The bytes for comando.
+     * <code>string command = 1;</code>
+     * @return The bytes for command.
      */
     public com.google.protobuf.ByteString
-        getComandoBytes() {
-      java.lang.Object ref = comando_;
+        getCommandBytes() {
+      java.lang.Object ref = command_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        comando_ = b;
+        command_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
     /**
-     * <code>string comando = 1;</code>
-     * @param value The comando to set.
+     * <code>string command = 1;</code>
+     * @param value The command to set.
      * @return This builder for chaining.
      */
-    public Builder setComando(
+    public Builder setCommand(
         java.lang.String value) {
       if (value == null) { throw new NullPointerException(); }
-      comando_ = value;
+      command_ = value;
       bitField0_ |= 0x00000001;
       onChanged();
       return this;
     }
     /**
-     * <code>string comando = 1;</code>
+     * <code>string command = 1;</code>
      * @return This builder for chaining.
      */
-    public Builder clearComando() {
-      comando_ = getDefaultInstance().getComando();
+    public Builder clearCommand() {
+      command_ = getDefaultInstance().getCommand();
       bitField0_ = (bitField0_ & ~0x00000001);
       onChanged();
       return this;
     }
     /**
-     * <code>string comando = 1;</code>
-     * @param value The bytes for comando to set.
+     * <code>string command = 1;</code>
+     * @param value The bytes for command to set.
      * @return This builder for chaining.
      */
-    public Builder setComandoBytes(
+    public Builder setCommandBytes(
         com.google.protobuf.ByteString value) {
       if (value == null) { throw new NullPointerException(); }
       checkByteStringIsUtf8(value);
-      comando_ = value;
+      command_ = value;
       bitField0_ |= 0x00000001;
       onChanged();
       return this;

@@ -2,8 +2,7 @@ package utilities;
 
 import com.google.protobuf.CodedInputStream;
 import com.google.protobuf.CodedOutputStream;
-import com.house.objects.Info;
-import com.house.objects.User;
+import com.house.objects.*;
 
 import java.io.IOException;
 
@@ -31,6 +30,19 @@ public class ProtoUtils {
     public static void sendMessageProtoUser(CodedOutputStream out, User cond) throws IOException{
         byte[] bytes = cond.toByteArray();
         out.writeByteArrayNoTag(bytes);
+        out.flush();
+    }
+
+    public static Lamp receiveMessageProtoLamp(CodedInputStream in) throws IOException{
+        int size = in.readRawVarint32();
+        int oldLimit = in.pushLimit(size);
+        Lamp lamps = Lamp.parseFrom(in);
+        in.popLimit(oldLimit);
+        return lamps;
+    }
+
+    public static void sendMessageProtoLamp(CodedOutputStream out, Lamp cond) throws IOException{
+        out.writeMessageNoTag(cond);
         out.flush();
     }
 

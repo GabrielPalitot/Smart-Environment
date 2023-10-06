@@ -1,5 +1,7 @@
 package gateway;
 import java.util.HashMap;
+import java.util.concurrent.BlockingQueue;
+
 public class HashMapUnique {
         private static HashMapUnique instance;
         private HashMap<String, Integer> sharedMap = new HashMap<>();

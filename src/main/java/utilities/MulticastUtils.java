@@ -35,6 +35,7 @@ public class MulticastUtils {
             String textReceive = new String(inputReceiveMsg.getData(), 0, inputReceiveMsg.getLength());
             System.out.println(textReceive);
             if (textReceive.equalsIgnoreCase("Indentification")) {
+                usrMultiSock.leaveGroup(group);
                 Thread.sleep(5000);
                 break;
             }

@@ -1,40 +1,44 @@
 package gateway;
 
+import com.google.protobuf.CodedInputStream;
 import com.google.protobuf.CodedOutputStream;
 import com.house.objects.Info;
 import com.house.objects.Lamp;
+import com.house.objects.User;
+
 import java.io.IOException;
 import java.net.*;
 
-import static utilities.MulticastUtils.smartReconnect;
+import static utilities.MulticastUtils.*;
+import static utilities.ProtoUtils.*;
 
 
 public class ProtobuffLamp {
 
 
-    public enum StatusLamp {
+    public enum Status {
         TURNED_ON,
         TURNED_OFF,
         MALFUNCTION,
     }
-    private boolean connected;
-    private StatusLamp status;
+    private boolean turn;
+    private Status status;
 
     public ProtobuffLamp() {
     }
-    public boolean isConnected() {
-        return connected;
+    public boolean isTurn() {
+        return turn;
     }
 
-    public void setConnected(boolean connected) {
-        this.connected = connected;
+    public void setTurn(boolean turn) {
+        this.turn = turn;
     }
 
-    public StatusLamp getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(StatusLamp status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
@@ -45,7 +49,9 @@ public class ProtobuffLamp {
 
         boolean connected = false;
 
-        ProtobuffLamp Lamp = new ProtobuffLamp();
+        ProtobuffLamp lampOb = new ProtobuffLamp();
+        lampOb.setTurn(true);
+        lampOb.setStatus(Status.TURNED_ON);
 
         Info lampCond = Info.newBuilder()
                 .setName("Lamp")
@@ -63,16 +69,19 @@ public class ProtobuffLamp {
                 outLamp.writeMessageNoTag(lampCond);
                 outLamp.flush();
 
-                connected = true;
-                socketLamp.close();
+                CodedInputStream inLamp = CodedInputStream.newInstance(socketLamp.getInputStream());
+                User msgReceived = receiveMessageProtoUser(inLamp);
+                if (msgReceived.getCommand().equals("1")){
+                    Lamp msgCond = Lamp.newBuilder()
+                            .setTurn(lampOb.isTurn())
+                            .setStatus(Lamp.Status.TURNED_ON)
+                            .build();
 
-                //keep the process alive
-                while(true)
-                {
-
+                    sendMessageProtoLamp(outLamp,msgCond);
                 }
 
-
+                connected = true;
+                socketLamp.close();
             } catch (IOException e) {
                 e.printStackTrace();
                 smartReconnect(portMultiCast,lampMulticast);
@@ -81,5 +90,24 @@ public class ProtobuffLamp {
         }
     }
 }
+
+/*
+try {
+                    Lamp lampcondcond = Lamp.newBuilder()
+                                .setTurn(true)
+                                .setStatus(Lamp.Status.TURNED_ON)
+                                .build();
+
+                    System.out.println("Estou esperando uma mensagem do servidor");
+                    sendMessageProtoLamp(outLamp,lampcondcond);
+                }catch (IOException e){
+                        e.printStackTrace();
+                        smartReconnect(portMultiCast,lampMulticast);
+                }
+
+
+
+
+ */
 
 
