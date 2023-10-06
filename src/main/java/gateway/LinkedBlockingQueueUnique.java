@@ -35,4 +35,8 @@ public class LinkedBlockingQueueUnique {
         }
     }
 
+    public synchronized String watchFromQueue(){
+        return sharedQueue.peek();
+    }
+
 }

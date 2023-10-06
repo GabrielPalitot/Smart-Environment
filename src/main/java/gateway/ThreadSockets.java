@@ -59,7 +59,10 @@ public class ThreadSockets extends Thread {
                         case "1":
                             System.out.println("Apertou 1");
                             queue.addInQueue("1");
-                            Thread.sleep(5000);
+                            System.out.println(queue.watchFromQueue());
+
+                            Thread.sleep(10000);
+                            System.out.println(queue.watchFromQueue());
                             String msgFromLamp = queue.getFromQueue();
                             msgCond = User.newBuilder()
                                     .setCommand(msgFromLamp)
@@ -73,7 +76,7 @@ public class ThreadSockets extends Thread {
             }
 
             if (inf.getName().equals("Lamp")){
-                while(true){
+
                     String command = queue.getFromQueue();
                     CodedOutputStream outServer = CodedOutputStream.newInstance(socket.getOutputStream());
 
@@ -83,7 +86,7 @@ public class ThreadSockets extends Thread {
                     sendMessageProtoUser(outServer,msgLampCond);
                     Lamp receivedLamp=receiveMessageProtoLamp(inServer);
                     queue.addInQueue(receivedLamp.getStatus().toString());
-                }
+
             }
 
 
