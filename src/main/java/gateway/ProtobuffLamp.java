@@ -53,7 +53,6 @@ public class ProtobuffLamp {
                 .setPort("10000")
                 .build();
 
-
         while (!connected){
             try {
                 // open the connection
@@ -66,17 +65,19 @@ public class ProtobuffLamp {
 
                 connected = true;
                 socketLamp.close();
+
+                //keep the process alive
                 while(true)
                 {
 
-
-
                 }
+
 
             } catch (IOException e) {
                 e.printStackTrace();
                 smartReconnect(portMultiCast,lampMulticast);
             }
+
         }
     }
 }

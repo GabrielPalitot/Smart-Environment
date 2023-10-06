@@ -53,8 +53,13 @@ public class ThreadSockets extends Thread {
 
 
             }
-
             socket.close();
+            while (true)//keep the thread alive
+            {
+
+            }
+
+
         } catch (IOException ioe){
             System.out.println("Erro " + ioe.toString());
         }
