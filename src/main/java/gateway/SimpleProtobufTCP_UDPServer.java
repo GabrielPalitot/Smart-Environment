@@ -8,6 +8,7 @@ import java.net.*;
 import java.util.Scanner;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 import static utilities.CreateProtoMessage.*;
 import static utilities.MulticastUtils.*;
@@ -26,7 +27,9 @@ public class SimpleProtobufTCP_UDPServer{
         BlockingQueue<String> fifoLamp = new ArrayBlockingQueue<>(1);
         BlockingQueue<String> fifoAir = new ArrayBlockingQueue<>(1);
         BlockingQueue<String> fifoWindow = new ArrayBlockingQueue<>(1);
+        BlockingQueue<String> fifoSensor = new ArrayBlockingQueue<>(1);
         BlockingQueue<String> fifoCommun = new ArrayBlockingQueue<>(1);
+        BlockingQueue<String> fifoBlock = new ArrayBlockingQueue<>(1);
 
 
 
@@ -140,7 +143,6 @@ public class SimpleProtobufTCP_UDPServer{
                     if (modifiedAir == null){
                         User modifyNot = createUserMessage("not");
                         sendMessageProtoUser(outServer,modifyNot);
-                        //System.out.println("VOU MANDAR O NOT");
                     }
                     else {
                         if (modifiedAir.split(",")[0].equals("TURNED_OFF")){
@@ -239,6 +241,28 @@ public class SimpleProtobufTCP_UDPServer{
             }
         });
 
+        // UDP Connections
+        Thread threadUDP = new Thread(() ->{
+            DatagramSocket UdpSocket = null;
+            try {
+                UdpSocket = new DatagramSocket(portUDP);
+            } catch (SocketException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println("Servidor is Online");
+            byte[] bufS = new byte[100];
+            while (true) {
+                DatagramPacket inputReceive = new DatagramPacket(bufS, bufS.length);
+                try {
+                    UdpSocket.receive(inputReceive);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                String textReceive = new String(inputReceive.getData());
+                System.out.println(textReceive);
+            }
+        });
+
         threadTCPWindow.start();
         threadTCPLamp.start();
         threadTCPAir.start();
@@ -259,7 +283,7 @@ public class SimpleProtobufTCP_UDPServer{
 
             switch (readFromKeyboard) {
                 case "1":
-                    String informationLamp = fifoLamp.poll();
+                    String informationLamp = fifoLamp.peek();
                     if (informationLamp == null){
                         System.out.println("Lampada Indisponível no Momento");
                         break;
@@ -274,6 +298,7 @@ public class SimpleProtobufTCP_UDPServer{
                         if (readFromKeyboard.equals("1")){
                             System.out.println("Alterar pra OFF\n");
                             fifoCommun.put("TURNED_OFF");
+                           // fifoBlock.put("modificationSolicited");
                         }
                         break;
                     }
@@ -288,11 +313,12 @@ public class SimpleProtobufTCP_UDPServer{
                         if (readFromKeyboard.equals("1")){
                             System.out.println("Alterar pra ON\n");
                             fifoCommun.put("TURNED_ON");
+                          //  fifoBlock.put("modificationSolicited");
                         }
                         break;
                     }
                 case "2":
-                    String informationAir = fifoAir.poll();
+                    String informationAir = fifoAir.peek();
                     if (informationAir == null){
                         System.out.println("Ar-Condicionado Indisponível no Momento");
                         break;
@@ -333,7 +359,7 @@ public class SimpleProtobufTCP_UDPServer{
                     }
 
                 case "3":
-                    String informationWindow = fifoWindow.poll();
+                    String informationWindow = fifoWindow.peek();
                     if (informationWindow == null){
                         System.out.println("Janela Indisponível no Momento");
                         break;
@@ -365,53 +391,40 @@ public class SimpleProtobufTCP_UDPServer{
                         }
                         break;
                     }
-
-
-
-
-                    /*
-                case "2":
-                    System.out.println("Status do Ar-Condicionado: " + map2.getFromMap("AirConditioning"));
-                    System.out.println("Deseja " + (map2.getFromMap("AirConditioning").equals("TURNED_ON") ? "Desligar?\n Pressione 1 senão 2\n" : "Ligar? Pressione 1 senão 2\n"));
-                    System.out.println("Deseja " + (map2.getFromMap("AirConditioning").equals("TURNED_ON") ? "Desligar?\n Pressione 1 senão 2\n" : "Ligar? Pressione 1 senão 2\n"));
-                    break;
-                case "3":
-                    break;
-                case "4":
-                    break;
-                case "5":
-                    break;
-                /*
-
             }
         }
 
 
-        /*
-        // UDP Connections
-        Thread threadUDP = new Thread(() ->{
-            DatagramSocket UdpSocket = null;
+
+        // Create a lambda expression to run the UDP server code
+        Runnable serverTask = () -> {
             try {
-                UdpSocket = new DatagramSocket(portUDP);
-            } catch (SocketException e) {
-                throw new RuntimeException(e);
-            }
-            System.out.println("Servidor is Online");
-            byte[] bufS = new byte[100];
-            while (true) {
-                DatagramPacket inputReceive = new DatagramPacket(bufS, bufS.length);
-                try {
-                    UdpSocket.receive(inputReceive);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+                DatagramSocket socket = new DatagramSocket(20000);
+
+                while (true) {
+                    byte[] receiveData = new byte[1024];
+                    DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+
+                    // Receive the UDP packet
+                    socket.receive(receivePacket);
+
+                    // Extract the received message and its length
+                    String message = new String(receivePacket.getData(), 0, receivePacket.getLength());
+
+                    // Print the received message
+                    fifoSensor.clear();
+                    fifoSensor.put(message);
+                    System.out.println("sensor: " + message);
                 }
-                String textReceive = new String(inputReceive.getData());
-                System.out.println(textReceive);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        });
-            */
-            }
-        }
+        };
+
+        // Create a thread and start it to run the UDP server code
+        Thread serverThread = new Thread(serverTask);
+        serverThread.start();
+
     }
 }
 

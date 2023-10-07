@@ -120,6 +120,7 @@ public class ProtobuffAirConditioning {
                         System.out.println("NOVO STATUS " + receiveAirConditioning.getStatus().toString());
                         System.out.println("NOVA TEMPERATURA " + String.valueOf(receiveAirConditioning.getSettingTemperature()));
                         attAirConditioning(AirConditioningOb,receiveAirConditioning);
+
                     }
                     else if (receiveFromGateway.getCommand().equals("not")) {
                         //System.out.println("entrando aqui");

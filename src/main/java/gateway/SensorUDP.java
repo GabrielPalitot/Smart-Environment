@@ -58,7 +58,7 @@ public class SensorUDP{
 
                 // the message
                 byte[] buf = new byte[100];
-                String message = "27.0";
+                String message = "27.0\0";
                 buf = message.getBytes();
 
                 // the ip and port
