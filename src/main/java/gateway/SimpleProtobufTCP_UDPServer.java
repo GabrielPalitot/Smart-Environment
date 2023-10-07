@@ -91,6 +91,7 @@ public class SimpleProtobufTCP_UDPServer{
 
                 Info inf = receiveMessageProtoInfo(inServer);
                 System.out.println(inf.toString());
+
                 // add in HashMap the online services
                 map.addInMap(inf.getName(),(int) Thread.currentThread().getId());
 
@@ -105,6 +106,7 @@ public class SimpleProtobufTCP_UDPServer{
 
         boolean exit = false;
         while(!exit) {
+            Thread.sleep(5000);
             String initialMessage = "Selecione o Servico Desejado:\n" +
                     "1.Lampadas" + (map.getFromMap("Lamp") != null ? "-Online\n" : "-Offline\n")
                     + "2.ArCondicionado" + (map.getFromMap("AirConditioning") != null ? "-Online\n" : "-Offline\n")
@@ -120,7 +122,7 @@ public class SimpleProtobufTCP_UDPServer{
             switch (readFromKeyboard) {
                 case "1":
                     System.out.println("Status da Lâmpada: " + map2.getFromMap("Lamp"));
-                    System.out.println("Deseja " + (map2.getFromMap("Lamp").equals("TURNED_ON") ? "Desligar? Pressione 1 senão 2\n" : "Ligar? Pressione 1 senão 2\n"));
+                    System.out.println("Deseja " + (map2.getFromMap("Lamp").equals("TURNED_ON") ? "Desligar?\n Pressione 1 senão 2\n" : "Ligar? Pressione 1 senão 2\n"));
                     readFromKeyboard = scanner.nextLine();
                     if (readFromKeyboard.equalsIgnoreCase("1")) {
                         //todo modification
@@ -128,6 +130,9 @@ public class SimpleProtobufTCP_UDPServer{
                     }
                     break;
                 case "2":
+                    System.out.println("Status do Ar-Condicionado: " + map2.getFromMap("AirConditioning"));
+                    System.out.println("Deseja " + (map2.getFromMap("AirConditioning").equals("TURNED_ON") ? "Desligar?\n Pressione 1 senão 2\n" : "Ligar? Pressione 1 senão 2\n"));
+                    System.out.println("Deseja " + (map2.getFromMap("AirConditioning").equals("TURNED_ON") ? "Desligar?\n Pressione 1 senão 2\n" : "Ligar? Pressione 1 senão 2\n"));
                     break;
                 case "3":
                     break;
