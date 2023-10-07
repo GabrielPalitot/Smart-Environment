@@ -69,6 +69,7 @@ public class ProtobuffAirConditioning {
         AirConditioningOb.setName("AirConditioning");
         AirConditioningOb.setTurn(true);
         AirConditioningOb.setStatus(AirConditioning.Status.TURNED_ON);
+        AirConditioningOb.setTemperature(20);
 
         Info AirConditioningCond = Info.newBuilder()
                 .setName("AirConditioning")
@@ -94,12 +95,13 @@ public class ProtobuffAirConditioning {
 
                 // Information between AirConditioning and Gateway
                 while(true) {
-                    //System.out.println("aqui");
+
                     // Send Information Status
                     AirConditioning AirConditioningMsgCond = AirConditioning.newBuilder()
                             .setName(AirConditioningOb.getName())
                             .setTurn(AirConditioningOb.isTurn())
                             .setStatus(AirConditioningOb.getStatus())
+                            .setSettingTemperature(AirConditioningOb.getTemperature())
                             .build();
                     System.out.println(AirConditioningOb.getStatus().toString());
                     sendMessageProtoAirConditioning(outAirConditioning,AirConditioningMsgCond);

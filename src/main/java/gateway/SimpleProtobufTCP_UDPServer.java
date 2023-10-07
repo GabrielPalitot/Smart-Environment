@@ -139,7 +139,6 @@ public class SimpleProtobufTCP_UDPServer{
                     fifoAir.put(airConditioning.getStatus().toString()+","+String.valueOf(airConditioning.getSettingTemperature()));
 
                     String modifiedAir = fifoCommun.poll();
-                    //System.out.println("MODIFICADA LAMPADA: "+modifiedLamp);
                     if (modifiedAir == null){
                         User modifyNot = createUserMessage("not");
                         sendMessageProtoUser(outServer,modifyNot);

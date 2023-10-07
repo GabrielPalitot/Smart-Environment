@@ -17,6 +17,8 @@ public class ModificationClasses {
     public static void attAirConditioning(ProtobuffAirConditioning airOb, AirConditioning msgCond ){
         airOb.setTurn(msgCond.getTurn());
         airOb.setStatus(msgCond.getStatus());
+        //System.out.println(msgCond.getSettingTemperature());
+        airOb.setTemperature(msgCond.getSettingTemperature());
     }
 
 }
