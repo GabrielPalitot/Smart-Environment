@@ -10,16 +10,13 @@ import static utilities.MulticastUtils.smartReconnect;
 
 
 public class ProtobuffWindows {
-    public enum StatusWindows {
-        OPEN,
-        CLOSED,
-        MALFUNCTION,
-    }
+
     private boolean connected;
-    private StatusWindows status;
+    private Windows.Status status;
 
     public ProtobuffWindows() {
     }
+
     public boolean isConnected() {
         return connected;
     }
@@ -28,11 +25,11 @@ public class ProtobuffWindows {
         this.connected = connected;
     }
 
-    public StatusWindows getStatus() {
+    public Windows.Status getStatus() {
         return status;
     }
 
-    public void setStatus(StatusWindows status) {
+    public void setStatus(Windows.Status status) {
         this.status = status;
     }
 
@@ -44,6 +41,8 @@ public class ProtobuffWindows {
         boolean connected = false;
 
         ProtobuffWindows window = new ProtobuffWindows();
+        window.setConnected(true);
+        window.setStatus(Windows.Status.OPEN);
 
         Info windowCond = Info.newBuilder()
                 .setName("window")

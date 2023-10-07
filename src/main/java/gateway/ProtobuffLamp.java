@@ -11,34 +11,36 @@ import java.net.*;
 
 import static utilities.MulticastUtils.*;
 import static utilities.ProtoUtils.*;
+import static utilities.ModificationClasses.*;
 
 
 public class ProtobuffLamp {
 
-
-    public enum Status {
-        TURNED_ON,
-        TURNED_OFF,
-        MALFUNCTION,
-    }
+    private String name;
     private boolean turn;
-    private Status status;
+    private Lamp.Status status;
 
     public ProtobuffLamp() {
     }
+    public String getName(){
+        return this.name;
+    }
+    public void setName(String name){
+        this.name = name;
+    }
+
     public boolean isTurn() {
         return turn;
     }
-
     public void setTurn(boolean turn) {
         this.turn = turn;
     }
 
-    public Status getStatus() {
+    public Lamp.Status getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(Lamp.Status status) {
         this.status = status;
     }
 
@@ -48,10 +50,12 @@ public class ProtobuffLamp {
         String lampMulticast = "228.0.0.8";
 
         boolean connected = false;
+        boolean falseEver = false;
 
         ProtobuffLamp lampOb = new ProtobuffLamp();
+        lampOb.setName("Lamp");
         lampOb.setTurn(true);
-        lampOb.setStatus(Status.TURNED_ON);
+        lampOb.setStatus(Lamp.Status.TURNED_ON);
 
         Info lampCond = Info.newBuilder()
                 .setName("Lamp")
@@ -64,7 +68,8 @@ public class ProtobuffLamp {
                 // open the connection
                 Socket socketLamp = new Socket("localhost", portTCP);
 
-                // Send Identification
+                // Declaring in and out services
+                CodedInputStream inLamp = CodedInputStream.newInstance(socketLamp.getInputStream());
                 CodedOutputStream outLamp = CodedOutputStream.newInstance(socketLamp.getOutputStream());
 
                 // Send the Identification

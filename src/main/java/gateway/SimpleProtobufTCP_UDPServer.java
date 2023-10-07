@@ -6,6 +6,7 @@ import com.house.objects.Lamp;
 
 import java.io.*;
 import java.net.*;
+import java.util.Scanner;
 
 import static utilities.MulticastUtils.*;
 import static utilities.ProtoUtils.receiveMessageProtoInfo;
@@ -14,16 +15,22 @@ import static utilities.ProtoUtils.receiveMessageProtoLamp;
 public class SimpleProtobufTCP_UDPServer{
 
     public static void main(String[] args) throws IOException {
-        int portTCP = 10000;
+        int portTCPLamp = 10000;
+        int portTCPAir = 11000;
+        int portTCPWindow = 12000;
         int portUDP = 20000;
         int portMultiCast = 15000;
+
+        HashMapUnique map = HashMapUnique.getInstance();
+        HashMapUnique2 map2 = HashMapUnique2.getInstance();
+
         String hostMultiCast = "228.0.0.8";
 
         // Send Multicast Message
         smartDiscovery(portMultiCast,hostMultiCast);
 
         // TCP Connections
-        Thread threadTCPSmart = new Thread(() -> {
+        Thread threadTCPLamp = new Thread(() -> {
             try {
                 ServerSocket lampServerSocket = new ServerSocket(portTCPLamp);
                 Socket smartSocketLamp = lampServerSocket.accept();
@@ -51,28 +58,88 @@ public class SimpleProtobufTCP_UDPServer{
                 e.printStackTrace();
             }
         });
-        threadTCPSmart.start();
 
-        /*
-        // ProtobuffUser TCP Connection
-        Thread threadTCPUser = new Thread(() -> {
-            try {
-                ServerSocket userServerSocket = new ServerSocket(portUserTCP);
+        Thread threadTCPAirConditioning = new Thread(() ->{
+           try{
+               ServerSocket airServerSocket = new ServerSocket(portTCPAir);
+               Socket smartSocketAir = airServerSocket.accept();
+               System.out.println("The port " + portTCPAir + " was open for TCP Connection");
 
-                while (true) {
-                    Socket socket = userServerSocket.accept();
-                    System.out.println("Client " + socket.getInetAddress().getHostAddress() + " connected via TCP.");
+               CodedInputStream inServer = CodedInputStream.newInstance(smartSocketAir.getInputStream());
+               CodedOutputStream outServer = CodedOutputStream.newInstance(smartSocketAir.getOutputStream());
 
-                    // Init a new thread to resolve TCP connections
-                    ThreadSocketsUser thread = new ThreadSocketsUser(socket);
-                    thread.start();
-                }
-            } catch (IOException e) {
+               Info inf = receiveMessageProtoInfo(inServer);
+               System.out.println(inf.toString());
+               // add in HashMap the online services
+               map.addInMap(inf.getName(),(int) Thread.currentThread().getId());
+
+               System.out.println("Client " +smartSocketAir.getInetAddress().getHostAddress() + " connected via TCP.");
+               System.out.println("Hello");
+           }catch (Exception e){
+               e.printStackTrace();
+           }
+        });
+
+        Thread threadTCPWindow = new Thread(() ->{
+            try{
+                ServerSocket windowServerSocket = new ServerSocket(portTCPWindow);
+                Socket smartSocketWindow = windowServerSocket.accept();
+                System.out.println("The port " + portTCPWindow + " was open for TCP Connection");
+
+                CodedInputStream inServer = CodedInputStream.newInstance(smartSocketWindow.getInputStream());
+                CodedOutputStream outServer = CodedOutputStream.newInstance(smartSocketWindow.getOutputStream());
+
+                Info inf = receiveMessageProtoInfo(inServer);
+                System.out.println(inf.toString());
+                // add in HashMap the online services
+                map.addInMap(inf.getName(),(int) Thread.currentThread().getId());
+
+            }catch (Exception e){
                 e.printStackTrace();
             }
         });
+        threadTCPLamp.start();
+        threadTCPWindow.start();
+        threadTCPAirConditioning.start();
+
+        boolean exit = 0;
+        while(!exit) {
+            String initialMessage = "Selecione o Servico Desejado:\n" +
+                    "1.Lampadas" + (map.getFromMap("Lamp") != null ? "-Online\n" : "-Offline\n")
+                    + "2.ArCondicionado" + (map.getFromMap("AirConditioning") != null ? "-Online\n" : "-Offline\n")
+                    + "3.Janela" + (map.getFromMap("window") != null ? "-Online\n" : "-Offline\n")
+                    + "4.Sensor" + (map.getFromMap("sensor") != null ? "-Online\n" : "-Offline\n")
+                    + "5.Sair da Aplicação";
+
+            Scanner scanner = new Scanner(System.in);
+            System.out.println(initialMessage);
+            String readFromKeyboard = scanner.nextLine();
 
 
+            switch (readFromKeyboard) {
+                case "1":
+                    System.out.println("Status da Lâmpada: " + map2.getFromMap("Lamp"));
+                    System.out.println("Deseja " + (map2.getFromMap("Lamp").equals("TURNED_ON") ? "Desligar? Pressione 1 senão 2\n" : "Ligar? Pressione 1 senão 2\n"));
+                    readFromKeyboard = scanner.nextLine();
+                    if (readFromKeyboard.equalsIgnoreCase("1")) {
+                        //todo modification
+                    }
+                    break;
+                case "2":
+                    break;
+                case "3":
+                    break;
+                case "4":
+                    break;
+                case "5":
+                    break;
+
+
+            }
+        }
+
+
+        /*
         // UDP Connections
         Thread threadUDP = new Thread(() ->{
             DatagramSocket UdpSocket = null;

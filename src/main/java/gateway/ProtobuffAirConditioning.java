@@ -11,24 +11,19 @@ import com.house.objects.Info;
 import static utilities.MulticastUtils.smartReconnect;
 
 public class ProtobuffAirConditioning {
-    public enum StatusAirConditioning {
-        TURNED_ON,
-        TURNED_OFF,
-        MALFUNCTION,
-        STAND_BY
-    }
 
-    private StatusAirConditioning status;
+    private boolean turn;
+    private AirConditioning.Status status;
     private int temperature;
 
     public ProtobuffAirConditioning() {
     }
 
-    public StatusAirConditioning getStatus() {
+    public AirConditioning.Status getStatus() {
         return status;
     }
 
-    public void setStatus(StatusAirConditioning status) {
+    public void setStatus(AirConditioning.Status status) {
         this.status = status;
     }
 
@@ -40,13 +35,23 @@ public class ProtobuffAirConditioning {
         this.temperature = temperature;
     }
 
+    public boolean isTurn(){
+        return this.turn;
+    }
+    public void setTurn(boolean turn){
+        this.turn = turn;
+    }
+
     public static void main(String[] args) throws IOException, InterruptedException {
-        int portTCP = 10000;
+        int portTCP = 11000;
         int portMultiCast = 15000;
         String hostMulticast = "228.0.0.8";
         boolean connected = false;
 
         ProtobuffAirConditioning air = new ProtobuffAirConditioning();
+        air.setTurn(true);
+        air.setStatus(AirConditioning.Status.TURNED_ON);
+        air.setTemperature(20);
 
         // Instancing the message
         Info airCond = Info.newBuilder()
