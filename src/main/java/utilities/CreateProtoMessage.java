@@ -31,12 +31,25 @@ public class CreateProtoMessage {
     }
 
 
-    public static AirConditioning modifyAirMessage(AirConditioning.Status command){
-        AirConditioning airModified = AirConditioning.newBuilder()
-                .setName("AirConditioning")
-                .setTurn(true)
-                .setStatus(command)
-                .build();
+    public static AirConditioning modifyAirMessage(String command) {
+        String[] parts = command.split(",", 2);
+        String part1 = parts[0];
+        String part2 = parts[1];
+        int temperature = Integer.parseInt(part2);
+        System.out.println(temperature);
+        AirConditioning.Status status;
+
+        if (part1.equals("TURNED_ON")) {
+            status = AirConditioning.Status.TURNED_ON;
+        }else {
+            status = AirConditioning.Status.TURNED_OFF;
+        }
+            AirConditioning airModified = AirConditioning.newBuilder()
+                    .setName("AirConditioning")
+                    .setTurn(true)
+                    .setStatus(status)
+                    .setSettingTemperature(temperature)
+                    .build();
         return airModified;
     }
 }

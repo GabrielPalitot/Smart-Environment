@@ -116,6 +116,7 @@ public class ProtobuffAirConditioning {
                         // receiving new information
                         AirConditioning receiveAirConditioning = receiveMessageProtoAirConditioning(inAirConditioning);
                         System.out.println("NOVO STATUS " + receiveAirConditioning.getStatus().toString());
+                        System.out.println("NOVA TEMPERATURA " + String.valueOf(receiveAirConditioning.getSettingTemperature()));
                         attAirConditioning(AirConditioningOb,receiveAirConditioning);
                     }
                     else if (receiveFromGateway.getCommand().equals("not")) {

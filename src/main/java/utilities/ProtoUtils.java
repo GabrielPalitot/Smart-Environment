@@ -6,7 +6,7 @@ import com.house.objects.*;
 
 import java.io.IOException;
 
-public class ProtoUtils {
+public class    ProtoUtils {
     public static Info receiveMessageProtoInfo(CodedInputStream in) throws IOException {
         int size = in.readRawVarint32();
         int oldLimit = in.pushLimit(size);

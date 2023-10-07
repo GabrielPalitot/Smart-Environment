@@ -136,7 +136,7 @@ public class SimpleProtobufTCP_UDPServer{
                     AirConditioning airConditioning = receiveMessageProtoAirConditioning(inServer);
                     //clear the fifo for update the lamp status
                     fifoAir.clear();
-                    fifoAir.put(airConditioning.getStatus().toString());
+                    fifoAir.put(airConditioning.getStatus().toString()+","+String.valueOf(airConditioning.getSettingTemperature()));
 
                     String modifiedAir = fifoCommun.poll();
                     //System.out.println("MODIFICADA LAMPADA: "+modifiedLamp);
@@ -146,24 +146,25 @@ public class SimpleProtobufTCP_UDPServer{
                         //System.out.println("VOU MANDAR O NOT");
                     }
                     else {
-                        if (modifiedAir.equals("TURNED_OFF")){
+                        if (modifiedAir.split(",")[0].equals("TURNED_OFF")){
                             //System.out.println("entrei no OFF");
                             User modifyYes = createUserMessage("mod");
                             sendMessageProtoUser(outServer,modifyYes);
 
                             User acknowReceiveWindow = receiveMessageProtoUser(inServer);
-
-                            AirConditioning newAir = modifyAirMessage(AirConditioning.Status.TURNED_OFF);
+                            String mod = "TURNED_OFF,"+modifiedAir.split(",")[1];
+                            AirConditioning newAir = modifyAirMessage(mod);
                             sendMessageProtoAirConditioning(outServer,newAir);
                         }
-                        else if (modifiedAir.equals("TURNED_ON")){
+                        else if (modifiedAir.split(",")[0].equals("TURNED_ON")){
                             //System.out.println("Entrei no ON");
                             User modifyYes = createUserMessage("mod");
                             sendMessageProtoUser(outServer,modifyYes);
 
                             User acknowReceiveWindow = receiveMessageProtoUser(inServer);
+                            String mod = "TURNED_ON,"+modifiedAir.split(",")[1];;
 
-                            AirConditioning newAir = modifyAirMessage(AirConditioning.Status.TURNED_ON);
+                            AirConditioning newAir = modifyAirMessage(mod);
                             sendMessageProtoAirConditioning(outServer, newAir);
                         }
                     }
@@ -299,20 +300,27 @@ public class SimpleProtobufTCP_UDPServer{
                         System.out.println("Ar-Condicionado Indisponível no Momento");
                         break;
                     }
-                    else if (informationAir.equals("TURNED_ON"))
+                    else if (informationAir.split(",")[0].equals("TURNED_ON"))
                     {
-                        System.out.println("Status do Ar-Condicionado: \n" + informationAir);
-                        System.out.println("Deseja Desligar? Pressione 1, se deseja sair pressione 2");
+                        System.out.println("Status do Ar-Condicionado: " + informationAir.split(",")[0] + " Temperatura: " +informationAir.split(",")[1]);
+                        System.out.println("\nPressione:\n 1 - Desigar\n 2 -Alterar a temperatura\n 3 - Sair");
                         readFromKeyboard = "";
                         readFromKeyboard = scanner.nextLine();
 
                         if (readFromKeyboard.equals("1")){
                             System.out.println("Alterar pra OFF\n");
-                            fifoCommun.put("TURNED_OFF");
+                            fifoCommun.put("TURNED_OFF,"+informationAir.split(",")[1]);
+                        }else if(readFromKeyboard.equals("2"))
+                        {
+                            System.out.println("\nDigite a tempertura entre 16-28ºC :\n");
+                            readFromKeyboard = "";
+                            readFromKeyboard = scanner.nextLine();
+                            fifoCommun.put(informationAir.split(",")[0]+","+readFromKeyboard);
+
                         }
                         break;
                     }
-                    else if (informationAir.equals("TURNED_OFF"))
+                    else if (informationAir.split(",")[0].equals("TURNED_OFF"))
                     {
                         System.out.println("Status do Ar-Condicionado: \n" + informationAir);
                         System.out.println("Deseja Ligar? Pressione 1, se deseja sair pressione 2");
@@ -322,7 +330,7 @@ public class SimpleProtobufTCP_UDPServer{
 
                         if (readFromKeyboard.equals("1")){
                             System.out.println("Alterar pra ON\n");
-                            fifoCommun.put("TURNED_ON");
+                            fifoCommun.put("TURNED_ON,"+informationAir.split(",")[1]);
                         }
                         break;
                     }
