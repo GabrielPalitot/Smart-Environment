@@ -66,8 +66,9 @@ public class SimpleProtobufTCP_UDPServer{
 
                 while(true)
                 {
-                    System.out.println("Reiniciou");
+                    //System.out.println("Reiniciou");
                     Lamp lamp = receiveMessageProtoLamp(inServer);
+                    //clear the fifo for update the lamp status
                     fifoLamp.clear();
                     fifoLamp.put(lamp.getStatus().toString());
 
@@ -76,11 +77,11 @@ public class SimpleProtobufTCP_UDPServer{
                     if (modifiedLamp == null){
                         User modifyNot = createUserMessage("not");
                         sendMessageProtoUser(outServer,modifyNot);
-                        System.out.println("VOU MANDAR O NOT");
+                        //System.out.println("VOU MANDAR O NOT");
                     }
                     else {
                         if (modifiedLamp.equals("TURNED_OFF")) {
-                            System.out.println("entrei no ON");
+                            System.out.println("entrei no OFF");
                             User modifyYes = createUserMessage("mod");
                             sendMessageProtoUser(outServer,modifyYes);
 
@@ -90,7 +91,7 @@ public class SimpleProtobufTCP_UDPServer{
                             sendMessageProtoLamp(outServer, newLamp);
                         }
                         else if (modifiedLamp.equals("TURNED_ON")){
-                            System.out.println("Entrei no OFF");
+                            System.out.println("Entrei no ON");
                             User modifyYes = createUserMessage("mod");
                             sendMessageProtoUser(outServer,modifyYes);
 
@@ -127,11 +128,11 @@ public class SimpleProtobufTCP_UDPServer{
             switch (readFromKeyboard) {
                 case "1":
                     String informationLamp = fifoLamp.poll();
-                    if (informationLamp == null){
+                    if (informationLamp.equals(null)){
                         System.out.println("Lampada Indisponível no Momento");
                         break;
                     }
-                    else if (informationLamp == "TURNED_ON")
+                    else if (informationLamp.equals("TURNED_ON"))
                     {
                         System.out.println("Status da Lâmpada: \n" + informationLamp);
                         System.out.println("Deseja Desligar? Pressione 1, se deseja sair pressione 2");
@@ -139,20 +140,21 @@ public class SimpleProtobufTCP_UDPServer{
                         readFromKeyboard = scanner.nextLine();
 
                         if (readFromKeyboard.equals("1")){
-                            System.out.println("Alterar pra OFF");
+                            System.out.println("Alterar pra OFF\n");
                             fifoCommun.put("TURNED_OFF");
                         }
                         break;
                     }
-                    else if (informationLamp == "TURNED_OFF")
+                    else if (informationLamp.equals("TURNED_OFF"))
                     {
                         System.out.println("Status da Lâmpada: \n" + informationLamp);
                         System.out.println("Deseja Ligar? Pressione 1, se deseja sair pressione 2");
                         readFromKeyboard = "";
                         readFromKeyboard = scanner.nextLine();
+                        System.out.println("entrou aqui");
 
-                        if (readFromKeyboard  == "1"){
-                            System.out.println("Alterar pra ON");
+                        if (readFromKeyboard.equals("1")){
+                            System.out.println("Alterar pra ON\n");
                             fifoCommun.put("TURNED_ON");
                         }
                         break;
