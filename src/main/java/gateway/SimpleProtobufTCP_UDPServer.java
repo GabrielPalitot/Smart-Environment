@@ -240,7 +240,7 @@ public class SimpleProtobufTCP_UDPServer{
                 e.printStackTrace();
             }
         });
-
+        fifo.
         threadTCPWindow.start();
         threadTCPLamp.start();
         threadTCPAir.start();
