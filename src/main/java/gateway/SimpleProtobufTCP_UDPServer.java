@@ -73,7 +73,7 @@ public class SimpleProtobufTCP_UDPServer{
                     fifoLamp.put(lamp.getStatus().toString());
 
                     String modifiedLamp = fifoCommun.poll();
-                    System.out.println("MODIFICADA LAMPADA: "+modifiedLamp);
+                    //System.out.println("MODIFICADA LAMPADA: "+modifiedLamp);
                     if (modifiedLamp == null){
                         User modifyNot = createUserMessage("not");
                         sendMessageProtoUser(outServer,modifyNot);
@@ -81,7 +81,7 @@ public class SimpleProtobufTCP_UDPServer{
                     }
                     else {
                         if (modifiedLamp.equals("TURNED_OFF")) {
-                            System.out.println("entrei no OFF");
+                            //System.out.println("entrei no OFF");
                             User modifyYes = createUserMessage("mod");
                             sendMessageProtoUser(outServer,modifyYes);
 
@@ -91,7 +91,7 @@ public class SimpleProtobufTCP_UDPServer{
                             sendMessageProtoLamp(outServer, newLamp);
                         }
                         else if (modifiedLamp.equals("TURNED_ON")){
-                            System.out.println("Entrei no ON");
+                            //System.out.println("Entrei no ON");
                             User modifyYes = createUserMessage("mod");
                             sendMessageProtoUser(outServer,modifyYes);
 
@@ -128,7 +128,7 @@ public class SimpleProtobufTCP_UDPServer{
             switch (readFromKeyboard) {
                 case "1":
                     String informationLamp = fifoLamp.poll();
-                    if (informationLamp.equals(null)){
+                    if (informationLamp == null){
                         System.out.println("Lampada Indisponível no Momento");
                         break;
                     }
@@ -151,7 +151,7 @@ public class SimpleProtobufTCP_UDPServer{
                         System.out.println("Deseja Ligar? Pressione 1, se deseja sair pressione 2");
                         readFromKeyboard = "";
                         readFromKeyboard = scanner.nextLine();
-                        System.out.println("entrou aqui");
+                        //System.out.println("entrou aqui");
 
                         if (readFromKeyboard.equals("1")){
                             System.out.println("Alterar pra ON\n");
@@ -159,7 +159,7 @@ public class SimpleProtobufTCP_UDPServer{
                         }
                         break;
                     }
-
+                case "3":
 
 
 

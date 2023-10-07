@@ -82,7 +82,7 @@ public class ProtobuffLamp {
 
                 // Information between Lamp and Gateway
                 while(true) {
-                    System.out.println("aqui");
+                    //System.out.println("aqui");
                     // Send Information Status
                     Lamp lampMsgCond = Lamp.newBuilder()
                             .setName(lampOb.getName())
@@ -107,9 +107,9 @@ public class ProtobuffLamp {
                         attLamp(lampOb,receiveLamp);
                     }
                     else if (receiveFromGateway.getCommand().equals("not")) {
-                        System.out.println("entrando aqui");
+                        //System.out.println("entrando aqui");
                         Thread.sleep(5000);
-                        System.out.println("passei do sleep");
+                        //System.out.println("passei do sleep");
                     }
                 }
 
