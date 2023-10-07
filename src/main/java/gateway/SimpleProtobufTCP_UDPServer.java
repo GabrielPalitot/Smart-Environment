@@ -23,7 +23,6 @@ public class SimpleProtobufTCP_UDPServer{
         int portMultiCast = 15000;
 
         HashMapUnique map = HashMapUnique.getInstance();
-        HashMapUnique2 map2 = HashMapUnique2.getInstance();
         BlockingQueue<String> fifoLamp = new ArrayBlockingQueue<>(1);
         BlockingQueue<String> fifoAir = new ArrayBlockingQueue<>(1);
         BlockingQueue<String> fifoWindow = new ArrayBlockingQueue<>(1);
