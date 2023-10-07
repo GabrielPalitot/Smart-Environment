@@ -46,4 +46,17 @@ public class ProtoUtils {
         out.flush();
     }
 
+    public static Windows receiveMessageProtoWindow(CodedInputStream in) throws IOException{
+        int size = in.readRawVarint32();
+        int oldLimit = in.pushLimit(size);
+        Windows windows = Windows.parseFrom(in);
+        in.popLimit(oldLimit);
+        return windows;
+    }
+
+    public static void sendMessageProtoWindow(CodedOutputStream out, Windows cond) throws IOException{
+        out.writeMessageNoTag(cond);
+        out.flush();
+    }
+
 }

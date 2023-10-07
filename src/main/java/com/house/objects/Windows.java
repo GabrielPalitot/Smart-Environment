@@ -46,9 +46,9 @@ private static final long serialVersionUID = 0L;
   public enum Status
       implements com.google.protobuf.ProtocolMessageEnum {
     /**
-     * <code>OPEN = 0;</code>
+     * <code>OPENED = 0;</code>
      */
-    OPEN(0),
+    OPENED(0),
     /**
      * <code>CLOSED = 1;</code>
      */
@@ -61,9 +61,9 @@ private static final long serialVersionUID = 0L;
     ;
 
     /**
-     * <code>OPEN = 0;</code>
+     * <code>OPENED = 0;</code>
      */
-    public static final int OPEN_VALUE = 0;
+    public static final int OPENED_VALUE = 0;
     /**
      * <code>CLOSED = 1;</code>
      */
@@ -98,7 +98,7 @@ private static final long serialVersionUID = 0L;
      */
     public static Status forNumber(int value) {
       switch (value) {
-        case 0: return OPEN;
+        case 0: return OPENED;
         case 1: return CLOSED;
         case 3: return MALFUNCTION;
         default: return null;
@@ -245,7 +245,7 @@ private static final long serialVersionUID = 0L;
     if (turn_ != false) {
       output.writeBool(2, turn_);
     }
-    if (status_ != com.house.objects.Windows.Status.OPEN.getNumber()) {
+    if (status_ != com.house.objects.Windows.Status.OPENED.getNumber()) {
       output.writeEnum(3, status_);
     }
     getUnknownFields().writeTo(output);
@@ -264,7 +264,7 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeBoolSize(2, turn_);
     }
-    if (status_ != com.house.objects.Windows.Status.OPEN.getNumber()) {
+    if (status_ != com.house.objects.Windows.Status.OPENED.getNumber()) {
       size += com.google.protobuf.CodedOutputStream
         .computeEnumSize(3, status_);
     }

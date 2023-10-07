@@ -46,7 +46,7 @@ message Windows
   bool turn = 2;
   enum Status
   {
-    OPEN = 0;
+    OPENED = 0;
     CLOSED = 1;
     MALFUNCTION = 3;
   }

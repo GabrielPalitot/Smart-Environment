@@ -11,7 +11,7 @@ public class ModificationClasses {
         lampOb.setStatus(msgCond.getStatus());
     }
     public static void attWindow(ProtobuffWindows windowOb, Windows msgCond ){
-        windowOb.setConnected(msgCond.getTurn());
+        windowOb.setTurn(msgCond.getTurn());
         windowOb.setStatus(msgCond.getStatus());
     }
     public static void attAirConditioning(ProtobuffAirConditioning airOb, AirConditioning msgCond ){

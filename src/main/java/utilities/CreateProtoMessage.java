@@ -2,6 +2,7 @@ package utilities;
 
 import com.house.objects.Lamp;
 import com.house.objects.User;
+import com.house.objects.Windows;
 
 public class CreateProtoMessage {
     public static User createUserMessage(String command){
@@ -17,5 +18,14 @@ public class CreateProtoMessage {
                 .setStatus(command)
                 .build();
         return lampModified;
+    }
+
+    public static Windows modifyWindowMessage(Windows.Status command){
+        Windows windowModified = Windows.newBuilder()
+                .setName("Window")
+                .setTurn(true)
+                .setStatus(command)
+                .build();
+        return windowModified;
     }
 }

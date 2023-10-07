@@ -4,6 +4,7 @@ import com.google.protobuf.CodedOutputStream;
 import com.house.objects.Info;
 import com.house.objects.Lamp;
 import com.house.objects.User;
+import com.house.objects.Windows;
 
 import java.io.*;
 import java.net.*;
@@ -110,13 +111,82 @@ public class SimpleProtobufTCP_UDPServer{
         threadTCPLamp.start();
 
 
+        Thread threadTCPWindow = new Thread(() -> {
+            try {
+                ServerSocket windowServerSocket = new ServerSocket(portTCPWindow);
+                Socket smartSocketLamp = windowServerSocket.accept();
+
+                System.out.println("The port " + portTCPLamp + " was open for TCP Connection");
+
+                CodedInputStream inServer = CodedInputStream.newInstance(smartSocketLamp.getInputStream());
+                CodedOutputStream outServer = CodedOutputStream.newInstance(smartSocketLamp.getOutputStream());
+
+                // Receiving the information message from Lamp
+                Info inf = receiveMessageProtoInfo(inServer);
+                System.out.println(inf.toString());
+
+
+                // add in hashmap online services
+                map.addInMap(inf.getName(),(int) Thread.currentThread().getId());
+
+                // sending acknowledgment
+                User acknowWindow = createUserMessage("acknow");
+                sendMessageProtoUser(outServer,acknowWindow);
+
+
+
+                while(true)
+                {
+                    //System.out.println("Reiniciou");
+                    Windows window = receiveMessageProtoWindow(inServer);
+                    //clear the fifo for update the lamp status
+                    fifoWindow.clear();
+                    fifoWindow.put(window.getStatus().toString());
+
+                    String modifiedWindow = fifoCommun.poll();
+                    //System.out.println("MODIFICADA LAMPADA: "+modifiedLamp);
+                    if (modifiedWindow == null){
+                        User modifyNot = createUserMessage("not");
+                        sendMessageProtoUser(outServer,modifyNot);
+                        //System.out.println("VOU MANDAR O NOT");
+                    }
+                    else {
+                        if (modifiedWindow.equals("CLOSED")) {
+                            //System.out.println("entrei no OFF");
+                            User modifyYes = createUserMessage("mod");
+                            sendMessageProtoUser(outServer,modifyYes);
+
+                            User acknowReceiveWindow = receiveMessageProtoUser(inServer);
+
+                            Windows newWindow = modifyWindowMessage(Windows.Status.CLOSED);
+                            sendMessageProtoWindow(outServer, newWindow);
+                        }
+                        else if (modifiedWindow.equals("OPENED")){
+                            //System.out.println("Entrei no ON");
+                            User modifyYes = createUserMessage("mod");
+                            sendMessageProtoUser(outServer,modifyYes);
+
+                            User acknowReceiveWindow = receiveMessageProtoUser(inServer);
+
+                            Windows newWindow = modifyWindowMessage(Windows.Status.OPENED);
+                            sendMessageProtoWindow(outServer, newWindow);
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+        threadTCPWindow.start();
+
 
         boolean exit = false;
         while(!exit) {
             String initialMessage = "Selecione o Servico Desejado:\n" +
                     "1.Lampadas" + (map.getFromMap("Lamp") != null ? "-Online\n" : "-Offline\n")
                     + "2.ArCondicionado" + (map.getFromMap("AirConditioning") != null ? "-Online\n" : "-Offline\n")
-                    + "3.Janela" + (map.getFromMap("window") != null ? "-Online\n" : "-Offline\n")
+                    + "3.Janela" + (map.getFromMap("Window") != null ? "-Online\n" : "-Offline\n")
                     + "4.Sensor" + (map.getFromMap("sensor") != null ? "-Online\n" : "-Offline\n")
                     + "5.Sair da Aplicação\nSua Resposta: ";
 
@@ -160,7 +230,38 @@ public class SimpleProtobufTCP_UDPServer{
                         break;
                     }
                 case "3":
+                    String informationWindow = fifoWindow.poll();
+                    if (informationWindow == null){
+                        System.out.println("Janela Indisponível no Momento");
+                        break;
+                    }
+                    else if (informationWindow.equals("OPENED"))
+                    {
+                        System.out.println("Status da Janela: \n" + informationWindow);
+                        System.out.println("Deseja Fechar? Pressione 1, se deseja sair pressione 2");
+                        readFromKeyboard = "";
+                        readFromKeyboard = scanner.nextLine();
 
+                        if (readFromKeyboard.equals("1")){
+                            System.out.println("Alterar pra CLOSED\n");
+                            fifoCommun.put("CLOSED");
+                        }
+                        break;
+                    }
+                    else if (informationWindow.equals("CLOSED"))
+                    {
+                        System.out.println("Status da Janela: \n" + informationWindow);
+                        System.out.println("Deseja Abrir? Pressione 1, se deseja sair pressione 2");
+                        readFromKeyboard = "";
+                        readFromKeyboard = scanner.nextLine();
+                        //System.out.println("entrou aqui");
+
+                        if (readFromKeyboard.equals("1")){
+                            System.out.println("Alterar pra OPENED\n");
+                            fifoCommun.put("OPENED");
+                        }
+                        break;
+                    }
 
 
 
