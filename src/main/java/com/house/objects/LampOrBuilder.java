@@ -8,18 +8,30 @@ public interface LampOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>bool turn = 1;</code>
+   * <code>string name = 1;</code>
+   * @return The name.
+   */
+  java.lang.String getName();
+  /**
+   * <code>string name = 1;</code>
+   * @return The bytes for name.
+   */
+  com.google.protobuf.ByteString
+      getNameBytes();
+
+  /**
+   * <code>bool turn = 2;</code>
    * @return The turn.
    */
   boolean getTurn();
 
   /**
-   * <code>.intelligentHouse.Lamp.Status status = 2;</code>
+   * <code>.intelligentHouse.Lamp.Status status = 3;</code>
    * @return The enum numeric value on the wire for status.
    */
   int getStatusValue();
   /**
-   * <code>.intelligentHouse.Lamp.Status status = 2;</code>
+   * <code>.intelligentHouse.Lamp.Status status = 3;</code>
    * @return The status.
    */
   com.house.objects.Lamp.Status getStatus();

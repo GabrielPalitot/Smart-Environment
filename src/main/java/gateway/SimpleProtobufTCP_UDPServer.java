@@ -1,8 +1,15 @@
 package gateway;
+import com.google.protobuf.CodedInputStream;
+import com.google.protobuf.CodedOutputStream;
+import com.house.objects.Info;
+import com.house.objects.Lamp;
+
 import java.io.*;
 import java.net.*;
 
 import static utilities.MulticastUtils.*;
+import static utilities.ProtoUtils.receiveMessageProtoInfo;
+import static utilities.ProtoUtils.receiveMessageProtoLamp;
 
 public class SimpleProtobufTCP_UDPServer{
 
@@ -18,17 +25,28 @@ public class SimpleProtobufTCP_UDPServer{
         // TCP Connections
         Thread threadTCPSmart = new Thread(() -> {
             try {
-                ServerSocket smartServerSocket = new ServerSocket(portTCP);
-                System.out.println("The port " + portTCP + " was open for TCP Connections");
+                ServerSocket lampServerSocket = new ServerSocket(portTCPLamp);
+                Socket smartSocketLamp = lampServerSocket.accept();
 
-                while (true) {
-                    Socket smartSocket = smartServerSocket.accept();
-                    System.out.println("Client " + smartSocket.getInetAddress().getHostAddress() + " connected via TCP.");
+                System.out.println("The port " + portTCPLamp + " was open for TCP Connection");
 
-                    // Init a new thread to resolve TCP connections
-                    ThreadSockets thread = new ThreadSockets(smartSocket);
-                    thread.start();
+                CodedInputStream inServer = CodedInputStream.newInstance(smartSocketLamp.getInputStream());
+                CodedOutputStream outServer = CodedOutputStream.newInstance(smartSocketLamp.getOutputStream());
+
+                Info inf = receiveMessageProtoInfo(inServer);
+                System.out.println(inf.toString());
+                // add in HashMap the online services
+                map.addInMap(inf.getName(),(int) Thread.currentThread().getId());
+
+                while(true)
+                {
+                    Lamp lamp = receiveMessageProtoLamp(inServer);
+                    map2.addInMap(lamp.getName(),lamp.getStatus().toString());
+
+
                 }
+
+
             } catch (Exception e) {
                 e.printStackTrace();
             }

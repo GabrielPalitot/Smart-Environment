@@ -66,22 +66,30 @@ public class ProtobuffLamp {
 
                 // Send Identification
                 CodedOutputStream outLamp = CodedOutputStream.newInstance(socketLamp.getOutputStream());
-                outLamp.writeMessageNoTag(lampCond);
-                outLamp.flush();
 
-                CodedInputStream inLamp = CodedInputStream.newInstance(socketLamp.getInputStream());
-                User msgReceived = receiveMessageProtoUser(inLamp);
-                if (msgReceived.getCommand().equals("1")){
-                    Lamp msgCond = Lamp.newBuilder()
+                // Send the Identification
+                sendMessageProtoInfo(outLamp,lampCond);
+
+                while(true) {
+                    // Send Information Status
+                    Lamp lampMsgCond = Lamp.newBuilder()
+                            .setName(lampOb.getName())
                             .setTurn(lampOb.isTurn())
-                            .setStatus(Lamp.Status.TURNED_ON)
+                            .setStatus(lampOb.getStatus())
                             .build();
+                    sendMessageProtoLamp(outLamp,lampMsgCond);
+                    if (falseEver) {
+                        Lamp receiveFromGateway = receiveMessageProtoLamp(inLamp);
 
-                    sendMessageProtoLamp(outLamp,msgCond);
+                        attLamp(lampOb, receiveFromGateway);
+
+                        connected = true;
+                        socketLamp.close();
+                    }
+                    Thread.sleep(10000);
                 }
 
-                connected = true;
-                socketLamp.close();
+
             } catch (IOException e) {
                 e.printStackTrace();
                 smartReconnect(portMultiCast,lampMulticast);
