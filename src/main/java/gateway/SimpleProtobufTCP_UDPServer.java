@@ -27,7 +27,6 @@ public class SimpleProtobufTCP_UDPServer{
         BlockingQueue<String> fifoLamp = new ArrayBlockingQueue<>(1);
         BlockingQueue<String> fifoAir = new ArrayBlockingQueue<>(1);
         BlockingQueue<String> fifoWindow = new ArrayBlockingQueue<>(1);
-        BlockingQueue<String> fifoUser = new ArrayBlockingQueue<>(1);
         BlockingQueue<String> fifoCommun = new ArrayBlockingQueue<>(1);
 
 
@@ -240,7 +239,7 @@ public class SimpleProtobufTCP_UDPServer{
                 e.printStackTrace();
             }
         });
-        fifo.
+
         threadTCPWindow.start();
         threadTCPLamp.start();
         threadTCPAir.start();
