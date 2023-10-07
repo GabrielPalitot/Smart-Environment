@@ -14,7 +14,7 @@ import static utilities.ProtoUtils.receiveMessageProtoLamp;
 
 public class SimpleProtobufTCP_UDPServer{
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         int portTCPLamp = 10000;
         int portTCPAir = 11000;
         int portTCPWindow = 12000;
@@ -102,7 +102,8 @@ public class SimpleProtobufTCP_UDPServer{
         threadTCPWindow.start();
         threadTCPAirConditioning.start();
 
-        boolean exit = 0;
+
+        boolean exit = false;
         while(!exit) {
             String initialMessage = "Selecione o Servico Desejado:\n" +
                     "1.Lampadas" + (map.getFromMap("Lamp") != null ? "-Online\n" : "-Offline\n")
@@ -123,6 +124,7 @@ public class SimpleProtobufTCP_UDPServer{
                     readFromKeyboard = scanner.nextLine();
                     if (readFromKeyboard.equalsIgnoreCase("1")) {
                         //todo modification
+
                     }
                     break;
                 case "2":

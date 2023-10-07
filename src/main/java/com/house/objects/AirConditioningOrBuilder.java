@@ -8,24 +8,36 @@ public interface AirConditioningOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>bool turn = 1;</code>
+   * <code>string name = 1;</code>
+   * @return The name.
+   */
+  java.lang.String getName();
+  /**
+   * <code>string name = 1;</code>
+   * @return The bytes for name.
+   */
+  com.google.protobuf.ByteString
+      getNameBytes();
+
+  /**
+   * <code>bool turn = 2;</code>
    * @return The turn.
    */
   boolean getTurn();
 
   /**
-   * <code>.intelligentHouse.AirConditioning.Status status = 2;</code>
+   * <code>.intelligentHouse.AirConditioning.Status status = 3;</code>
    * @return The enum numeric value on the wire for status.
    */
   int getStatusValue();
   /**
-   * <code>.intelligentHouse.AirConditioning.Status status = 2;</code>
+   * <code>.intelligentHouse.AirConditioning.Status status = 3;</code>
    * @return The status.
    */
   com.house.objects.AirConditioning.Status getStatus();
 
   /**
-   * <code>int32 setting_temperature = 3;</code>
+   * <code>int32 setting_temperature = 4;</code>
    * @return The settingTemperature.
    */
   int getSettingTemperature();
