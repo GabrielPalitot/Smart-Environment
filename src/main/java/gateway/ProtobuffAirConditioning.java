@@ -2,19 +2,33 @@ package gateway;
 
 import com.google.protobuf.CodedInputStream;
 import com.google.protobuf.CodedOutputStream;
-import com.house.objects.AirConditioning;
+import com.house.objects.*;
+
 import java.io.IOException;
 import java.net.*;
 import com.house.objects.AirConditioning;
-import com.house.objects.Info;
 
+import static utilities.CreateProtoMessage.createUserMessage;
+import static utilities.ModificationClasses.attAirConditioning;
 import static utilities.MulticastUtils.smartReconnect;
+import static utilities.ProtoUtils.*;
+import static utilities.ProtoUtils.receiveMessageProtoAirConditioning;
 
 public class ProtobuffAirConditioning {
 
     private boolean turn;
     private AirConditioning.Status status;
     private int temperature;
+
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public ProtobuffAirConditioning() {
     }
@@ -45,16 +59,18 @@ public class ProtobuffAirConditioning {
     public static void main(String[] args) throws IOException, InterruptedException {
         int portTCP = 11000;
         int portMultiCast = 15000;
-        String hostMulticast = "228.0.0.8";
+        String AirConditioningMulticast = "228.0.0.8";
+
+
         boolean connected = false;
+        boolean falseEver = false;
 
-        ProtobuffAirConditioning air = new ProtobuffAirConditioning();
-        air.setTurn(true);
-        air.setStatus(AirConditioning.Status.TURNED_ON);
-        air.setTemperature(20);
+        ProtobuffAirConditioning AirConditioningOb = new ProtobuffAirConditioning();
+        AirConditioningOb.setName("AirConditioning");
+        AirConditioningOb.setTurn(true);
+        AirConditioningOb.setStatus(AirConditioning.Status.TURNED_ON);
 
-        // Instancing the message
-        Info airCond = Info.newBuilder()
+        Info AirConditioningCond = Info.newBuilder()
                 .setName("AirConditioning")
                 .setIp("127.0.0.1")
                 .setPort("10000")
@@ -63,19 +79,55 @@ public class ProtobuffAirConditioning {
         while (!connected){
             try {
                 // open the connection
-                Socket socketAir = new Socket("localhost", portTCP);
+                Socket socketAirConditioning = new Socket("localhost", portTCP);
 
-                // Send Identification
-                CodedOutputStream outAir = CodedOutputStream.newInstance(socketAir.getOutputStream());
-                outAir.writeMessageNoTag(airCond);
-                outAir.flush();
+                // Declaring in and out services
+                CodedInputStream inAirConditioning = CodedInputStream.newInstance(socketAirConditioning.getInputStream());
+                CodedOutputStream outAirConditioning = CodedOutputStream.newInstance(socketAirConditioning.getOutputStream());
 
-                connected = true;
-                socketAir.close();
+                // Send the Identification
+                sendMessageProtoInfo(outAirConditioning,AirConditioningCond);
+
+                // receiving ack
+                User ackAirConditioning = receiveMessageProtoUser(inAirConditioning);
+                System.out.println(ackAirConditioning.getCommand());
+
+                // Information between AirConditioning and Gateway
+                while(true) {
+                    //System.out.println("aqui");
+                    // Send Information Status
+                    AirConditioning AirConditioningMsgCond = AirConditioning.newBuilder()
+                            .setName(AirConditioningOb.getName())
+                            .setTurn(AirConditioningOb.isTurn())
+                            .setStatus(AirConditioningOb.getStatus())
+                            .build();
+                    System.out.println(AirConditioningOb.getStatus().toString());
+                    sendMessageProtoAirConditioning(outAirConditioning,AirConditioningMsgCond);
+
+                    User receiveFromGateway = receiveMessageProtoUser(inAirConditioning);
+                    System.out.println(receiveFromGateway.getCommand());
+
+
+                    if (receiveFromGateway.getCommand().equals("mod")){
+                        // sending acknow
+                        User acknowSend = createUserMessage("acknow");
+                        sendMessageProtoUser(outAirConditioning,acknowSend);
+
+                        // receiving new information
+                        AirConditioning receiveAirConditioning = receiveMessageProtoAirConditioning(inAirConditioning);
+                        System.out.println("NOVO STATUS " + receiveAirConditioning.getStatus().toString());
+                        attAirConditioning(AirConditioningOb,receiveAirConditioning);
+                    }
+                    else if (receiveFromGateway.getCommand().equals("not")) {
+                        //System.out.println("entrando aqui");
+                        Thread.sleep(5000);
+                        //System.out.println("passei do sleep");
+                    }
+                }
 
             } catch (IOException e) {
                 e.printStackTrace();
-                smartReconnect(portMultiCast,hostMulticast);
+                smartReconnect(portMultiCast,AirConditioningMulticast);
             }
         }
     }

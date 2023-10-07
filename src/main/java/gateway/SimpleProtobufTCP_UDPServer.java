@@ -1,10 +1,7 @@
 package gateway;
 import com.google.protobuf.CodedInputStream;
 import com.google.protobuf.CodedOutputStream;
-import com.house.objects.Info;
-import com.house.objects.Lamp;
-import com.house.objects.User;
-import com.house.objects.Windows;
+import com.house.objects.*;
 
 import java.io.*;
 import java.net.*;
@@ -108,7 +105,73 @@ public class SimpleProtobufTCP_UDPServer{
             }
         });
 
-        threadTCPLamp.start();
+
+        Thread threadTCPAir = new Thread(() -> {
+            try {
+                ServerSocket airServerSocket = new ServerSocket(portTCPAir);
+                Socket smartSocketAir = airServerSocket.accept();
+
+                System.out.println("The port " + portTCPAir + " was open for TCP Connection");
+
+                CodedInputStream inServer = CodedInputStream.newInstance(smartSocketAir.getInputStream());
+                CodedOutputStream outServer = CodedOutputStream.newInstance(smartSocketAir.getOutputStream());
+
+                // Receiving the information message from Lamp
+                Info inf = receiveMessageProtoInfo(inServer);
+                System.out.println(inf.toString());
+
+
+                // add in hashmap online services
+                map.addInMap(inf.getName(),(int) Thread.currentThread().getId());
+
+                // sending acknowledgment
+                User acknowWindow = createUserMessage("acknow");
+                sendMessageProtoUser(outServer,acknowWindow);
+
+
+
+                while(true)
+                {
+                    //System.out.println("Reiniciou");
+                    AirConditioning airConditioning = receiveMessageProtoAirConditioning(inServer);
+                    //clear the fifo for update the lamp status
+                    fifoAir.clear();
+                    fifoAir.put(airConditioning.getStatus().toString());
+
+                    String modifiedAir = fifoCommun.poll();
+                    //System.out.println("MODIFICADA LAMPADA: "+modifiedLamp);
+                    if (modifiedAir == null){
+                        User modifyNot = createUserMessage("not");
+                        sendMessageProtoUser(outServer,modifyNot);
+                        //System.out.println("VOU MANDAR O NOT");
+                    }
+                    else {
+                        if (modifiedAir.equals("TURNED_OFF")){
+                            //System.out.println("entrei no OFF");
+                            User modifyYes = createUserMessage("mod");
+                            sendMessageProtoUser(outServer,modifyYes);
+
+                            User acknowReceiveWindow = receiveMessageProtoUser(inServer);
+
+                            AirConditioning newAir = modifyAirMessage(AirConditioning.Status.TURNED_OFF);
+                            sendMessageProtoAirConditioning(outServer,newAir);
+                        }
+                        else if (modifiedAir.equals("TURNED_ON")){
+                            //System.out.println("Entrei no ON");
+                            User modifyYes = createUserMessage("mod");
+                            sendMessageProtoUser(outServer,modifyYes);
+
+                            User acknowReceiveWindow = receiveMessageProtoUser(inServer);
+
+                            AirConditioning newAir = modifyAirMessage(AirConditioning.Status.TURNED_ON);
+                            sendMessageProtoAirConditioning(outServer, newAir);
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
 
 
         Thread threadTCPWindow = new Thread(() -> {
@@ -179,7 +242,8 @@ public class SimpleProtobufTCP_UDPServer{
         });
 
         threadTCPWindow.start();
-
+        threadTCPLamp.start();
+        threadTCPAir.start();
 
         boolean exit = false;
         while(!exit) {
@@ -229,6 +293,40 @@ public class SimpleProtobufTCP_UDPServer{
                         }
                         break;
                     }
+                case "2":
+                    String informationAir = fifoAir.poll();
+                    if (informationAir == null){
+                        System.out.println("Ar-Condicionado Indisponível no Momento");
+                        break;
+                    }
+                    else if (informationAir.equals("TURNED_ON"))
+                    {
+                        System.out.println("Status do Ar-Condicionado: \n" + informationAir);
+                        System.out.println("Deseja Desligar? Pressione 1, se deseja sair pressione 2");
+                        readFromKeyboard = "";
+                        readFromKeyboard = scanner.nextLine();
+
+                        if (readFromKeyboard.equals("1")){
+                            System.out.println("Alterar pra OFF\n");
+                            fifoCommun.put("TURNED_OFF");
+                        }
+                        break;
+                    }
+                    else if (informationAir.equals("TURNED_OFF"))
+                    {
+                        System.out.println("Status do Ar-Condicionado: \n" + informationAir);
+                        System.out.println("Deseja Ligar? Pressione 1, se deseja sair pressione 2");
+                        readFromKeyboard = "";
+                        readFromKeyboard = scanner.nextLine();
+                        //System.out.println("entrou aqui");
+
+                        if (readFromKeyboard.equals("1")){
+                            System.out.println("Alterar pra ON\n");
+                            fifoCommun.put("TURNED_ON");
+                        }
+                        break;
+                    }
+
                 case "3":
                     String informationWindow = fifoWindow.poll();
                     if (informationWindow == null){

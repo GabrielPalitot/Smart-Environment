@@ -59,4 +59,17 @@ public class ProtoUtils {
         out.flush();
     }
 
+    public static AirConditioning receiveMessageProtoAirConditioning(CodedInputStream in) throws IOException{
+        int size = in.readRawVarint32();
+        int oldLimit = in.pushLimit(size);
+        AirConditioning AirCond = AirConditioning.parseFrom(in);
+        in.popLimit(oldLimit);
+        return AirCond;
+    }
+
+    public static void sendMessageProtoAirConditioning(CodedOutputStream out, AirConditioning cond) throws IOException{
+        out.writeMessageNoTag(cond);
+        out.flush();
+    }
+
 }

@@ -1,5 +1,6 @@
 package utilities;
 
+import com.house.objects.AirConditioning;
 import com.house.objects.Lamp;
 import com.house.objects.User;
 import com.house.objects.Windows;
@@ -27,5 +28,15 @@ public class CreateProtoMessage {
                 .setStatus(command)
                 .build();
         return windowModified;
+    }
+
+
+    public static AirConditioning modifyAirMessage(AirConditioning.Status command){
+        AirConditioning airModified = AirConditioning.newBuilder()
+                .setName("AirConditioning")
+                .setTurn(true)
+                .setStatus(command)
+                .build();
+        return airModified;
     }
 }
