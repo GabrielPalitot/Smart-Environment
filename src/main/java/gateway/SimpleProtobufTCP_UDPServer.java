@@ -3,14 +3,17 @@ import com.google.protobuf.CodedInputStream;
 import com.google.protobuf.CodedOutputStream;
 import com.house.objects.Info;
 import com.house.objects.Lamp;
+import com.house.objects.User;
 
 import java.io.*;
 import java.net.*;
 import java.util.Scanner;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
+import static utilities.CreateProtoMessage.*;
 import static utilities.MulticastUtils.*;
-import static utilities.ProtoUtils.receiveMessageProtoInfo;
-import static utilities.ProtoUtils.receiveMessageProtoLamp;
+import static utilities.ProtoUtils.*;
 
 public class SimpleProtobufTCP_UDPServer{
 
@@ -23,6 +26,13 @@ public class SimpleProtobufTCP_UDPServer{
 
         HashMapUnique map = HashMapUnique.getInstance();
         HashMapUnique2 map2 = HashMapUnique2.getInstance();
+        BlockingQueue<String> fifoLamp = new ArrayBlockingQueue<>(1);
+        BlockingQueue<String> fifoAir = new ArrayBlockingQueue<>(1);
+        BlockingQueue<String> fifoWindow = new ArrayBlockingQueue<>(1);
+        BlockingQueue<String> fifoUser = new ArrayBlockingQueue<>(1);
+        BlockingQueue<String> fifoCommun = new ArrayBlockingQueue<>(1);
+
+
 
         String hostMultiCast = "228.0.0.8";
 
@@ -40,79 +50,74 @@ public class SimpleProtobufTCP_UDPServer{
                 CodedInputStream inServer = CodedInputStream.newInstance(smartSocketLamp.getInputStream());
                 CodedOutputStream outServer = CodedOutputStream.newInstance(smartSocketLamp.getOutputStream());
 
+                // Receiving the information message from Lamp
                 Info inf = receiveMessageProtoInfo(inServer);
                 System.out.println(inf.toString());
-                // add in HashMap the online services
+
+
+                // add in hashmap online services
                 map.addInMap(inf.getName(),(int) Thread.currentThread().getId());
+
+                // sending acknowledgment
+                User acknowLamp = createUserMessage("acknow");
+                sendMessageProtoUser(outServer,acknowLamp);
+
+
 
                 while(true)
                 {
+                    System.out.println("Reiniciou");
                     Lamp lamp = receiveMessageProtoLamp(inServer);
-                    map2.addInMap(lamp.getName(),lamp.getStatus().toString());
+                    fifoLamp.clear();
+                    fifoLamp.put(lamp.getStatus().toString());
 
+                    String modifiedLamp = fifoCommun.poll();
+                    System.out.println("MODIFICADA LAMPADA: "+modifiedLamp);
+                    if (modifiedLamp == null){
+                        User modifyNot = createUserMessage("not");
+                        sendMessageProtoUser(outServer,modifyNot);
+                        System.out.println("VOU MANDAR O NOT");
+                    }
+                    else {
+                        if (modifiedLamp.equals("TURNED_OFF")) {
+                            System.out.println("entrei no ON");
+                            User modifyYes = createUserMessage("mod");
+                            sendMessageProtoUser(outServer,modifyYes);
 
+                            User acknowReceiveLamp = receiveMessageProtoUser(inServer);
+
+                            Lamp newLamp = modifyLampMessage(Lamp.Status.TURNED_OFF);
+                            sendMessageProtoLamp(outServer, newLamp);
+                        }
+                        else if (modifiedLamp.equals("TURNED_ON")){
+                            System.out.println("Entrei no OFF");
+                            User modifyYes = createUserMessage("mod");
+                            sendMessageProtoUser(outServer,modifyYes);
+
+                            User acknowReceiveLamp = receiveMessageProtoUser(inServer);
+
+                            Lamp newLamp = modifyLampMessage(Lamp.Status.TURNED_ON);
+                            sendMessageProtoLamp(outServer, newLamp);
+                        }
+                    }
                 }
-
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
 
-        Thread threadTCPAirConditioning = new Thread(() ->{
-           try{
-               ServerSocket airServerSocket = new ServerSocket(portTCPAir);
-               Socket smartSocketAir = airServerSocket.accept();
-               System.out.println("The port " + portTCPAir + " was open for TCP Connection");
-
-               CodedInputStream inServer = CodedInputStream.newInstance(smartSocketAir.getInputStream());
-               CodedOutputStream outServer = CodedOutputStream.newInstance(smartSocketAir.getOutputStream());
-
-               Info inf = receiveMessageProtoInfo(inServer);
-               System.out.println(inf.toString());
-               // add in HashMap the online services
-               map.addInMap(inf.getName(),(int) Thread.currentThread().getId());
-
-               System.out.println("Client " +smartSocketAir.getInetAddress().getHostAddress() + " connected via TCP.");
-               System.out.println("Hello");
-           }catch (Exception e){
-               e.printStackTrace();
-           }
-        });
-
-        Thread threadTCPWindow = new Thread(() ->{
-            try{
-                ServerSocket windowServerSocket = new ServerSocket(portTCPWindow);
-                Socket smartSocketWindow = windowServerSocket.accept();
-                System.out.println("The port " + portTCPWindow + " was open for TCP Connection");
-
-                CodedInputStream inServer = CodedInputStream.newInstance(smartSocketWindow.getInputStream());
-                CodedOutputStream outServer = CodedOutputStream.newInstance(smartSocketWindow.getOutputStream());
-
-                Info inf = receiveMessageProtoInfo(inServer);
-                System.out.println(inf.toString());
-
-                // add in HashMap the online services
-                map.addInMap(inf.getName(),(int) Thread.currentThread().getId());
-
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        });
         threadTCPLamp.start();
-        threadTCPWindow.start();
-        threadTCPAirConditioning.start();
+
 
 
         boolean exit = false;
         while(!exit) {
-            Thread.sleep(5000);
             String initialMessage = "Selecione o Servico Desejado:\n" +
                     "1.Lampadas" + (map.getFromMap("Lamp") != null ? "-Online\n" : "-Offline\n")
                     + "2.ArCondicionado" + (map.getFromMap("AirConditioning") != null ? "-Online\n" : "-Offline\n")
                     + "3.Janela" + (map.getFromMap("window") != null ? "-Online\n" : "-Offline\n")
                     + "4.Sensor" + (map.getFromMap("sensor") != null ? "-Online\n" : "-Offline\n")
-                    + "5.Sair da Aplicação";
+                    + "5.Sair da Aplicação\nSua Resposta: ";
 
             Scanner scanner = new Scanner(System.in);
             System.out.println(initialMessage);
@@ -121,14 +126,44 @@ public class SimpleProtobufTCP_UDPServer{
 
             switch (readFromKeyboard) {
                 case "1":
-                    System.out.println("Status da Lâmpada: " + map2.getFromMap("Lamp"));
-                    System.out.println("Deseja " + (map2.getFromMap("Lamp").equals("TURNED_ON") ? "Desligar?\n Pressione 1 senão 2\n" : "Ligar? Pressione 1 senão 2\n"));
-                    readFromKeyboard = scanner.nextLine();
-                    if (readFromKeyboard.equalsIgnoreCase("1")) {
-                        //todo modification
-
+                    String informationLamp = fifoLamp.poll();
+                    if (informationLamp == null){
+                        System.out.println("Lampada Indisponível no Momento");
+                        break;
                     }
-                    break;
+                    else if (informationLamp == "TURNED_ON")
+                    {
+                        System.out.println("Status da Lâmpada: \n" + informationLamp);
+                        System.out.println("Deseja Desligar? Pressione 1, se deseja sair pressione 2");
+                        readFromKeyboard = "";
+                        readFromKeyboard = scanner.nextLine();
+
+                        if (readFromKeyboard.equals("1")){
+                            System.out.println("Alterar pra OFF");
+                            fifoCommun.put("TURNED_OFF");
+                        }
+                        break;
+                    }
+                    else if (informationLamp == "TURNED_OFF")
+                    {
+                        System.out.println("Status da Lâmpada: \n" + informationLamp);
+                        System.out.println("Deseja Ligar? Pressione 1, se deseja sair pressione 2");
+                        readFromKeyboard = "";
+                        readFromKeyboard = scanner.nextLine();
+
+                        if (readFromKeyboard  == "1"){
+                            System.out.println("Alterar pra ON");
+                            fifoCommun.put("TURNED_ON");
+                        }
+                        break;
+                    }
+
+
+
+
+
+
+                    /*
                 case "2":
                     System.out.println("Status do Ar-Condicionado: " + map2.getFromMap("AirConditioning"));
                     System.out.println("Deseja " + (map2.getFromMap("AirConditioning").equals("TURNED_ON") ? "Desligar?\n Pressione 1 senão 2\n" : "Ligar? Pressione 1 senão 2\n"));
@@ -140,7 +175,7 @@ public class SimpleProtobufTCP_UDPServer{
                     break;
                 case "5":
                     break;
-
+                /*
 
             }
         }
@@ -168,8 +203,9 @@ public class SimpleProtobufTCP_UDPServer{
                 System.out.println(textReceive);
             }
         });
-
             */
+            }
+        }
     }
 }
 

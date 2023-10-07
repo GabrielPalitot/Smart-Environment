@@ -9,6 +9,7 @@ import com.house.objects.User;
 import java.io.IOException;
 import java.net.*;
 
+import static utilities.CreateProtoMessage.*;
 import static utilities.MulticastUtils.*;
 import static utilities.ProtoUtils.*;
 import static utilities.ModificationClasses.*;
@@ -75,25 +76,42 @@ public class ProtobuffLamp {
                 // Send the Identification
                 sendMessageProtoInfo(outLamp,lampCond);
 
+                // receiving ack
+                User ackLamp = receiveMessageProtoUser(inLamp);
+                System.out.println(ackLamp.getCommand());
+
+                // Information between Lamp and Gateway
                 while(true) {
+                    System.out.println("aqui");
                     // Send Information Status
                     Lamp lampMsgCond = Lamp.newBuilder()
                             .setName(lampOb.getName())
                             .setTurn(lampOb.isTurn())
                             .setStatus(lampOb.getStatus())
                             .build();
+                    System.out.println(lampOb.getStatus().toString());
                     sendMessageProtoLamp(outLamp,lampMsgCond);
-                    if (falseEver) {
-                        Lamp receiveFromGateway = receiveMessageProtoLamp(inLamp);
 
-                        attLamp(lampOb, receiveFromGateway);
+                    User receiveFromGateway = receiveMessageProtoUser(inLamp);
+                    System.out.println(receiveFromGateway.getCommand());
 
-                        connected = true;
-                        socketLamp.close();
+
+                    if (receiveFromGateway.getCommand().equals("mod")){
+                        // sending acknow
+                        User acknowSend = createUserMessage("acknow");
+                        sendMessageProtoUser(outLamp,acknowSend);
+
+                        // receiving new information
+                        Lamp receiveLamp = receiveMessageProtoLamp(inLamp);
+                        System.out.println("NOVO STATUS " + receiveLamp.getStatus().toString());
+                        attLamp(lampOb,receiveLamp);
                     }
-                    Thread.sleep(10000);
+                    else if (receiveFromGateway.getCommand().equals("not")) {
+                        System.out.println("entrando aqui");
+                        Thread.sleep(5000);
+                        System.out.println("passei do sleep");
+                    }
                 }
-
 
             } catch (IOException e) {
                 e.printStackTrace();
