@@ -11,6 +11,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 import static utilities.CreateProtoMessage.*;
+import static utilities.InitialMessage.initialMessageGateway;
 import static utilities.MulticastUtils.*;
 import static utilities.ProtoUtils.*;
 
@@ -64,14 +65,9 @@ public class SimpleProtobufTCP_UDPServer{
                 // sending acknowledgment
                 User acknowLamp = createUserMessage("acknow");
                 sendMessageProtoUser(outServer,acknowLamp);
-                String initialMessage = "Selecione o Servico Desejado:\n" +
-                        "1.Lampadas" + (map.getFromMap("Lamp") != null ? "-Online\n" : "-Offline\n")
-                        + "2.ArCondicionado" + (map.getFromMap("AirConditioning") != null ? "-Online\n" : "-Offline\n")
-                        + "3.Janela" + (map.getFromMap("Window") != null ? "-Online\n" : "-Offline\n")
-                        + "4.Sensor" + (map.getFromMap("sensor") != null ? "-Online\n" : "-Offline\n")
-                        + "5.Sair da Aplicação\nSua Resposta: ";
 
-                System.out.println(initialMessage);
+
+                initialMessageGateway(map);
 
                 while(true)
                 {
@@ -108,6 +104,8 @@ public class SimpleProtobufTCP_UDPServer{
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                map.removeInMap("Lamp");
+                initialMessageGateway(map);
             }
         });
 
@@ -133,15 +131,8 @@ public class SimpleProtobufTCP_UDPServer{
                 // sending acknowledgment
                 User acknowWindow = createUserMessage("acknow");
                 sendMessageProtoUser(outServer,acknowWindow);
-                String initialMessage = "Selecione o Servico Desejado:\n" +
-                        "1.Lampadas" + (map.getFromMap("Lamp") != null ? "-Online\n" : "-Offline\n")
-                        + "2.ArCondicionado" + (map.getFromMap("AirConditioning") != null ? "-Online\n" : "-Offline\n")
-                        + "3.Janela" + (map.getFromMap("Window") != null ? "-Online\n" : "-Offline\n")
-                        + "4.Sensor" + (map.getFromMap("sensor") != null ? "-Online\n" : "-Offline\n")
-                        + "5.Sair da Aplicação\nSua Resposta: ";
 
-                System.out.println(initialMessage);
-
+                initialMessageGateway(map);
 
 
 
@@ -183,6 +174,8 @@ public class SimpleProtobufTCP_UDPServer{
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                map.removeInMap("AirConditioning");
+                initialMessageGateway(map);
             }
         });
 
@@ -208,14 +201,9 @@ public class SimpleProtobufTCP_UDPServer{
                 // sending acknowledgment
                 User acknowWindow = createUserMessage("acknow");
                 sendMessageProtoUser(outServer,acknowWindow);
-                String initialMessage = "Selecione o Servico Desejado:\n" +
-                        "1.Lampadas" + (map.getFromMap("Lamp") != null ? "-Online\n" : "-Offline\n")
-                        + "2.ArCondicionado" + (map.getFromMap("AirConditioning") != null ? "-Online\n" : "-Offline\n")
-                        + "3.Janela" + (map.getFromMap("Window") != null ? "-Online\n" : "-Offline\n")
-                        + "4.Sensor" + (map.getFromMap("sensor") != null ? "-Online\n" : "-Offline\n")
-                        + "5.Sair da Aplicação\nSua Resposta: ";
 
-                System.out.println(initialMessage);
+
+                initialMessageGateway(map);
 
 
 
@@ -255,6 +243,8 @@ public class SimpleProtobufTCP_UDPServer{
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                map.removeInMap("Window");
+                initialMessageGateway(map);
             }
         });
 
@@ -296,22 +286,17 @@ public class SimpleProtobufTCP_UDPServer{
 
         boolean exit = false;
         while(!exit) {
-            String initialMessage = "Selecione o Servico Desejado:\n" +
-                    "1.Lampadas" + (map.getFromMap("Lamp") != null ? "-Online\n" : "-Offline\n")
-                    + "2.ArCondicionado" + (map.getFromMap("AirConditioning") != null ? "-Online\n" : "-Offline\n")
-                    + "3.Janela" + (map.getFromMap("Window") != null ? "-Online\n" : "-Offline\n")
-                    + "4.Sensor" + (map.getFromMap("sensor") != null ? "-Online\n" : "-Offline\n")
-                    + "5.Sair da Aplicação\nSua Resposta: ";
+
 
             Scanner scanner = new Scanner(System.in);
-            System.out.println(initialMessage);
+            initialMessageGateway(map);
             String readFromKeyboard = scanner.nextLine();
 
 
             switch (readFromKeyboard) {
                 case "1":
                     String informationLamp = fifoLamp.peek();
-                    if (informationLamp == null){
+                    if (informationLamp == null || map.getFromMap("Lamp") == null){
                         System.out.println("Lampada Indisponível no Momento");
                         break;
                     }
@@ -345,7 +330,7 @@ public class SimpleProtobufTCP_UDPServer{
                     }
                 case "2":
                     String informationAir = fifoAir.peek();
-                    if (informationAir == null){
+                    if (informationAir == null || map.getFromMap("AirConditioning") == null){
                         System.out.println("Ar-Condicionado Indisponível no Momento");
                         break;
                     }
@@ -385,7 +370,7 @@ public class SimpleProtobufTCP_UDPServer{
 
                 case "3":
                     String informationWindow = fifoWindow.peek();
-                    if (informationWindow == null){
+                    if (informationWindow == null || map.getFromMap("Window") == null){
                         System.out.println("Janela Indisponível no Momento");
                         break;
                     }

@@ -21,6 +21,10 @@ public class HashMapUnique {
             sharedMap.put(key, value);
         }
 
+        public synchronized void removeInMap(String key){
+            sharedMap.remove(key);
+        }
+
         public synchronized Integer getFromMap(String key) {
             return sharedMap.get(key);
         }
