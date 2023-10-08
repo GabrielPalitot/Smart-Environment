@@ -242,7 +242,7 @@ public class SimpleProtobufTCP_UDPServer{
         });
 
         // UDP Connections
-        Thread threadUDP = new Thread(() ->{
+        /*Thread threadUDP = new Thread(() ->{
             DatagramSocket UdpSocket = null;
             try {
                 UdpSocket = new DatagramSocket(portUDP);
@@ -261,7 +261,38 @@ public class SimpleProtobufTCP_UDPServer{
                 String textReceive = new String(inputReceive.getData());
                 System.out.println(textReceive);
             }
-        });
+        });*/
+
+        // Create a lambda expression to run the UDP server code
+        Runnable sensorTask = () -> {
+            try {
+                DatagramSocket socket = new DatagramSocket(20000);
+                map.addInMap("sensor",(int) Thread.currentThread().getId());
+
+
+                while (true) {
+                    byte[] receiveData = new byte[1024];
+                    DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+
+                    // Receive the UDP packet
+                    socket.receive(receivePacket);
+
+                    // Extract the received message and its length
+                    String message = new String(receivePacket.getData(), 0, receivePacket.getLength());
+
+                    // Print the received message
+                    fifoSensor.clear();
+                    fifoSensor.put(message);
+                    //System.out.println("sensor: " + message);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        };
+
+        // Create a thread and start it to run the UDP server code
+        Thread sensorThread = new Thread(sensorTask);
+        sensorThread.start();
 
         threadTCPWindow.start();
         threadTCPLamp.start();
@@ -391,39 +422,16 @@ public class SimpleProtobufTCP_UDPServer{
                         }
                         break;
                     }
+
+                case "4":
+                    System.out.println("Temperatura da Sala: "+fifoSensor.peek()+"ºC");
+                    break;
             }
         }
 
 
 
-        // Create a lambda expression to run the UDP server code
-        Runnable serverTask = () -> {
-            try {
-                DatagramSocket socket = new DatagramSocket(20000);
 
-                while (true) {
-                    byte[] receiveData = new byte[1024];
-                    DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
-
-                    // Receive the UDP packet
-                    socket.receive(receivePacket);
-
-                    // Extract the received message and its length
-                    String message = new String(receivePacket.getData(), 0, receivePacket.getLength());
-
-                    // Print the received message
-                    fifoSensor.clear();
-                    fifoSensor.put(message);
-                    System.out.println("sensor: " + message);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        };
-
-        // Create a thread and start it to run the UDP server code
-        Thread serverThread = new Thread(serverTask);
-        serverThread.start();
 
     }
 }

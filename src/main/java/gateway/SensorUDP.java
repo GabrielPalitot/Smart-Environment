@@ -2,6 +2,7 @@ package gateway;
 
 import java.io.IOException;
 import java.net.*;
+import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -58,7 +59,11 @@ public class SensorUDP{
 
                 // the message
                 byte[] buf = new byte[100];
-                String message = "27.0\0";
+
+                Random rand = new Random();
+                double randomNumber = ((rand.nextDouble()-0.5)*0.5)+20;
+
+                String message = String.format("%.2f",randomNumber);
                 buf = message.getBytes();
 
                 // the ip and port
