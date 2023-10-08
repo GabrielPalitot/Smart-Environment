@@ -44,22 +44,32 @@ public class ProtobuffWindows {
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
+
+        /**
+         * Declaring the Window macros,such as ports to use and hosts for multicast.
+         */
+
         int portTCP = 12000;
         int portMultiCast = 15000;
         String windowsMulticast = "228.0.0.8";
 
         boolean connected = false;
-        boolean falseEver = false;
 
+        // Instantiating an Object to Be Manipulated
         ProtobuffWindows windowOb = new ProtobuffWindows();
         windowOb.setName("Window");
         windowOb.setStatus(Windows.Status.OPENED);
 
+        // The protobuff message
         Info windowCond = Info.newBuilder()
                 .setName("Window")
                 .setIp("127.0.0.1")
                 .setPort("12000")
                 .build();
+
+        /**
+         * The main loop for the treatment of the intelligent equipment.
+         */
 
         while (!connected){
             try {
@@ -79,7 +89,6 @@ public class ProtobuffWindows {
 
                 // Information between Window and Gateway
                 while(true) {
-                    //System.out.println("aqui");
                     // Send Information Status
                     Windows WindowMsgCond = Windows.newBuilder()
                             .setName(windowOb.getName())
@@ -88,6 +97,7 @@ public class ProtobuffWindows {
                     System.out.println(windowOb.getStatus().toString());
                     sendMessageProtoWindow(outWindow,WindowMsgCond);
 
+                    // Command sent by the gateway user mod or not, mod is for modifying something
                     User receiveFromGateway = receiveMessageProtoUser(inWindow);
                     System.out.println(receiveFromGateway.getCommand());
 
@@ -103,9 +113,7 @@ public class ProtobuffWindows {
                         attWindow(windowOb,receiveWindow);
                     }
                     else if (receiveFromGateway.getCommand().equals("not")) {
-                        //System.out.println("entrando aqui");
                         Thread.sleep(5000);
-                        //System.out.println("passei do sleep");
                     }
                 }
 

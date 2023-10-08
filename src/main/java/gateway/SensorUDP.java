@@ -7,50 +7,11 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-/*
-public class SensorUDP extends Thread {
-    private static DatagramSocket socket;
-    private static InetAddress address;
-
-    private static byte[] buf ;
-
-    public SensorUDP() throws SocketException, UnknownHostException {
-        socket = new DatagramSocket();
-        address = InetAddress.getByName("localhost");
-    }
-
-    public static void main(String argv[]) throws SocketException, UnknownHostException {
-
-        SensorUDP sensor = new SensorUDP();
-        while(true)
-        {
-
-            String msg = "27.0\0";
-            buf = msg.getBytes();
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            //ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-
-            //scheduler.schedule(() -> {
-                DatagramPacket packet = new DatagramPacket(buf, buf.length, sensor.address, 4445);
-               try {
-                    sensor.socket.send(packet);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-        }
-    }
-    public void close() {
-        socket.close();
-    }
-}
-*/
-
 public class SensorUDP{
     public static void main(String[] args) {
+        /**
+         * Declaring the ports to use
+         */
         int portUDP = 20000;
         while (true) {
             try {
@@ -60,6 +21,7 @@ public class SensorUDP{
                 // the message
                 byte[] buf = new byte[100];
 
+                //random number generator for the sensor
                 Random rand = new Random();
                 double randomNumber = ((rand.nextDouble()-0.5)*0.5)+20;
 

@@ -6,10 +6,16 @@ import java.net.InetAddress;
 import java.net.MulticastSocket;
 
 public class MulticastUtils {
+    /**
+     * Method that send a package named "Identification" via UDP for all devices in multicast net.
+     * warning that the gateway is active.
+     * @param portMultiCast the port of multicast
+     * @param host the IP of multcast
+     */
     public static void smartDiscovery(int portMultiCast, String host){
         try {
             MulticastSocket socketMulti = new MulticastSocket(portMultiCast);
-            InetAddress group = InetAddress.getByName(host); // Mesmo endereço multicast
+            InetAddress group = InetAddress.getByName(host); // Same adress Multicast
             String msgMulti = "Indentification";
             DatagramPacket packet = new DatagramPacket(msgMulti.getBytes(), msgMulti.length(), group, portMultiCast);
             socketMulti.send(packet);
@@ -18,7 +24,16 @@ public class MulticastUtils {
             e.printStackTrace();
         }
     }
-    // 228.0.0.8
+
+    /**
+     * Method that waiting for a server message called "Identification" for try to connect with server and
+     * send a message with the name, port and IP of the object
+     * @param portMulticast the port of multicast
+     * @param host the IP of multicast
+     * @throws IOException exception
+     * @throws InterruptedException exception
+     */
+
     public static void smartReconnect(int portMulticast, String host) throws IOException, InterruptedException {
         System.out.println("Server is Offline, please wait for it to come online");
 

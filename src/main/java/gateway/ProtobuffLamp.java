@@ -38,22 +38,30 @@ public class ProtobuffLamp {
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
+        /**
+         * Declaring the Lamp macros,such as ports to use and hosts for multicast.
+         */
+
         int portTCP = 10000;
         int portMultiCast = 15000;
         String lampMulticast = "228.0.0.8";
 
         boolean connected = false;
 
+        // Instantiating an Object to Be Manipulated
         ProtobuffLamp lampOb = new ProtobuffLamp();
         lampOb.setName("Lamp");
         lampOb.setStatus(Lamp.Status.TURNED_ON);
 
+        // The protobuff message
         Info lampCond = Info.newBuilder()
                 .setName("Lamp")
                 .setIp("127.0.0.1")
                 .setPort("10000")
                 .build();
-
+        /**
+         * The main loop for the treatment of the intelligent equipment.
+         */
         while (!connected){
             try {
                 // open the connection
@@ -80,6 +88,7 @@ public class ProtobuffLamp {
                     System.out.println(lampOb.getStatus().toString());
                     sendMessageProtoLamp(outLamp,lampMsgCond);
 
+                    // Command sent by the gateway user mod or not, mod is for modifying something
                     User receiveFromGateway = receiveMessageProtoUser(inLamp);
                     System.out.println(receiveFromGateway.getCommand());
 

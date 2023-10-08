@@ -26,6 +26,7 @@ public class ProtobuffAirConditioning {
         return name;
     }
 
+
     public void setName(String name) {
         this.name = name;
     }
@@ -53,25 +54,32 @@ public class ProtobuffAirConditioning {
 
 
     public static void main(String[] args) throws IOException, InterruptedException {
+        /**
+         * Declaring the Air macros,such as ports to use and hosts for multicast.
+         */
         int portTCP = 11000;
         int portMultiCast = 15000;
         String AirConditioningMulticast = "228.0.0.8";
 
 
         boolean connected = false;
-        boolean falseEver = false;
 
+        // Instantiating an Object to Be Manipulated
         ProtobuffAirConditioning AirConditioningOb = new ProtobuffAirConditioning();
         AirConditioningOb.setName("AirConditioning");
         AirConditioningOb.setStatus(AirConditioning.Status.TURNED_ON);
         AirConditioningOb.setTemperature(20);
 
+        // The protobuff message
         Info AirConditioningCond = Info.newBuilder()
                 .setName("AirConditioning")
                 .setIp("127.0.0.1")
                 .setPort("10000")
                 .build();
 
+        /**
+         * The main loop for the treatment of the intelligent equipment.
+         */
         while (!connected){
             try {
                 // open the connection
@@ -100,6 +108,7 @@ public class ProtobuffAirConditioning {
                     System.out.println(AirConditioningOb.getStatus().toString());
                     sendMessageProtoAirConditioning(outAirConditioning,AirConditioningMsgCond);
 
+                    // Command sent by the gateway user mod or not, mod is for modifying something
                     User receiveFromGateway = receiveMessageProtoUser(inAirConditioning);
                     System.out.println(receiveFromGateway.getCommand());
 
@@ -117,14 +126,13 @@ public class ProtobuffAirConditioning {
 
                     }
                     else if (receiveFromGateway.getCommand().equals("not")) {
-                        //System.out.println("entrando aqui");
                         Thread.sleep(5000);
-                        //System.out.println("passei do sleep");
                     }
                 }
 
             } catch (IOException e) {
                 e.printStackTrace();
+                // Multicast from gateway.
                 smartReconnect(portMultiCast,AirConditioningMulticast);
             }
         }
