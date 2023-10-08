@@ -16,7 +16,7 @@ import static utilities.ProtoUtils.receiveMessageProtoAirConditioning;
 
 public class ProtobuffAirConditioning {
 
-    private boolean turn;
+
     private AirConditioning.Status status;
     private int temperature;
 
@@ -49,12 +49,8 @@ public class ProtobuffAirConditioning {
         this.temperature = temperature;
     }
 
-    public boolean isTurn(){
-        return this.turn;
-    }
-    public void setTurn(boolean turn){
-        this.turn = turn;
-    }
+
+
 
     public static void main(String[] args) throws IOException, InterruptedException {
         int portTCP = 11000;
@@ -67,7 +63,6 @@ public class ProtobuffAirConditioning {
 
         ProtobuffAirConditioning AirConditioningOb = new ProtobuffAirConditioning();
         AirConditioningOb.setName("AirConditioning");
-        AirConditioningOb.setTurn(true);
         AirConditioningOb.setStatus(AirConditioning.Status.TURNED_ON);
         AirConditioningOb.setTemperature(20);
 
@@ -99,7 +94,6 @@ public class ProtobuffAirConditioning {
                     // Send Information Status
                     AirConditioning AirConditioningMsgCond = AirConditioning.newBuilder()
                             .setName(AirConditioningOb.getName())
-                            .setTurn(AirConditioningOb.isTurn())
                             .setStatus(AirConditioningOb.getStatus())
                             .setSettingTemperature(AirConditioningOb.getTemperature())
                             .build();

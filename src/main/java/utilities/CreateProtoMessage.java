@@ -15,7 +15,6 @@ public class CreateProtoMessage {
     public static Lamp modifyLampMessage(Lamp.Status command){
         Lamp lampModified = Lamp.newBuilder()
                 .setName("Lamp")
-                .setTurn(true)
                 .setStatus(command)
                 .build();
         return lampModified;
@@ -24,7 +23,6 @@ public class CreateProtoMessage {
     public static Windows modifyWindowMessage(Windows.Status command){
         Windows windowModified = Windows.newBuilder()
                 .setName("Window")
-                .setTurn(true)
                 .setStatus(command)
                 .build();
         return windowModified;
@@ -36,7 +34,6 @@ public class CreateProtoMessage {
         String part1 = parts[0];
         String part2 = parts[1];
         int temperature = Integer.parseInt(part2);
-        System.out.println(temperature);
         AirConditioning.Status status;
 
         if (part1.equals("TURNED_ON")) {
@@ -46,7 +43,6 @@ public class CreateProtoMessage {
         }
             AirConditioning airModified = AirConditioning.newBuilder()
                     .setName("AirConditioning")
-                    .setTurn(true)
                     .setStatus(status)
                     .setSettingTemperature(temperature)
                     .build();

@@ -20,18 +20,12 @@ public interface LampOrBuilder extends
       getNameBytes();
 
   /**
-   * <code>bool turn = 2;</code>
-   * @return The turn.
-   */
-  boolean getTurn();
-
-  /**
-   * <code>.intelligentHouse.Lamp.Status status = 3;</code>
+   * <code>.intelligentHouse.Lamp.Status status = 2;</code>
    * @return The enum numeric value on the wire for status.
    */
   int getStatusValue();
   /**
-   * <code>.intelligentHouse.Lamp.Status status = 3;</code>
+   * <code>.intelligentHouse.Lamp.Status status = 2;</code>
    * @return The status.
    */
   com.house.objects.Lamp.Status getStatus();

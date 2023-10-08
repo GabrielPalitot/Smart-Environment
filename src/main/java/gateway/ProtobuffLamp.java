@@ -18,7 +18,6 @@ import static utilities.ModificationClasses.*;
 public class ProtobuffLamp {
 
     private String name;
-    private boolean turn;
     private Lamp.Status status;
 
     public ProtobuffLamp() {
@@ -28,13 +27,6 @@ public class ProtobuffLamp {
     }
     public void setName(String name){
         this.name = name;
-    }
-
-    public boolean isTurn() {
-        return turn;
-    }
-    public void setTurn(boolean turn) {
-        this.turn = turn;
     }
 
     public Lamp.Status getStatus() {
@@ -51,11 +43,9 @@ public class ProtobuffLamp {
         String lampMulticast = "228.0.0.8";
 
         boolean connected = false;
-        boolean falseEver = false;
 
         ProtobuffLamp lampOb = new ProtobuffLamp();
         lampOb.setName("Lamp");
-        lampOb.setTurn(true);
         lampOb.setStatus(Lamp.Status.TURNED_ON);
 
         Info lampCond = Info.newBuilder()
@@ -78,15 +68,13 @@ public class ProtobuffLamp {
 
                 // receiving ack
                 User ackLamp = receiveMessageProtoUser(inLamp);
-                System.out.println(ackLamp.getCommand());
 
                 // Information between Lamp and Gateway
                 while(true) {
-                    //System.out.println("aqui");
+
                     // Send Information Status
                     Lamp lampMsgCond = Lamp.newBuilder()
                             .setName(lampOb.getName())
-                            .setTurn(lampOb.isTurn())
                             .setStatus(lampOb.getStatus())
                             .build();
                     System.out.println(lampOb.getStatus().toString());
@@ -107,9 +95,8 @@ public class ProtobuffLamp {
                         attLamp(lampOb,receiveLamp);
                     }
                     else if (receiveFromGateway.getCommand().equals("not")) {
-                        //System.out.println("entrando aqui");
                         Thread.sleep(5000);
-                        //System.out.println("passei do sleep");
+
                     }
                 }
 
@@ -122,23 +109,6 @@ public class ProtobuffLamp {
     }
 }
 
-/*
-try {
-                    Lamp lampcondcond = Lamp.newBuilder()
-                                .setTurn(true)
-                                .setStatus(Lamp.Status.TURNED_ON)
-                                .build();
 
-                    System.out.println("Estou esperando uma mensagem do servidor");
-                    sendMessageProtoLamp(outLamp,lampcondcond);
-                }catch (IOException e){
-                        e.printStackTrace();
-                        smartReconnect(portMultiCast,lampMulticast);
-                }
-
-
-
-
- */
 
 

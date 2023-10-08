@@ -19,15 +19,7 @@ import static utilities.ModificationClasses.*;
 public class ProtobuffWindows {
 
     private String name;
-    private boolean turn;
 
-    public boolean isTurn() {
-        return turn;
-    }
-
-    public void setTurn(boolean turn) {
-        this.turn = turn;
-    }
 
     public String getName() {
         return name;
@@ -42,13 +34,6 @@ public class ProtobuffWindows {
     public ProtobuffWindows() {
     }
 
-    public boolean isTurned() {
-        return turn;
-    }
-
-    public void setTurned(boolean turn) {
-        this.turn = turn;
-    }
 
     public Windows.Status getStatus() {
         return status;
@@ -68,7 +53,6 @@ public class ProtobuffWindows {
 
         ProtobuffWindows windowOb = new ProtobuffWindows();
         windowOb.setName("Window");
-        windowOb.setTurn(true);
         windowOb.setStatus(Windows.Status.OPENED);
 
         Info windowCond = Info.newBuilder()
@@ -99,7 +83,6 @@ public class ProtobuffWindows {
                     // Send Information Status
                     Windows WindowMsgCond = Windows.newBuilder()
                             .setName(windowOb.getName())
-                            .setTurn(windowOb.isTurn())
                             .setStatus(windowOb.getStatus())
                             .build();
                     System.out.println(windowOb.getStatus().toString());

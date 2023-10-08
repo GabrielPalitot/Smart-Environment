@@ -55,21 +55,20 @@ public final class thingsOuterClass {
     java.lang.String[] descriptorData = {
       "\n\020livingroom.proto\022\020intelligentHouse\".\n\004" +
       "Info\022\014\n\004name\030\001 \001(\t\022\n\n\002ip\030\002 \001(\t\022\014\n\004port\030\003" +
-      " \001(\t\"\213\001\n\004Lamp\022\014\n\004name\030\001 \001(\t\022\014\n\004turn\030\002 \001(" +
-      "\010\022-\n\006status\030\003 \001(\0162\035.intelligentHouse.Lam" +
-      "p.Status\"8\n\006Status\022\r\n\tTURNED_ON\020\000\022\016\n\nTUR" +
-      "NED_OFF\020\001\022\017\n\013MALFUNCTION\020\003\"\276\001\n\017AirCondit" +
-      "ioning\022\014\n\004name\030\001 \001(\t\022\014\n\004turn\030\002 \001(\010\0228\n\006st" +
-      "atus\030\003 \001(\0162(.intelligentHouse.AirConditi" +
-      "oning.Status\022\033\n\023setting_temperature\030\004 \001(" +
-      "\005\"8\n\006Status\022\r\n\tTURNED_ON\020\000\022\016\n\nTURNED_OFF" +
-      "\020\001\022\017\n\013MALFUNCTION\020\003\"\212\001\n\007Windows\022\014\n\004name\030" +
-      "\001 \001(\t\022\014\n\004turn\030\002 \001(\010\0220\n\006status\030\003 \001(\0162 .in" +
-      "telligentHouse.Windows.Status\"1\n\006Status\022" +
-      "\n\n\006OPENED\020\000\022\n\n\006CLOSED\020\001\022\017\n\013MALFUNCTION\020\003" +
-      "\"\027\n\004User\022\017\n\007command\030\001 \001(\t\"!\n\nTempSensor\022" +
-      "\023\n\013temperature\030\001 \001(\005B\'\n\021com.house.object" +
-      "sB\020thingsOuterClassP\001b\006proto3"
+      " \001(\t\"}\n\004Lamp\022\014\n\004name\030\001 \001(\t\022-\n\006status\030\002 \001" +
+      "(\0162\035.intelligentHouse.Lamp.Status\"8\n\006Sta" +
+      "tus\022\r\n\tTURNED_ON\020\000\022\016\n\nTURNED_OFF\020\001\022\017\n\013MA" +
+      "LFUNCTION\020\003\"\260\001\n\017AirConditioning\022\014\n\004name\030" +
+      "\001 \001(\t\0228\n\006status\030\002 \001(\0162(.intelligentHouse" +
+      ".AirConditioning.Status\022\033\n\023setting_tempe" +
+      "rature\030\003 \001(\005\"8\n\006Status\022\r\n\tTURNED_ON\020\000\022\016\n" +
+      "\nTURNED_OFF\020\001\022\017\n\013MALFUNCTION\020\003\"|\n\007Window" +
+      "s\022\014\n\004name\030\001 \001(\t\0220\n\006status\030\002 \001(\0162 .intell" +
+      "igentHouse.Windows.Status\"1\n\006Status\022\n\n\006O" +
+      "PENED\020\000\022\n\n\006CLOSED\020\001\022\017\n\013MALFUNCTION\020\003\"\027\n\004" +
+      "User\022\017\n\007command\030\001 \001(\t\"!\n\nTempSensor\022\023\n\013t" +
+      "emperature\030\001 \001(\005B\'\n\021com.house.objectsB\020t" +
+      "hingsOuterClassP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -86,19 +85,19 @@ public final class thingsOuterClass {
     internal_static_intelligentHouse_Lamp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_intelligentHouse_Lamp_descriptor,
-        new java.lang.String[] { "Name", "Turn", "Status", });
+        new java.lang.String[] { "Name", "Status", });
     internal_static_intelligentHouse_AirConditioning_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_intelligentHouse_AirConditioning_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_intelligentHouse_AirConditioning_descriptor,
-        new java.lang.String[] { "Name", "Turn", "Status", "SettingTemperature", });
+        new java.lang.String[] { "Name", "Status", "SettingTemperature", });
     internal_static_intelligentHouse_Windows_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_intelligentHouse_Windows_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_intelligentHouse_Windows_descriptor,
-        new java.lang.String[] { "Name", "Turn", "Status", });
+        new java.lang.String[] { "Name", "Status", });
     internal_static_intelligentHouse_User_descriptor =
       getDescriptor().getMessageTypes().get(4);
     internal_static_intelligentHouse_User_fieldAccessorTable = new

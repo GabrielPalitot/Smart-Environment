@@ -196,28 +196,17 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int TURN_FIELD_NUMBER = 2;
-  private boolean turn_ = false;
-  /**
-   * <code>bool turn = 2;</code>
-   * @return The turn.
-   */
-  @java.lang.Override
-  public boolean getTurn() {
-    return turn_;
-  }
-
-  public static final int STATUS_FIELD_NUMBER = 3;
+  public static final int STATUS_FIELD_NUMBER = 2;
   private int status_ = 0;
   /**
-   * <code>.intelligentHouse.Windows.Status status = 3;</code>
+   * <code>.intelligentHouse.Windows.Status status = 2;</code>
    * @return The enum numeric value on the wire for status.
    */
   @java.lang.Override public int getStatusValue() {
     return status_;
   }
   /**
-   * <code>.intelligentHouse.Windows.Status status = 3;</code>
+   * <code>.intelligentHouse.Windows.Status status = 2;</code>
    * @return The status.
    */
   @java.lang.Override public com.house.objects.Windows.Status getStatus() {
@@ -242,11 +231,8 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(name_)) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 1, name_);
     }
-    if (turn_ != false) {
-      output.writeBool(2, turn_);
-    }
     if (status_ != com.house.objects.Windows.Status.OPENED.getNumber()) {
-      output.writeEnum(3, status_);
+      output.writeEnum(2, status_);
     }
     getUnknownFields().writeTo(output);
   }
@@ -260,13 +246,9 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(name_)) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, name_);
     }
-    if (turn_ != false) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeBoolSize(2, turn_);
-    }
     if (status_ != com.house.objects.Windows.Status.OPENED.getNumber()) {
       size += com.google.protobuf.CodedOutputStream
-        .computeEnumSize(3, status_);
+        .computeEnumSize(2, status_);
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -285,8 +267,6 @@ private static final long serialVersionUID = 0L;
 
     if (!getName()
         .equals(other.getName())) return false;
-    if (getTurn()
-        != other.getTurn()) return false;
     if (status_ != other.status_) return false;
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
@@ -301,9 +281,6 @@ private static final long serialVersionUID = 0L;
     hash = (19 * hash) + getDescriptor().hashCode();
     hash = (37 * hash) + NAME_FIELD_NUMBER;
     hash = (53 * hash) + getName().hashCode();
-    hash = (37 * hash) + TURN_FIELD_NUMBER;
-    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-        getTurn());
     hash = (37 * hash) + STATUS_FIELD_NUMBER;
     hash = (53 * hash) + status_;
     hash = (29 * hash) + getUnknownFields().hashCode();
@@ -438,7 +415,6 @@ private static final long serialVersionUID = 0L;
       super.clear();
       bitField0_ = 0;
       name_ = "";
-      turn_ = false;
       status_ = 0;
       return this;
     }
@@ -477,9 +453,6 @@ private static final long serialVersionUID = 0L;
         result.name_ = name_;
       }
       if (((from_bitField0_ & 0x00000002) != 0)) {
-        result.turn_ = turn_;
-      }
-      if (((from_bitField0_ & 0x00000004) != 0)) {
         result.status_ = status_;
       }
     }
@@ -533,9 +506,6 @@ private static final long serialVersionUID = 0L;
         bitField0_ |= 0x00000001;
         onChanged();
       }
-      if (other.getTurn() != false) {
-        setTurn(other.getTurn());
-      }
       if (other.status_ != 0) {
         setStatusValue(other.getStatusValue());
       }
@@ -571,15 +541,10 @@ private static final long serialVersionUID = 0L;
               break;
             } // case 10
             case 16: {
-              turn_ = input.readBool();
+              status_ = input.readEnum();
               bitField0_ |= 0x00000002;
               break;
             } // case 16
-            case 24: {
-              status_ = input.readEnum();
-              bitField0_ |= 0x00000004;
-              break;
-            } // case 24
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -669,59 +634,27 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private boolean turn_ ;
-    /**
-     * <code>bool turn = 2;</code>
-     * @return The turn.
-     */
-    @java.lang.Override
-    public boolean getTurn() {
-      return turn_;
-    }
-    /**
-     * <code>bool turn = 2;</code>
-     * @param value The turn to set.
-     * @return This builder for chaining.
-     */
-    public Builder setTurn(boolean value) {
-
-      turn_ = value;
-      bitField0_ |= 0x00000002;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>bool turn = 2;</code>
-     * @return This builder for chaining.
-     */
-    public Builder clearTurn() {
-      bitField0_ = (bitField0_ & ~0x00000002);
-      turn_ = false;
-      onChanged();
-      return this;
-    }
-
     private int status_ = 0;
     /**
-     * <code>.intelligentHouse.Windows.Status status = 3;</code>
+     * <code>.intelligentHouse.Windows.Status status = 2;</code>
      * @return The enum numeric value on the wire for status.
      */
     @java.lang.Override public int getStatusValue() {
       return status_;
     }
     /**
-     * <code>.intelligentHouse.Windows.Status status = 3;</code>
+     * <code>.intelligentHouse.Windows.Status status = 2;</code>
      * @param value The enum numeric value on the wire for status to set.
      * @return This builder for chaining.
      */
     public Builder setStatusValue(int value) {
       status_ = value;
-      bitField0_ |= 0x00000004;
+      bitField0_ |= 0x00000002;
       onChanged();
       return this;
     }
     /**
-     * <code>.intelligentHouse.Windows.Status status = 3;</code>
+     * <code>.intelligentHouse.Windows.Status status = 2;</code>
      * @return The status.
      */
     @java.lang.Override
@@ -730,7 +663,7 @@ private static final long serialVersionUID = 0L;
       return result == null ? com.house.objects.Windows.Status.UNRECOGNIZED : result;
     }
     /**
-     * <code>.intelligentHouse.Windows.Status status = 3;</code>
+     * <code>.intelligentHouse.Windows.Status status = 2;</code>
      * @param value The status to set.
      * @return This builder for chaining.
      */
@@ -738,17 +671,17 @@ private static final long serialVersionUID = 0L;
       if (value == null) {
         throw new NullPointerException();
       }
-      bitField0_ |= 0x00000004;
+      bitField0_ |= 0x00000002;
       status_ = value.getNumber();
       onChanged();
       return this;
     }
     /**
-     * <code>.intelligentHouse.Windows.Status status = 3;</code>
+     * <code>.intelligentHouse.Windows.Status status = 2;</code>
      * @return This builder for chaining.
      */
     public Builder clearStatus() {
-      bitField0_ = (bitField0_ & ~0x00000004);
+      bitField0_ = (bitField0_ & ~0x00000002);
       status_ = 0;
       onChanged();
       return this;

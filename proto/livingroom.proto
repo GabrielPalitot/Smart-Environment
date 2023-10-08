@@ -16,41 +16,38 @@ message Info
 message Lamp
 {
   string name = 1;
-  bool turn = 2;
   enum Status
   {
     TURNED_ON = 0;
     TURNED_OFF = 1;
     MALFUNCTION = 3;
   }
-  Status status = 3;
+  Status status = 2;
 }
 
 message AirConditioning
 {
   string name = 1;
-  bool turn = 2;
   enum Status
   {
     TURNED_ON = 0;
     TURNED_OFF = 1;
     MALFUNCTION = 3;
   }
-  Status status = 3;
-  int32 setting_temperature = 4;
+  Status status = 2;
+  int32 setting_temperature = 3;
 }
 
 message Windows
 {
   string name = 1;
-  bool turn = 2;
   enum Status
   {
     OPENED = 0;
     CLOSED = 1;
     MALFUNCTION = 3;
   }
-  Status status = 3;
+  Status status = 2;
 }
 message  User
 {

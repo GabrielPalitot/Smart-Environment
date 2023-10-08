@@ -196,28 +196,17 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int TURN_FIELD_NUMBER = 2;
-  private boolean turn_ = false;
-  /**
-   * <code>bool turn = 2;</code>
-   * @return The turn.
-   */
-  @java.lang.Override
-  public boolean getTurn() {
-    return turn_;
-  }
-
-  public static final int STATUS_FIELD_NUMBER = 3;
+  public static final int STATUS_FIELD_NUMBER = 2;
   private int status_ = 0;
   /**
-   * <code>.intelligentHouse.AirConditioning.Status status = 3;</code>
+   * <code>.intelligentHouse.AirConditioning.Status status = 2;</code>
    * @return The enum numeric value on the wire for status.
    */
   @java.lang.Override public int getStatusValue() {
     return status_;
   }
   /**
-   * <code>.intelligentHouse.AirConditioning.Status status = 3;</code>
+   * <code>.intelligentHouse.AirConditioning.Status status = 2;</code>
    * @return The status.
    */
   @java.lang.Override public com.house.objects.AirConditioning.Status getStatus() {
@@ -225,10 +214,10 @@ private static final long serialVersionUID = 0L;
     return result == null ? com.house.objects.AirConditioning.Status.UNRECOGNIZED : result;
   }
 
-  public static final int SETTING_TEMPERATURE_FIELD_NUMBER = 4;
+  public static final int SETTING_TEMPERATURE_FIELD_NUMBER = 3;
   private int settingTemperature_ = 0;
   /**
-   * <code>int32 setting_temperature = 4;</code>
+   * <code>int32 setting_temperature = 3;</code>
    * @return The settingTemperature.
    */
   @java.lang.Override
@@ -253,14 +242,11 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(name_)) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 1, name_);
     }
-    if (turn_ != false) {
-      output.writeBool(2, turn_);
-    }
     if (status_ != com.house.objects.AirConditioning.Status.TURNED_ON.getNumber()) {
-      output.writeEnum(3, status_);
+      output.writeEnum(2, status_);
     }
     if (settingTemperature_ != 0) {
-      output.writeInt32(4, settingTemperature_);
+      output.writeInt32(3, settingTemperature_);
     }
     getUnknownFields().writeTo(output);
   }
@@ -274,17 +260,13 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(name_)) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, name_);
     }
-    if (turn_ != false) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeBoolSize(2, turn_);
-    }
     if (status_ != com.house.objects.AirConditioning.Status.TURNED_ON.getNumber()) {
       size += com.google.protobuf.CodedOutputStream
-        .computeEnumSize(3, status_);
+        .computeEnumSize(2, status_);
     }
     if (settingTemperature_ != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(4, settingTemperature_);
+        .computeInt32Size(3, settingTemperature_);
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -303,8 +285,6 @@ private static final long serialVersionUID = 0L;
 
     if (!getName()
         .equals(other.getName())) return false;
-    if (getTurn()
-        != other.getTurn()) return false;
     if (status_ != other.status_) return false;
     if (getSettingTemperature()
         != other.getSettingTemperature()) return false;
@@ -321,9 +301,6 @@ private static final long serialVersionUID = 0L;
     hash = (19 * hash) + getDescriptor().hashCode();
     hash = (37 * hash) + NAME_FIELD_NUMBER;
     hash = (53 * hash) + getName().hashCode();
-    hash = (37 * hash) + TURN_FIELD_NUMBER;
-    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-        getTurn());
     hash = (37 * hash) + STATUS_FIELD_NUMBER;
     hash = (53 * hash) + status_;
     hash = (37 * hash) + SETTING_TEMPERATURE_FIELD_NUMBER;
@@ -460,7 +437,6 @@ private static final long serialVersionUID = 0L;
       super.clear();
       bitField0_ = 0;
       name_ = "";
-      turn_ = false;
       status_ = 0;
       settingTemperature_ = 0;
       return this;
@@ -500,12 +476,9 @@ private static final long serialVersionUID = 0L;
         result.name_ = name_;
       }
       if (((from_bitField0_ & 0x00000002) != 0)) {
-        result.turn_ = turn_;
-      }
-      if (((from_bitField0_ & 0x00000004) != 0)) {
         result.status_ = status_;
       }
-      if (((from_bitField0_ & 0x00000008) != 0)) {
+      if (((from_bitField0_ & 0x00000004) != 0)) {
         result.settingTemperature_ = settingTemperature_;
       }
     }
@@ -559,9 +532,6 @@ private static final long serialVersionUID = 0L;
         bitField0_ |= 0x00000001;
         onChanged();
       }
-      if (other.getTurn() != false) {
-        setTurn(other.getTurn());
-      }
       if (other.status_ != 0) {
         setStatusValue(other.getStatusValue());
       }
@@ -600,20 +570,15 @@ private static final long serialVersionUID = 0L;
               break;
             } // case 10
             case 16: {
-              turn_ = input.readBool();
+              status_ = input.readEnum();
               bitField0_ |= 0x00000002;
               break;
             } // case 16
             case 24: {
-              status_ = input.readEnum();
+              settingTemperature_ = input.readInt32();
               bitField0_ |= 0x00000004;
               break;
             } // case 24
-            case 32: {
-              settingTemperature_ = input.readInt32();
-              bitField0_ |= 0x00000008;
-              break;
-            } // case 32
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -703,59 +668,27 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private boolean turn_ ;
-    /**
-     * <code>bool turn = 2;</code>
-     * @return The turn.
-     */
-    @java.lang.Override
-    public boolean getTurn() {
-      return turn_;
-    }
-    /**
-     * <code>bool turn = 2;</code>
-     * @param value The turn to set.
-     * @return This builder for chaining.
-     */
-    public Builder setTurn(boolean value) {
-
-      turn_ = value;
-      bitField0_ |= 0x00000002;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>bool turn = 2;</code>
-     * @return This builder for chaining.
-     */
-    public Builder clearTurn() {
-      bitField0_ = (bitField0_ & ~0x00000002);
-      turn_ = false;
-      onChanged();
-      return this;
-    }
-
     private int status_ = 0;
     /**
-     * <code>.intelligentHouse.AirConditioning.Status status = 3;</code>
+     * <code>.intelligentHouse.AirConditioning.Status status = 2;</code>
      * @return The enum numeric value on the wire for status.
      */
     @java.lang.Override public int getStatusValue() {
       return status_;
     }
     /**
-     * <code>.intelligentHouse.AirConditioning.Status status = 3;</code>
+     * <code>.intelligentHouse.AirConditioning.Status status = 2;</code>
      * @param value The enum numeric value on the wire for status to set.
      * @return This builder for chaining.
      */
     public Builder setStatusValue(int value) {
       status_ = value;
-      bitField0_ |= 0x00000004;
+      bitField0_ |= 0x00000002;
       onChanged();
       return this;
     }
     /**
-     * <code>.intelligentHouse.AirConditioning.Status status = 3;</code>
+     * <code>.intelligentHouse.AirConditioning.Status status = 2;</code>
      * @return The status.
      */
     @java.lang.Override
@@ -764,7 +697,7 @@ private static final long serialVersionUID = 0L;
       return result == null ? com.house.objects.AirConditioning.Status.UNRECOGNIZED : result;
     }
     /**
-     * <code>.intelligentHouse.AirConditioning.Status status = 3;</code>
+     * <code>.intelligentHouse.AirConditioning.Status status = 2;</code>
      * @param value The status to set.
      * @return This builder for chaining.
      */
@@ -772,17 +705,17 @@ private static final long serialVersionUID = 0L;
       if (value == null) {
         throw new NullPointerException();
       }
-      bitField0_ |= 0x00000004;
+      bitField0_ |= 0x00000002;
       status_ = value.getNumber();
       onChanged();
       return this;
     }
     /**
-     * <code>.intelligentHouse.AirConditioning.Status status = 3;</code>
+     * <code>.intelligentHouse.AirConditioning.Status status = 2;</code>
      * @return This builder for chaining.
      */
     public Builder clearStatus() {
-      bitField0_ = (bitField0_ & ~0x00000004);
+      bitField0_ = (bitField0_ & ~0x00000002);
       status_ = 0;
       onChanged();
       return this;
@@ -790,7 +723,7 @@ private static final long serialVersionUID = 0L;
 
     private int settingTemperature_ ;
     /**
-     * <code>int32 setting_temperature = 4;</code>
+     * <code>int32 setting_temperature = 3;</code>
      * @return The settingTemperature.
      */
     @java.lang.Override
@@ -798,23 +731,23 @@ private static final long serialVersionUID = 0L;
       return settingTemperature_;
     }
     /**
-     * <code>int32 setting_temperature = 4;</code>
+     * <code>int32 setting_temperature = 3;</code>
      * @param value The settingTemperature to set.
      * @return This builder for chaining.
      */
     public Builder setSettingTemperature(int value) {
 
       settingTemperature_ = value;
-      bitField0_ |= 0x00000008;
+      bitField0_ |= 0x00000004;
       onChanged();
       return this;
     }
     /**
-     * <code>int32 setting_temperature = 4;</code>
+     * <code>int32 setting_temperature = 3;</code>
      * @return This builder for chaining.
      */
     public Builder clearSettingTemperature() {
-      bitField0_ = (bitField0_ & ~0x00000008);
+      bitField0_ = (bitField0_ & ~0x00000004);
       settingTemperature_ = 0;
       onChanged();
       return this;
