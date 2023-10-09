@@ -16,6 +16,7 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private Lamp() {
+    name_ = "";
     status_ = 0;
   }
 
@@ -156,15 +157,43 @@ private static final long serialVersionUID = 0L;
     // @@protoc_insertion_point(enum_scope:intelligentHouse.Lamp.Status)
   }
 
-  public static final int TURN_FIELD_NUMBER = 1;
-  private boolean turn_ = false;
+  public static final int NAME_FIELD_NUMBER = 1;
+  @SuppressWarnings("serial")
+  private volatile java.lang.Object name_ = "";
   /**
-   * <code>bool turn = 1;</code>
-   * @return The turn.
+   * <code>string name = 1;</code>
+   * @return The name.
    */
   @java.lang.Override
-  public boolean getTurn() {
-    return turn_;
+  public java.lang.String getName() {
+    java.lang.Object ref = name_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      name_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string name = 1;</code>
+   * @return The bytes for name.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getNameBytes() {
+    java.lang.Object ref = name_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      name_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
   }
 
   public static final int STATUS_FIELD_NUMBER = 2;
@@ -199,8 +228,8 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (turn_ != false) {
-      output.writeBool(1, turn_);
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(name_)) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, name_);
     }
     if (status_ != com.house.objects.Lamp.Status.TURNED_ON.getNumber()) {
       output.writeEnum(2, status_);
@@ -214,9 +243,8 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (turn_ != false) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeBoolSize(1, turn_);
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(name_)) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, name_);
     }
     if (status_ != com.house.objects.Lamp.Status.TURNED_ON.getNumber()) {
       size += com.google.protobuf.CodedOutputStream
@@ -237,8 +265,8 @@ private static final long serialVersionUID = 0L;
     }
     com.house.objects.Lamp other = (com.house.objects.Lamp) obj;
 
-    if (getTurn()
-        != other.getTurn()) return false;
+    if (!getName()
+        .equals(other.getName())) return false;
     if (status_ != other.status_) return false;
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
@@ -251,9 +279,8 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + TURN_FIELD_NUMBER;
-    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-        getTurn());
+    hash = (37 * hash) + NAME_FIELD_NUMBER;
+    hash = (53 * hash) + getName().hashCode();
     hash = (37 * hash) + STATUS_FIELD_NUMBER;
     hash = (53 * hash) + status_;
     hash = (29 * hash) + getUnknownFields().hashCode();
@@ -387,7 +414,7 @@ private static final long serialVersionUID = 0L;
     public Builder clear() {
       super.clear();
       bitField0_ = 0;
-      turn_ = false;
+      name_ = "";
       status_ = 0;
       return this;
     }
@@ -423,7 +450,7 @@ private static final long serialVersionUID = 0L;
     private void buildPartial0(com.house.objects.Lamp result) {
       int from_bitField0_ = bitField0_;
       if (((from_bitField0_ & 0x00000001) != 0)) {
-        result.turn_ = turn_;
+        result.name_ = name_;
       }
       if (((from_bitField0_ & 0x00000002) != 0)) {
         result.status_ = status_;
@@ -474,8 +501,10 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(com.house.objects.Lamp other) {
       if (other == com.house.objects.Lamp.getDefaultInstance()) return this;
-      if (other.getTurn() != false) {
-        setTurn(other.getTurn());
+      if (!other.getName().isEmpty()) {
+        name_ = other.name_;
+        bitField0_ |= 0x00000001;
+        onChanged();
       }
       if (other.status_ != 0) {
         setStatusValue(other.getStatusValue());
@@ -506,11 +535,11 @@ private static final long serialVersionUID = 0L;
             case 0:
               done = true;
               break;
-            case 8: {
-              turn_ = input.readBool();
+            case 10: {
+              name_ = input.readStringRequireUtf8();
               bitField0_ |= 0x00000001;
               break;
-            } // case 8
+            } // case 10
             case 16: {
               status_ = input.readEnum();
               bitField0_ |= 0x00000002;
@@ -533,34 +562,74 @@ private static final long serialVersionUID = 0L;
     }
     private int bitField0_;
 
-    private boolean turn_ ;
+    private java.lang.Object name_ = "";
     /**
-     * <code>bool turn = 1;</code>
-     * @return The turn.
+     * <code>string name = 1;</code>
+     * @return The name.
      */
-    @java.lang.Override
-    public boolean getTurn() {
-      return turn_;
+    public java.lang.String getName() {
+      java.lang.Object ref = name_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        name_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
     }
     /**
-     * <code>bool turn = 1;</code>
-     * @param value The turn to set.
+     * <code>string name = 1;</code>
+     * @return The bytes for name.
+     */
+    public com.google.protobuf.ByteString
+        getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string name = 1;</code>
+     * @param value The name to set.
      * @return This builder for chaining.
      */
-    public Builder setTurn(boolean value) {
-
-      turn_ = value;
+    public Builder setName(
+        java.lang.String value) {
+      if (value == null) { throw new NullPointerException(); }
+      name_ = value;
       bitField0_ |= 0x00000001;
       onChanged();
       return this;
     }
     /**
-     * <code>bool turn = 1;</code>
+     * <code>string name = 1;</code>
      * @return This builder for chaining.
      */
-    public Builder clearTurn() {
+    public Builder clearName() {
+      name_ = getDefaultInstance().getName();
       bitField0_ = (bitField0_ & ~0x00000001);
-      turn_ = false;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string name = 1;</code>
+     * @param value The bytes for name to set.
+     * @return This builder for chaining.
+     */
+    public Builder setNameBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
+      name_ = value;
+      bitField0_ |= 0x00000001;
       onChanged();
       return this;
     }

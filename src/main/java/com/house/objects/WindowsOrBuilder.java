@@ -8,10 +8,16 @@ public interface WindowsOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>bool turn = 1;</code>
-   * @return The turn.
+   * <code>string name = 1;</code>
+   * @return The name.
    */
-  boolean getTurn();
+  java.lang.String getName();
+  /**
+   * <code>string name = 1;</code>
+   * @return The bytes for name.
+   */
+  com.google.protobuf.ByteString
+      getNameBytes();
 
   /**
    * <code>.intelligentHouse.Windows.Status status = 2;</code>

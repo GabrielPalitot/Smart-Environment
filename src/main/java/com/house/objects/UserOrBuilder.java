@@ -8,14 +8,14 @@ public interface UserOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>string comando = 1;</code>
-   * @return The comando.
+   * <code>string command = 1;</code>
+   * @return The command.
    */
-  java.lang.String getComando();
+  java.lang.String getCommand();
   /**
-   * <code>string comando = 1;</code>
-   * @return The bytes for comando.
+   * <code>string command = 1;</code>
+   * @return The bytes for command.
    */
   com.google.protobuf.ByteString
-      getComandoBytes();
+      getCommandBytes();
 }
